@@ -1,4 +1,5 @@
 import * as dataModels from "./module/data/_module.mjs";
+import * as documents from "./module/documents/_module.mjs";
 
 globalThis.fs4 = {
   dataModels,
@@ -9,4 +10,5 @@ Hooks.once("init", () => {
   console.log("FS4 | Initializing the system");
 
   CONFIG.Actor.dataModels = dataModels.actor.config;
+  CONFIG.Actor.documentClass = documents.ActorFS4;
 });

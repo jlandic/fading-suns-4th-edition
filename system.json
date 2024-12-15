@@ -26,5 +26,10 @@
   },
   "url": "https://github.com/jlandic/foundry-fading-suns-4th-edition",
   "manifest": "https://raw.githubusercontent.com/jlandic/foundry-fading-suns-4th-edition/main/template.json",
-  "download": "https://github.com/jlandic/foundry-fading-suns-4/releases/download/0.0.1/fading-suns-4th-edition.zip"
+  "download": "https://github.com/jlandic/foundry-fading-suns-4/releases/download/0.0.1/fading-suns-4th-edition.zip",
+  "documentTypes": {
+    "Actor": {
+      "character": {}
+    }
+  }
 }
