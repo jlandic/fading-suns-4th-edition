@@ -3,13 +3,16 @@
     "build": "npm run build:code && npm run build:css",
     "build:code": "rollup fs4.mjs -f es -o dist/fs4.mjs -p node-resolve -m --sourcemapFile fs4.mjs",
     "build:css": "lessc less/fs4.less dist/fs4.css",
-    "lint": "eslint --ext .mjs --ignore-path .gitignore ./",
-    "lint:fix": "eslint --ext .mjs --ignore-path .gitignore ./ --fix",
+    "lint": "eslint ./",
+    "lint:fix": "eslint ./ --fix",
     "watch": "less-watch-compiler less/ dist/ fs4.less"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.25.9",
+    "@foundryvtt/foundryvtt-cli": "^1.0.3",
     "@rollup/plugin-node-resolve": "^15.3.0",
+    "eslint": "^9.17.0",
+    "globals": "^15.13.0",
     "less": "^4.2.1",
     "less-watch-compiler": "^1.16.3",
     "rollup": "^4.28.1"
