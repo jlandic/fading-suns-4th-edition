@@ -30,6 +30,9 @@ export default [
         globalThis: "writable",
         game: "readonly",
         Hooks: "readonly",
+        ui: "readonly",
+        Actor: "readonly",
+        Macro: "readonly",
       },
 
       parser: babelParser,

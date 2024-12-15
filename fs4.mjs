@@ -1,3 +1,4 @@
+import { configurePdfMapping } from "./module/configurePdfMapping.mjs";
 import * as dataModels from "./module/data/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
 
@@ -11,4 +12,25 @@ Hooks.once("init", () => {
 
   CONFIG.Actor.dataModels = dataModels.actor.config;
   CONFIG.Actor.documentClass = documents.ActorFS4;
+});
+
+Hooks.once("ready", async () => {
+  window.configurePdfMapping = configurePdfMapping;
+
+  const macros = [
+    {
+      // TODO: i18n
+      name: "Configure PDFPager field mapping",
+      type: "script",
+      command: "window.configurePdfMapping();",
+      img: "icons/svg/circle.svg",
+    },
+  ];
+
+  for (const macroData of macros) {
+    const existingMacro = game.macros.find((m) => m.name === macroData.name);
+    if (existingMacro == null) {
+      await Macro.create(macroData);
+    }
+  }
 });
