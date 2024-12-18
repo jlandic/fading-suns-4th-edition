@@ -76,7 +76,7 @@ export const rollSkill = (selectedSkill) => {
           );
           const skillValue = getProperty(actor, `system.skills.${skill}`);
 
-          let roll = await new Roll("1d20").roll({ async: true });
+          let roll = await new Roll("1d20").roll();
           let rollResult = roll.total;
           let target = characteristicValue + skillValue;
 
