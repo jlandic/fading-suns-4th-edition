@@ -1,1 +1,79 @@
-{}
+{
+  "fs4": {
+    "skills": {
+      "academia": "Érudition",
+      "alchemy": "Alchimie",
+      "animalia": "Animalia",
+      "arts": "Arts",
+      "charm": "Charme",
+      "crafts": "Artisanats",
+      "disguise": "Déguisement",
+      "drive": "Conduite",
+      "empathy": "Empathie",
+      "fight": "Corps à corps",
+      "focus": "Focalisation",
+      "impress": "Prestance",
+      "interface": "Interface",
+      "intrusion": "Intrusion",
+      "knavery": "Filouterie",
+      "melee": "Mêlée",
+      "observe": "Observation",
+      "perform": "Représentation",
+      "pilot": "Pilotage",
+      "remedy": "Remède",
+      "shoot": "Tir",
+      "sleightofhand": "Escamotage",
+      "sneak": "Discrétion",
+      "survival": "Survie",
+      "techredemption": "Rédemption tech",
+      "vigor": "Vigueur"
+    },
+    "characteristics": {
+      "str": "Force",
+      "dex": "Dextérité",
+      "end": "Endurance",
+      "wit": "Sagacité",
+      "per": "Perception",
+      "wil": "Volonté",
+      "pre": "Présence",
+      "int": "Intuition",
+      "fth": "Foi"
+    },
+    "macros": {
+      "configurePdfFieldMapping": "Configurer le mappage de champs PDFPager",
+      "rollSkill": "Jet de compétence",
+      "rollSkillFromSheet": "Jet de compétence (fiche perso)"
+    },
+    "character": {
+      "skill": "Compétence",
+      "characteristic": "Caractéristique",
+      "pv": "PV"
+    },
+    "dialog": {
+      "rollSkill": {
+        "title": "Jet de compétence",
+        "selectACharacteristic": "Sélectionne une caractéristique",
+        "selectASkill": "Sélectionne une compétence",
+        "result": "Résultat",
+        "failure": "Échec",
+        "buttons": {
+          "roll": "Lancer"
+        }
+      },
+      "common": {
+        "buttons": {
+          "ok": "OK",
+          "cancel": "Annuler"
+        }
+      }
+    },
+    "rules": {
+      "target": "Cible"
+    },
+    "notifications": {
+      "error": {
+        "noTokenSelected": "Aucun jeton sélectionné"
+      }
+    }
+  }
+}

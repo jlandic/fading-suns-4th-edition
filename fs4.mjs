@@ -1,6 +1,8 @@
-import { configurePdfMapping } from "./module/configurePdfMapping.mjs";
+import { configurePdfMapping } from "./module/scripts/configurePdfMapping.mjs";
 import * as dataModels from "./module/data/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
+import { rollSkill } from "./module/scripts/rollSkill.mjs";
+import { skillFromLabel } from "./module/registry/pdfLabelMapping.mjs";
 
 globalThis.fs4 = {
   dataModels,
@@ -15,22 +17,56 @@ Hooks.once("init", () => {
 });
 
 Hooks.once("ready", async () => {
-  window.configurePdfMapping = configurePdfMapping;
+  if (game.user.isGM) {
+    const rootFolder =
+      game.folders.find((f) => f.name === "FS4" && f.type === "Macro") ||
+      (await Folder.create({ name: "FS4", type: "Macro" }));
+    const configMacroFolder =
+      game.folders.find((f) => f.name === "Config" && f.type === "Macro") ||
+      (await Folder.create({
+        name: "Config",
+        type: "Macro",
+        folder: rootFolder.id,
+      }));
 
-  const macros = [
-    {
-      // TODO: i18n
-      name: "Configure PDFPager field mapping",
-      type: "script",
-      command: "window.configurePdfMapping();",
-      img: "icons/svg/circle.svg",
-    },
-  ];
+    window.fs4.scripts.configurePdfMapping = configurePdfMapping;
+    window.fs4.scripts.rollSkill = rollSkill;
 
-  for (const macroData of macros) {
-    const existingMacro = game.macros.find((m) => m.name === macroData.name);
-    if (existingMacro == null) {
-      await Macro.create(macroData);
+    window.fs4.utils = {
+      skillFromLabel,
+    };
+
+    const macros = [
+      {
+        name: game.i18n.localize("fs4.macros.configurePdfFieldMapping"),
+        type: "script",
+        folder: configMacroFolder.id,
+        command: "window.fs4.scripts.configurePdfMapping();",
+        img: "icons/svg/circle.svg",
+      },
+      {
+        name: game.i18n.localize("fs4.macros.rollSkillFromSheet"),
+        type: "script",
+        folder: configMacroFolder.id,
+        command:
+          "window.fs4.scripts.rollSkill(window.fs4.utils.skillFromLabel(label))",
+        flags: {
+          "fading-suns-4th-edition.rollSkillFromSheet": true,
+        },
+      },
+      {
+        name: game.i18n.localize("fs4.macros.rollSkill"),
+        type: "script",
+        folder: rootFolder.id,
+        command: "window.fs4.scripts.rollSkill()",
+      },
+    ];
+
+    for (const macroData of macros) {
+      const existingMacro = game.macros.find((m) => m.name === macroData.name);
+      if (existingMacro == null) {
+        await Macro.create(macroData);
+      }
     }
   }
 });

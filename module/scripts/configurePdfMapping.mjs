@@ -1,3 +1,5 @@
+import { skillLabels } from "../registry/pdfLabelMapping.mjs";
+
 const actorMapping = {
   name: "name",
   rank: "system.rank",
@@ -20,7 +22,7 @@ const actorMapping = {
   str: "system.characteristics.str",
   dex: "system.characteristics.dex",
   end: "system.characteristics.end",
-  wit: "system.characteristics.wits",
+  wit: "system.characteristics.wit",
   per: "system.characteristics.per",
   wil: "system.characteristics.wil",
   pre: "system.characteristics.pre",
@@ -80,10 +82,19 @@ const actorMapping = {
   thresholdMin: "system.eshield.thresholdMin",
   thresholdMax: "system.eshield.thresholdMax",
   // Vitality and Revivals
-  vitalityRating: "system.vitalityRating",
+  vitalityRating: {
+    getValue(actor) {
+      return actor.system.vitalityRating;
+    },
+  },
   vitality: "system.vitality",
   revivalRating: "system.revivalRating",
-  revival: "system.revivals",
+  revivalAmount: {
+    getValue(actor) {
+      return actor.system.revivalAmount;
+    },
+  },
+  revivals: "system.revivals",
   // Maneuvers
   ...Array.from({ length: 8 }, (_, i) => i).reduce(
     (acc, i) => ({
@@ -95,11 +106,20 @@ const actorMapping = {
     {}
   ),
   // Bank
-  bankCapacity: "system.bankCapacity",
+  bankCapacity: {
+    getValue(actor) {
+      return actor.system.bankCapacity;
+    },
+  },
   vp: "system.bank.vp",
   wp: "system.bank.wp",
   surgeRating: "system.surgeRating",
   surge: "system.bank.surge",
+  surgeAmount: {
+    getValue(actor) {
+      return actor.system.surgeAmount;
+    },
+  },
   // References
   perks: "system.perks",
   capabilities: "system.capabilities",
@@ -154,6 +174,31 @@ const actorMapping = {
   notes: "system.notes",
 };
 
+const generateSkillLabelMapping = (rollSkillMacroId) => {
+  console.log(skillLabels());
+
+  return Object.values(skillLabels()).reduce(
+    (acc, labelText) => ({
+      ...acc,
+      [`LABEL.${labelText}`]: `Macro.${rollSkillMacroId}`,
+    }),
+    {}
+  );
+};
+
 export const configurePdfMapping = () => {
-  ui.pdfpager.registerActorMapping(actorMapping);
+  const rollSkillMacro = game.macros.find(
+    (macro) =>
+      macro.getFlag("fading-suns-4th-edition", "rollSkillFromSheet") === true
+  );
+
+  let mapping = actorMapping;
+  if (rollSkillMacro) {
+    mapping = {
+      ...actorMapping,
+      ...generateSkillLabelMapping(rollSkillMacro.id),
+    };
+  }
+
+  ui.pdfpager.registerActorMapping(mapping);
 };
