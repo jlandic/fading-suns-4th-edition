@@ -45,7 +45,7 @@ export const skills = () =>
       (acc, item) => ({
         ...acc,
         [item]: skill(
-          RESERVED_SKILLS.includes(skill)
+          RESERVED_SKILLS.some((skill) => skill == item)
             ? DEFAULT_RESERVED_SKILL_SCORE
             : DEFAULT_SKILL_SCORE
         ),
@@ -76,9 +76,7 @@ export const armor = () =>
     ...ARMOR_TYPES.reduce(
       (acc, item) => ({
         ...acc,
-        [item]: new NumberField({
-          ...defaultNumberFieldOptions(),
-        }),
+        [item]: new StringField(),
       }),
       {}
     ),
