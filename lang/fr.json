@@ -56,6 +56,8 @@
         "selectASkill": "Sélectionne une compétence",
         "result": "Résultat",
         "failure": "Échec",
+        "criticalSuccess": "Réussite critique",
+        "criticalFailure": "Échec critique",
         "buttons": {
           "roll": "Lancer"
         }

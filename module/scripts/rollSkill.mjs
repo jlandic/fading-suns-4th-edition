@@ -108,6 +108,16 @@ export const rollSkill = (selectedSkill) => {
             message += `<p><strong>${game.i18n.localize(
               "fs4.character.pv"
             )}:</strong> ${pv}</p>`;
+
+            if (rollResult == target) {
+              message += `<p><strong>${game.i18n.localize(
+                "fs4.dialog.rollSkill.criticalSuccess"
+              )}!</strong></p>`;
+            }
+          } else if (rollResult == 20) {
+            message += `<strong>${game.i18n.localize(
+              "fs4.dialog.rollSkill.criticalFailure"
+            )}!</strong>`;
           } else {
             message += `<strong>${game.i18n.localize(
               "fs4.dialog.rollSkill.failure"
