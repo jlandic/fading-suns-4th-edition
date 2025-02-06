@@ -14,6 +14,7 @@ Hooks.once("init", () => {
 
   CONFIG.Actor.dataModels = dataModels.actor.config;
   CONFIG.Actor.documentClass = documents.ActorFS4;
+  CONFIG.Actor.trackableAttributes = dataModels.actor.trackableAttributes;
 });
 
 Hooks.once("ready", async () => {
