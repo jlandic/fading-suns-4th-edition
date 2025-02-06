@@ -142,7 +142,7 @@ export const weapon = () =>
 export const item = () =>
   new SchemaField({
     name: new StringField(),
-    nt: new NumberField({
+    tl: new NumberField({
       ...defaultNumberFieldOptions(1),
     }),
     size: new NumberField({

@@ -19,7 +19,7 @@ import {
 } from "../fields/character.mjs";
 import CreatureTemplate from "./templates/creature.mjs";
 
-const { StringField, NumberField } = foundry.data.fields;
+const { StringField, NumberField, SchemaField } = foundry.data.fields;
 
 export default class CharacterData extends CreatureTemplate {
   static _systemType = "character";
@@ -68,8 +68,13 @@ export default class CharacterData extends CreatureTemplate {
       res: res(),
       armor: armor(),
       eshield: eshield(),
-      vitality: new NumberField({
-        ...defaultNumberFieldOptions(15),
+      vitality: new SchemaField({
+        value: new NumberField({
+          ...defaultNumberFieldOptions(0),
+        }),
+        max: new NumberField({
+          ...defaultNumberFieldOptions(),
+        }),
       }),
       revivals: new NumberField({
         ...defaultNumberFieldOptions(1),
@@ -92,6 +97,10 @@ export default class CharacterData extends CreatureTemplate {
       assets: indexedMap(4, asset),
       notes: new StringField(),
     });
+  }
+
+  prepareBaseData() {
+    this.vitality.max = this.vitalityRating;
   }
 
   get vitalityRating() {

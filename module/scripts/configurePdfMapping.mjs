@@ -87,7 +87,7 @@ const actorMapping = {
       return actor.system.vitalityRating;
     },
   },
-  vitality: "system.vitality",
+  vitality: "system.vitality.value",
   revivalRating: "system.revivalRating",
   revivalAmount: {
     getValue(actor) {
