@@ -67,6 +67,15 @@
         "vehicle": "Transports"
       }
     },
+    "callings": {
+      "capabilities": "Aptitudes",
+      "perk": "Avantage",
+      "perks": "Avantages de vocation",
+      "characteristics": "Caractéristiques",
+      "skills": "Compétences",
+      "patrons": "Saints patrons",
+      "equipment": "Équipement"
+    },
     "macros": {
       "configurePdfFieldMapping": "Configurer le mappage de champs PDFPager",
       "rollSkill": "Jet de compétence",
@@ -83,9 +92,10 @@
       "faction": "Faction",
       "perk": "Avantage",
       "techCompulsion": "Compulsion tech.",
-      "capability": "Aptitude"
+      "capability": "Aptitude",
+      "calling": "Vocation"
     },
-    "itemFields": {
+    "perks": {
       "TL": "NT",
       "source": "Source",
       "type": "Type",
@@ -119,6 +129,10 @@
       "error": {
         "noTokenSelected": "Aucun jeton sélectionné"
       }
+    },
+    "base": {
+      "or": "ou",
+      "orSeparator": " ou "
     }
   }
 }

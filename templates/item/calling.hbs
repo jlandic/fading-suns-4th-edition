@@ -1,0 +1,94 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{> "fs4.item-header" item=item itemType=itemType }}
+
+    <div class="form group">
+        <div class="form-fields">
+            {{editor
+                description
+                engine="prosemirror"
+                target="system.description"
+                button=true
+            }}
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.callings.characteristics" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            <ul>
+                {{#each characteristics}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.callings.skills" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            <ul>
+                {{#each skills}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.callings.capabilities" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            <ul>
+                {{#each system.capabilities}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.callings.perk" }}</h2>
+    <div class="form group">
+        <div class="form-fields">
+            {{editor
+                perk
+                engine="prosemirror"
+                target="system.perk"
+                button=true
+            }}
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.callings.perks" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            <ul>
+                {{#each system.perks}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.callings.equipment" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                equipment
+                engine="prosemirror"
+                target="system.equipment"
+                button=true
+            }}
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.callings.patrons" }}</h2>
+    <div class="form group">
+        <div class="form-fields">
+            {{editor
+                patrons
+                engine="prosemirror"
+                target="system.patrons"
+                button=true
+            }}
+        </div>
+    </div>
+</form>

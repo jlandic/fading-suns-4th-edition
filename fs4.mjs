@@ -6,6 +6,7 @@ import { skillFromLabel } from "./module/registry/pdfLabelMapping.mjs";
 import PerkSheetFS4 from "./module/sheets/item/perk-sheet.mjs";
 import * as utils from "./module/utils.mjs";
 import CapabilitySheetFS4 from "./module/sheets/item/capability-sheet.mjs";
+import CallingSheetFS4 from "./module/sheets/item/calling-sheet.mjs";
 
 globalThis.fs4 = {
   dataModels,
@@ -30,6 +31,10 @@ Hooks.once("init", () => {
   DocumentSheetConfig.registerSheet(Item, "fs4", CapabilitySheetFS4, {
     label: "FS4.sheets.CapabilitySheetFS4",
     types: ["capability"],
+  });
+  DocumentSheetConfig.registerSheet(Item, "fs4", CallingSheetFS4, {
+    label: "FS4.sheets.CallingSheetFS4",
+    types: ["calling"],
   });
 
   utils.preloadTemplates();

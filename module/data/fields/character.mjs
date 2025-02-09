@@ -174,3 +174,11 @@ export const bank = () =>
       ...defaultNumberFieldOptions(),
     }),
   });
+
+export const score = () =>
+  new SchemaField({
+    name: new StringField(),
+    value: new NumberField({
+      ...defaultNumberFieldOptions(),
+    }),
+  });

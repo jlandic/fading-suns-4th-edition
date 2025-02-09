@@ -2,6 +2,7 @@ const HANDLEBARS_TEMPLATES = [
   // Items
   "systems/fading-suns-4th-edition/templates/item/perk.hbs",
   "systems/fading-suns-4th-edition/templates/item/capability.hbs",
+  "systems/fading-suns-4th-edition/templates/item/calling.hbs",
 
   // Item partials
   "systems/fading-suns-4th-edition/templates/item/partials/item-header.hbs",

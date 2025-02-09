@@ -34,7 +34,8 @@
     "Item": {
       "faction": {},
       "perk": {},
-      "capability": {}
+      "capability": {},
+      "calling": {}
     }
   }
 }
