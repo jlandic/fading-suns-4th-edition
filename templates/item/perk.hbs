@@ -1,0 +1,84 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{> "fs4.item-header" item=item itemType=itemType }}
+
+    <div class="form-group">
+        <div class="form-fields">
+            <select name="system.sourceType">
+                {{#select system.sourceType}}
+                    <option value="class">{{ localize "fs4.character.class" }}</option>
+                    <option value="calling">{{ localize "fs4.character.calling" }}</option>
+                {{/select}}
+            </select>
+            <select name="system.type">
+                {{#select system.type}}
+                    <option value="ability">Ability</option>
+                    <option value="austerity">Austerity</option>
+                    <option value="cyberdevice">Cyberdevice</option>
+                    <option value="power">Power</option>
+                    <option value="privilege">Privilege</option>
+                    <option value="verve">Verve</option>
+                {{/select}}
+            </select>
+            <input
+                 style="flex: 0 0 50%"
+                type="text"
+                name="system.preconditions"
+                value="{{system.preconditions}}"
+                placeholder="{{ localize "fs4.itemFields.preconditions" }}"
+                style="flex: 1"
+            />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-fields">
+            {{#if system.techCompulsion}}
+                <span>
+                    {{ localize "fs4.itemTypes.techCompulsion" }}</em>
+                    <input
+                        type="text"
+                        name="system.techCompulsion"
+                        value="{{system.techCompulsion}}"
+                        placeholder="{{ localize "fs4.itemTypes.techCompulsion" }}"
+                    />
+                </span>
+            {{/if}}
+
+            {{#if system.tl}}
+                <span>
+                    {{ localize "fs4.itemFields.TL"}}</em>
+                    <input
+                        type="number"
+                        name="system.tl"
+                        value="{{system.tl}}"
+                        placeholder="{{ localize "fs4.itemFields.TL"}}"
+                    />
+                </span>
+            {{/if}}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                description
+                engine="prosemirror"
+                target="system.description"
+                button=true
+            }}
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                benefice
+                engine="prosemirror"
+                target="system.benefice"
+                button=true
+            }}
+        </div>
+    </div>
+</form>

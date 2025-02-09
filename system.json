@@ -30,6 +30,11 @@
   "documentTypes": {
     "Actor": {
       "character": {}
+    },
+    "Item": {
+      "faction": {},
+      "perk": {},
+      "capability": {}
     }
   }
 }

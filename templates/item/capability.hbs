@@ -1,0 +1,46 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{> "fs4.item-header" item=item itemType=itemType }}
+
+    <div class="form-group">
+        <div class="form-fields">
+            <select name="system.type">
+                {{#select system.type}}
+                    {{#each types}}
+                        <option value="{{this}}">{{ localize (concat "fs4.capabilities.types." this) }}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+            <select name="system.category">
+                {{#select system.category}}
+                    {{#each categories}}
+                        <option value="{{this}}">{{ localize (concat "fs4.capabilities.categories." this) }}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+
+    {{#if isReserved}}
+        <div class="form-group">
+            <div class="form-fields">
+                <h2>{{ localize "fs4.capabilities.reserved" }}</h2>
+                <ul>
+                    {{#each system.reserved}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    {{/if}}
+
+    <div class="form group">
+        <div class="form-fields">
+            {{editor
+                description
+                engine="prosemirror"
+                target="system.description"
+                button=true
+            }}
+        </div>
+    </div>
+</form>

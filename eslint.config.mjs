@@ -39,6 +39,12 @@ export default [
         ChatMessage: "readonly",
         canvas: "readonly",
         Folder: "readonly",
+        ItemDataModel: "readonly",
+        Item: "readonly",
+        ItemSheet: "readonly",
+        DocumentSheetConfig: "readonly",
+        TextEditor: "readonly",
+        loadTemplates: "readonly",
       },
 
       parser: babelParser,

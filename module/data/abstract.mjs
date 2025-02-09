@@ -87,3 +87,4 @@ export default class SystemDataModel extends foundry.abstract.TypeDataModel {
 }
 
 export class ActorDataModel extends SystemDataModel {}
+export class ItemDataModel extends SystemDataModel {}

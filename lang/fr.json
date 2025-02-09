@@ -1,5 +1,9 @@
 {
   "fs4": {
+    "sheets": {
+      "ItemSheetFS4": "Fiche d'item",
+      "PerkSheetFS4": "Fiche d'avantage"
+    },
     "skills": {
       "academia": "Érudition",
       "alchemy": "Alchimie",
@@ -39,6 +43,30 @@
       "int": "Intuition",
       "fth": "Foi"
     },
+    "capabilities": {
+      "reserved": "Réservée",
+      "types": {
+        "equipment": "Équipement",
+        "lore": "Connaissance"
+      },
+      "categories": {
+        "armor": "Armures",
+        "arts": "Arts",
+        "crafts": "Artisanats",
+        "customs": "Coutumes",
+        "knowledge": "Savoir",
+        "medical": "Médical",
+        "melee": "Armes de mêlée",
+        "military": "Équipement militaire",
+        "music": "Instruments de musique",
+        "performing": "Arts du spectacle",
+        "ranged": "Armes à distance",
+        "science": "Science",
+        "technology": "Technologie",
+        "thinkMachines": "Machines à penser",
+        "vehicle": "Transports"
+      }
+    },
     "macros": {
       "configurePdfFieldMapping": "Configurer le mappage de champs PDFPager",
       "rollSkill": "Jet de compétence",
@@ -47,7 +75,22 @@
     "character": {
       "skill": "Compétence",
       "characteristic": "Caractéristique",
-      "pv": "PV"
+      "pv": "PV",
+      "class": "Classe",
+      "calling": "Vocation"
+    },
+    "itemTypes": {
+      "faction": "Faction",
+      "perk": "Avantage",
+      "techCompulsion": "Compulsion tech.",
+      "capability": "Aptitude"
+    },
+    "itemFields": {
+      "TL": "NT",
+      "source": "Source",
+      "type": "Type",
+      "description": "Description",
+      "preconditions": "Prérequis"
     },
     "dialog": {
       "rollSkill": {

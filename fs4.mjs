@@ -3,6 +3,9 @@ import * as dataModels from "./module/data/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
 import { rollSkill } from "./module/scripts/rollSkill.mjs";
 import { skillFromLabel } from "./module/registry/pdfLabelMapping.mjs";
+import PerkSheetFS4 from "./module/sheets/item/perk-sheet.mjs";
+import * as utils from "./module/utils.mjs";
+import CapabilitySheetFS4 from "./module/sheets/item/capability-sheet.mjs";
 
 globalThis.fs4 = {
   dataModels,
@@ -15,6 +18,21 @@ Hooks.once("init", () => {
   CONFIG.Actor.dataModels = dataModels.actor.config;
   CONFIG.Actor.documentClass = documents.ActorFS4;
   CONFIG.Actor.trackableAttributes = dataModels.actor.trackableAttributes;
+
+  CONFIG.Item.dataModels = dataModels.item.config;
+  CONFIG.Item.documentClass = documents.ItemFS4;
+
+  DocumentSheetConfig.unregisterSheet(Item, "core", ItemSheet);
+  DocumentSheetConfig.registerSheet(Item, "fs4", PerkSheetFS4, {
+    label: "FS4.sheets.PerkSheetFS4",
+    types: ["perk"],
+  });
+  DocumentSheetConfig.registerSheet(Item, "fs4", CapabilitySheetFS4, {
+    label: "FS4.sheets.CapabilitySheetFS4",
+    types: ["capability"],
+  });
+
+  utils.preloadTemplates();
 });
 
 Hooks.once("ready", async () => {
