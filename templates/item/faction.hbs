@@ -57,19 +57,8 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.character.perks" }}</h2>
-    <div class="form-group">
-        <div class="form-fields">
-            <ul>
-                {{#each system.perks}}
-                    <li>{{this}}</li>
-                {{/each}}
-            </ul>
-        </div>
-    </div>
-
     <h2>{{ localize "fs4.character.equipment" }}</h2>
-    <div class="form-group">
+    <div class="form group">
         <div class="form-fields">
             {{editor
                 equipment
@@ -80,13 +69,25 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.callings.patrons" }}</h2>
+    <h2>{{ localize "fs4.factions.blessing" }}</h2>
     <div class="form group">
         <div class="form-fields">
             {{editor
-                patrons
+                blessing
                 engine="prosemirror"
-                target="system.patrons"
+                target="system.blessing"
+                button=true
+            }}
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.factions.curse" }}</h2>
+    <div class="form group">
+        <div class="form-fields">
+            {{editor
+                curse
+                engine="prosemirror"
+                target="system.curse"
                 button=true
             }}
         </div>

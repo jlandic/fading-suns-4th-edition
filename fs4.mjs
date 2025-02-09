@@ -7,6 +7,8 @@ import PerkSheetFS4 from "./module/sheets/item/perk-sheet.mjs";
 import * as utils from "./module/utils.mjs";
 import CapabilitySheetFS4 from "./module/sheets/item/capability-sheet.mjs";
 import CallingSheetFS4 from "./module/sheets/item/calling-sheet.mjs";
+import ClassSheetFS4 from "./module/sheets/item/class-sheet.mjs";
+import FactionSheetFS4 from "./module/sheets/item/faction-sheet.mjs";
 
 globalThis.fs4 = {
   dataModels,
@@ -35,6 +37,14 @@ Hooks.once("init", () => {
   DocumentSheetConfig.registerSheet(Item, "fs4", CallingSheetFS4, {
     label: "FS4.sheets.CallingSheetFS4",
     types: ["calling"],
+  });
+  DocumentSheetConfig.registerSheet(Item, "fs4", ClassSheetFS4, {
+    label: "FS4.sheets.ClassSheetFS4",
+    types: ["class"],
+  });
+  DocumentSheetConfig.registerSheet(Item, "fs4", FactionSheetFS4, {
+    label: "FS4.sheets.FactionSheetFS4",
+    types: ["faction"],
   });
 
   utils.preloadTemplates();

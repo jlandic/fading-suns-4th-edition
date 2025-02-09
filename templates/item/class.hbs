@@ -16,9 +16,13 @@
     <div class="form-group">
         <div class="form-fields">
             <ul>
-                {{#each characteristics}}
-                    <li>{{this}}</li>
-                {{/each}}
+                {{#if specialCharacteristics}}
+                    <li>{{ localize "fs4.classes.specialSeeDescription" }}</li>
+                {{else}}
+                    {{#each characteristics}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                {{/if}}
             </ul>
         </div>
     </div>
@@ -27,9 +31,13 @@
     <div class="form-group">
         <div class="form-fields">
             <ul>
-                {{#each skills}}
-                    <li>{{this}}</li>
-                {{/each}}
+                {{#if specialSkills}}
+                    <li>{{ localize "fs4.classes.specialSeeDescription" }}</li>
+                {{else}}
+                    {{#each skills}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                {{/if}}
             </ul>
         </div>
     </div>
@@ -65,30 +73,6 @@
                     <li>{{this}}</li>
                 {{/each}}
             </ul>
-        </div>
-    </div>
-
-    <h2>{{ localize "fs4.character.equipment" }}</h2>
-    <div class="form-group">
-        <div class="form-fields">
-            {{editor
-                equipment
-                engine="prosemirror"
-                target="system.equipment"
-                button=true
-            }}
-        </div>
-    </div>
-
-    <h2>{{ localize "fs4.callings.patrons" }}</h2>
-    <div class="form group">
-        <div class="form-fields">
-            {{editor
-                patrons
-                engine="prosemirror"
-                target="system.patrons"
-                button=true
-            }}
         </div>
     </div>
 </form>

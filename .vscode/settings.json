@@ -1,5 +1,9 @@
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.renderWhitespace": "all"
+  "editor.renderWhitespace": "all",
+  "html.format.indentHandlebars": true,
+  "[handlebars]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  }
 }

@@ -68,13 +68,10 @@
       }
     },
     "callings": {
-      "capabilities": "Aptitudes",
-      "perk": "Avantage",
-      "perks": "Avantages de vocation",
-      "characteristics": "Caractéristiques",
-      "skills": "Compétences",
-      "patrons": "Saints patrons",
-      "equipment": "Équipement"
+      "patrons": "Saints patrons"
+    },
+    "classes": {
+      "specialSeeDescription": "Spécial (cf. description)"
     },
     "macros": {
       "configurePdfFieldMapping": "Configurer le mappage de champs PDFPager",
@@ -86,20 +83,30 @@
       "characteristic": "Caractéristique",
       "pv": "PV",
       "class": "Classe",
-      "calling": "Vocation"
+      "equipment": "Équipement",
+      "calling": "Vocation",
+      "capabilities": "Aptitudes",
+      "perk": "Avantage",
+      "perks": "Avantages de vocation",
+      "characteristics": "Caractéristiques",
+      "skills": "Compétences"
     },
     "itemTypes": {
       "faction": "Faction",
       "perk": "Avantage",
       "techCompulsion": "Compulsion tech.",
       "capability": "Aptitude",
-      "calling": "Vocation"
+      "calling": "Vocation",
+      "class": "Classe"
+    },
+    "factions": {
+      "blessing": "Bénédiction",
+      "curse": "Malédiction"
     },
     "perks": {
       "TL": "NT",
       "source": "Source",
       "type": "Type",
-      "description": "Description",
       "preconditions": "Prérequis"
     },
     "dialog": {
