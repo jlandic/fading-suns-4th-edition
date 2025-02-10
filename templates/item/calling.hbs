@@ -1,6 +1,10 @@
 <form class="{{cssClass}}" autocomplete="off">
     {{> "fs4.item-header" item=item itemType=itemType }}
 
+    <div class="span">
+        <em>{{ localize "fs4.itemTypes.class" }} :</em> {{ localize (concat "fs4.classes." system.class) }}
+    </div>
+
     <div class="form group">
         <div class="form-fields">
             {{editor

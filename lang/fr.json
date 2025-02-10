@@ -71,7 +71,14 @@
       "patrons": "Saints patrons"
     },
     "classes": {
-      "specialSeeDescription": "Spécial (cf. description)"
+      "specialSeeDescription": "Spécial (cf. description)",
+      "noble": "Noble",
+      "priest": "Prêtre",
+      "merchant": "Marchand",
+      "yeoman": "Franc-tenancier",
+      "factions": "Factions",
+      "callings": "Vocations",
+      "perks": "Avantages de classe"
     },
     "macros": {
       "configurePdfFieldMapping": "Configurer le mappage de champs PDFPager",

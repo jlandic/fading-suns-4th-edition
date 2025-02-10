@@ -9,6 +9,7 @@ const { StringField, SetField } = foundry.data.fields;
 export default class CapabilityData extends ItemDataModel {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
+      id: new StringField(),
       type: new StringField({
         choices: CAPABILITY_TYPES,
       }),

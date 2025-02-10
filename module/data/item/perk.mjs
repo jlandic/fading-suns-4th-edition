@@ -5,6 +5,7 @@ const { StringField, NumberField } = foundry.data.fields;
 export default class PerkData extends ItemDataModel {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
+      id: new StringField(),
       sourceType: new StringField(),
       type: new StringField({
         choices: [

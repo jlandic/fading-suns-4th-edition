@@ -6,6 +6,8 @@ const { SetField, StringField, ArrayField } = foundry.data.fields;
 export default class FactionData extends ItemDataModel {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
+      id: new StringField(),
+      class: new StringField(),
       description: new StringField(),
       capabilities: new SetField(new StringField()),
       perk: new StringField(),
