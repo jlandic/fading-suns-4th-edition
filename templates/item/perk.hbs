@@ -5,28 +5,28 @@
         <div class="form-fields">
             <select name="system.sourceType">
                 {{#select system.sourceType}}
-                    <option value="class">{{ localize "fs4.character.class" }}</option>
-                    <option value="calling">{{ localize "fs4.character.calling" }}</option>
+                    {{#each sourceTypes}}
+                        <option value="{{this}}">{{ localize (concat "fs4.perks.sourceTypes." this) }}</option>
+                    {{/each}}
                 {{/select}}
             </select>
             <select name="system.type">
                 {{#select system.type}}
-                    <option value="ability">Ability</option>
-                    <option value="austerity">Austerity</option>
-                    <option value="cyberdevice">Cyberdevice</option>
-                    <option value="power">Power</option>
-                    <option value="privilege">Privilege</option>
-                    <option value="verve">Verve</option>
+                    {{#each types}}
+                        <option value="{{this}}">{{ localize (concat "fs4.perks.types." this) }}</option>
+                    {{/each}}
                 {{/select}}
             </select>
-            <input
-                 style="flex: 0 0 50%"
-                type="text"
-                name="system.preconditions"
-                value="{{system.preconditions}}"
-                placeholder="{{ localize "fs4.perks.preconditions" }}"
-                style="flex: 1"
-            />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-fields">
+            <span>
+                <em>{{ localize "fs4.perks.fields.preconditions" }}</em>
+                <input type="text" name="system.preconditions" value="{{system.preconditions}}"
+                    placeholder="{{ localize " fs4.perks.fields.preconditions" }}" />
+            </span>
         </div>
     </div>
 
@@ -34,30 +34,23 @@
         <div class="form-fields">
             {{#if system.techCompulsion}}
                 <span>
-                    {{ localize "fs4.itemTypes.techCompulsion" }}</em>
-                    <input
-                        type="text"
-                        name="system.techCompulsion"
-                        value="{{system.techCompulsion}}"
-                        placeholder="{{ localize "fs4.itemTypes.techCompulsion" }}"
-                    />
+                    <em>{{ localize "fs4.itemTypes.techCompulsion" }}</em>
+                    <input type="text" name="system.techCompulsion" value="{{system.techCompulsion}}"
+                        placeholder="{{ localize " fs4.itemTypes.techCompulsion" }}" />
                 </span>
             {{/if}}
 
             {{#if system.tl}}
                 <span>
-                    {{ localize "fs4.perks.TL"}}</em>
-                    <input
-                        type="number"
-                        name="system.tl"
-                        value="{{system.tl}}"
-                        placeholder="{{ localize "fs4.perks.TL"}}"
-                    />
+                    <em>{{ localize "fs4.perks.fields.TL"}}</em>
+                    <input type="number" name="system.tl" value="{{system.tl}}" placeholder="{{ localize "
+                        fs4.perks.fields.TL"}}" />
                 </span>
             {{/if}}
         </div>
     </div>
 
+    <h2>{{ localize "fs4.fields.description" }}</h2>
     <div class="form-group">
         <div class="form-fields">
             {{editor
@@ -71,6 +64,7 @@
 
     <hr />
 
+    <h2>{{ localize "fs4.perks.fields.benefice" }}</h2>
     <div class="form-group">
         <div class="form-fields">
             {{editor

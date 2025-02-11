@@ -68,33 +68,33 @@
     <h2>{{ localize "fs4.classes.perks" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            <ul>
-                {{#each system.perks}}
-                    <li>{{this}}</li>
-                {{/each}}
-            </ul>
+            {{editor
+                perks
+                engine="prosemirror"
+                editable=false
+            }}
         </div>
     </div>
 
     <h2>{{ localize "fs4.classes.factions" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            <ul>
-                {{#each system.factions}}
-                    <li>{{this.name}}</li>
-                {{/each}}
-            </ul>
+            {{editor
+                factions
+                engine="prosemirror"
+                editable=false
+            }}
         </div>
     </div>
 
     <h2>{{ localize "fs4.classes.callings" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            <ul>
-                {{#each system.callings}}
-                    <li>{{this.name}}</li>
-                {{/each}}
-            </ul>
+            {{editor
+                callings
+                engine="prosemirror"
+                editable=false
+            }}
         </div>
     </div>
 </form>

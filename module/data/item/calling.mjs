@@ -13,9 +13,19 @@ export default class CallingData extends ItemDataModel {
       capabilities: new SetField(new StringField()),
       perk: new StringField(),
       equipment: new StringField(),
-      perks: new SetField(new StringField()),
+      perks: new ArrayField(new StringField()),
       skills: new ArrayField(new ArrayField(score())),
       characteristics: new ArrayField(new ArrayField(score())),
     });
+  }
+
+  get linkedPerks() {
+    const allPerks = game.items.filter(
+      (item) => item.type === "perk" && item.system.id != "special_see_with_gm"
+    );
+
+    return this.perks.map((perk) =>
+      allPerks.find((item) => item.system.id === perk)
+    );
   }
 }

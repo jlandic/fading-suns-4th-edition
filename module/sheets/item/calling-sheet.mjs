@@ -5,6 +5,15 @@ export default class CallingSheetFS4 extends ItemSheetFS4 {
     const context = await super.getData(options);
     const item = context.item;
 
+    let perkText = item.system.linkedPerks
+      .map((perk) => `<li>@UUID[Item.${perk.id}]</li>`)
+      .join("");
+    if (perkText === "") {
+      perkText = `<li>${game.i18n.localize(
+        "fs4.perks.special_see_with_gm"
+      )}</li>`;
+    }
+
     foundry.utils.mergeObject(context, {
       description: await TextEditor.enrichHTML(item.system.description, {
         async: true,
@@ -27,12 +36,15 @@ export default class CallingSheetFS4 extends ItemSheetFS4 {
           .map(({ name, value }) => `${name} +${value}`)
           .join(game.i18n.localize("fs4.base.orSeparator"))
       ),
-
       skills: item.system.skills.map((skillBundle) =>
         skillBundle
           .map(({ name, value }) => `${name} +${value}`)
           .join(game.i18n.localize("fs4.base.orSeparator"))
       ),
+
+      perks: await TextEditor.enrichHTML(`<ul>${perkText}</ul>`, {
+        async: true,
+      }),
     });
 
     return context;

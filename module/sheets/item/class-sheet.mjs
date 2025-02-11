@@ -5,6 +5,21 @@ export default class ClassSheetFS4 extends ItemSheetFS4 {
     const context = await super.getData(options);
     const item = context.item;
 
+    let perkText = item.system.linkedPerks
+      .map((perk) => `<li>@UUID[Item.${perk.id}]</li>`)
+      .join("");
+    if (perkText === "") {
+      perkText = `<li>${game.i18n.localize(
+        "fs4.perks.special_see_with_gm"
+      )}</li>`;
+    }
+    const factionText = item.system.factions
+      .map((faction) => `<li>@UUID[Item.${faction.id}]</li>`)
+      .join("");
+    const callingText = item.system.callings
+      .map((calling) => `<li>@UUID[Item.${calling.id}]</li>`)
+      .join("");
+
     foundry.utils.mergeObject(context, {
       description: await TextEditor.enrichHTML(item.system.description, {
         async: true,
@@ -32,6 +47,16 @@ export default class ClassSheetFS4 extends ItemSheetFS4 {
           .join(game.i18n.localize("fs4.base.orSeparator"))
       ),
       specialSkills: item.system.skills[0].length === 0,
+
+      perks: await TextEditor.enrichHTML(`<ul>${perkText}</ul>`, {
+        async: true,
+      }),
+      factions: await TextEditor.enrichHTML(`<ul>${factionText}</ul>`, {
+        async: true,
+      }),
+      callings: await TextEditor.enrichHTML(`<ul>${callingText}</ul>`, {
+        async: true,
+      }),
     });
 
     return context;
