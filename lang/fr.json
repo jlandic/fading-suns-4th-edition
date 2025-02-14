@@ -47,6 +47,14 @@
       "techredemption": "Rédemption tech",
       "vigor": "Vigueur"
     },
+    "species": {
+      "fields": {
+        "size": "Taille",
+        "speed": "Vitesse",
+        "speedHint": "En mètres par tour",
+        "threeSpeedsHint": "Respectivement: à 2, 4 et 6 pattes"
+      }
+    },
     "capabilities": {
       "reserved": "Réservée",
       "types": {
@@ -73,17 +81,21 @@
     },
     "callings": {
       "patrons": "Saints patrons",
+      "specialSeeDescription": "Spécial (cf. description)",
       "perks": "Avantages de vocation"
     },
     "classes": {
+      "fields": {
+        "factions": "Factions",
+        "callings": "Vocations",
+        "perks": "Avantages de classe"
+      },
       "specialSeeDescription": "Spécial (cf. description)",
       "noble": "Noble",
       "priest": "Prêtre",
       "merchant": "Marchand",
       "yeoman": "Franc-tenancier",
-      "factions": "Factions",
-      "callings": "Vocations",
-      "perks": "Avantages de classe"
+      "unknown": "N/A"
     },
     "macros": {
       "configurePdfFieldMapping": "Configurer le mappage de champs PDFPager",
@@ -94,6 +106,7 @@
       "fields": {
         "skill": "Compétence",
         "characteristic": "Caractéristique",
+        "characteristics": "Caractéristiques",
         "pv": "PV",
         "class": "Classe",
         "equipment": "Équipement",
@@ -101,7 +114,6 @@
         "capabilities": "Aptitudes",
         "perk": "Avantage",
         "perks": "Avantages",
-        "characteristics": "Caractéristiques",
         "skills": "Compétences"
       }
     },
@@ -111,7 +123,8 @@
       "techCompulsion": "Compulsion tech.",
       "capability": "Aptitude",
       "calling": "Vocation",
-      "class": "Classe"
+      "class": "Classe",
+      "species": "Espèce"
     },
     "factions": {
       "fields": {
@@ -138,7 +151,11 @@
       },
       "sourceTypes": {
         "class": "Classe",
-        "calling": "Vocation"
+        "calling": "Vocation",
+        "capability": "Capacité"
+      },
+      "specialPreconditions": {
+        "open": "Ouvert"
       },
       "absolution": "Absolution",
       "criminal_archive_access": "Accès aux archives criminelles",
@@ -404,7 +421,8 @@
     },
     "base": {
       "or": "ou",
-      "orSeparator": " ou "
+      "orSeparator": " ou ",
+      "andSeparator": " et "
     }
   }
 }

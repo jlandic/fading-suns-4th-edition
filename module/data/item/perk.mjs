@@ -1,7 +1,11 @@
-import { PERK_SOURCE_TYPES, PERK_TYPES } from "../../registry/perks.mjs";
+import {
+  PERK_SOURCE_TYPES,
+  PERK_TYPES,
+  PRECONDITION_TYPES,
+} from "../../registry/perks.mjs";
 import { ItemDataModel } from "../abstract.mjs";
 
-const { StringField, NumberField } = foundry.data.fields;
+const { StringField, NumberField, ArrayField } = foundry.data.fields;
 
 export default class PerkData extends ItemDataModel {
   static defineSchema() {
@@ -13,11 +17,32 @@ export default class PerkData extends ItemDataModel {
       type: new StringField({
         choices: PERK_TYPES,
       }),
-      preconditions: new StringField(),
+      _preconditions: new ArrayField(new ArrayField(new StringField())),
       description: new StringField(),
       benefice: new StringField(),
       techCompulsion: new StringField(),
       tl: new NumberField({ nullable: true }),
     });
+  }
+
+  get preconditions() {
+    return this._preconditions.map((conditionSet) =>
+      conditionSet.map((condition) => {
+        const specialKey = `fs4.perks.specialPreconditions.${condition}`;
+        const text = game.i18n.localize(specialKey);
+        if (text !== specialKey) {
+          return { special: true, text: text };
+        }
+
+        return (
+          game.items
+            .filter((item) => PRECONDITION_TYPES.includes(item.type))
+            .find((item) => item.system.id === condition) || {
+            special: true,
+            text: condition,
+          }
+        );
+      })
+    );
   }
 }

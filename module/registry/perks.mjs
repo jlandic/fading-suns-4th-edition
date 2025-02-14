@@ -7,4 +7,5 @@ export const PERK_TYPES = [
   "verve",
 ];
 
-export const PERK_SOURCE_TYPES = ["class", "calling"];
+export const PERK_SOURCE_TYPES = ["class", "calling", "capability"];
+export const PRECONDITION_TYPES = ["class", "calling", "perk"];

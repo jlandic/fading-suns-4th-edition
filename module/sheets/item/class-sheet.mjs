@@ -5,7 +5,7 @@ export default class ClassSheetFS4 extends ItemSheetFS4 {
     const context = await super.getData(options);
     const item = context.item;
 
-    let perkText = item.system.linkedPerks
+    let perkText = item.system.perks
       .map((perk) => `<li>@UUID[Item.${perk.id}]</li>`)
       .join("");
     if (perkText === "") {
@@ -36,16 +36,21 @@ export default class ClassSheetFS4 extends ItemSheetFS4 {
 
       characteristics: item.system.characteristics.map((characteristicBundle) =>
         characteristicBundle
-          .map(({ name, value }) => `${name} +${value}`)
+          .map(({ name: key, value }) => {
+            const name = game.i18n.localize(`fs4.characteristics.${key}`);
+            return `${name} +${value}`;
+          })
+          .join(game.i18n.localize("fs4.base.orSeparator"))
+      ),
+      skills: item.system.skills.map((skillBundle) =>
+        skillBundle
+          .map(({ name: key, value }) => {
+            const name = game.i18n.localize(`fs4.skills.${key}`);
+            return `${name} +${value}`;
+          })
           .join(game.i18n.localize("fs4.base.orSeparator"))
       ),
       specialCharacteristics: item.system.characteristics[0].length === 0,
-
-      skills: item.system.skills.map((skillBundle) =>
-        skillBundle
-          .map(({ name, value }) => `${name} +${value}`)
-          .join(game.i18n.localize("fs4.base.orSeparator"))
-      ),
       specialSkills: item.system.skills[0].length === 0,
 
       perks: await TextEditor.enrichHTML(`<ul>${perkText}</ul>`, {

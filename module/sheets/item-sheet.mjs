@@ -5,6 +5,11 @@ export default class ItemSheetFS4 extends ItemSheet {
       width: 560,
       resizable: true,
       classes: ["sheet", "item"],
+      dragDrop: [
+        {
+          dropSelector: ".drop",
+        },
+      ],
     });
   }
 

@@ -15,6 +15,23 @@ export default class PerkSheetFS4 extends ItemSheetFS4 {
         async: true,
       }),
 
+      preconditions: await TextEditor.enrichHTML(
+        item.system.preconditions
+          .map((conditionSet) =>
+            conditionSet
+              .map((condition) => {
+                if (condition.special) {
+                  return condition.text;
+                } else {
+                  return `@UUID[Item.${condition.id}]`;
+                }
+              })
+              .join(game.i18n.localize("fs4.base.andSeparator"))
+          )
+          .join(game.i18n.localize("fs4.base.orSeparator")),
+        { async: true }
+      ),
+
       types: PERK_TYPES,
       sourceTypes: PERK_SOURCE_TYPES,
     });

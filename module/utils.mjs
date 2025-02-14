@@ -5,6 +5,7 @@ const HANDLEBARS_TEMPLATES = [
   "systems/fading-suns-4th-edition/templates/item/calling.hbs",
   "systems/fading-suns-4th-edition/templates/item/class.hbs",
   "systems/fading-suns-4th-edition/templates/item/faction.hbs",
+  "systems/fading-suns-4th-edition/templates/item/species.hbs",
 
   // Item partials
   "systems/fading-suns-4th-edition/templates/item/partials/item-header.hbs",

@@ -45,6 +45,8 @@ export default [
         DocumentSheetConfig: "readonly",
         TextEditor: "readonly",
         loadTemplates: "readonly",
+        Handlebars: "readonly",
+        DragDrop: "readonly",
       },
 
       parser: babelParser,

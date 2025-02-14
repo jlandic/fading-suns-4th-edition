@@ -9,6 +9,8 @@ import CapabilitySheetFS4 from "./module/sheets/item/capability-sheet.mjs";
 import CallingSheetFS4 from "./module/sheets/item/calling-sheet.mjs";
 import ClassSheetFS4 from "./module/sheets/item/class-sheet.mjs";
 import FactionSheetFS4 from "./module/sheets/item/faction-sheet.mjs";
+import { registerHandlebarsHelpers } from "./module/handlebarHelpers.mjs";
+import SpeciesSheetFS4 from "./module/sheets/item/species-sheet.mjs";
 
 globalThis.fs4 = {
   dataModels,
@@ -46,8 +48,13 @@ Hooks.once("init", () => {
     label: "FS4.sheets.FactionSheetFS4",
     types: ["faction"],
   });
+  DocumentSheetConfig.registerSheet(Item, "fs4", SpeciesSheetFS4, {
+    label: "FS4.sheets.SpeciesSheetFS4",
+    types: ["species"],
+  });
 
   utils.preloadTemplates();
+  registerHandlebarsHelpers();
 });
 
 Hooks.once("ready", async () => {

@@ -20,16 +20,20 @@
         </div>
     </div>
 
+    <h2>{{ localize "fs4.perks.fields.preconditions" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            <span>
-                <em>{{ localize "fs4.perks.fields.preconditions" }}</em>
-                <input type="text" name="system.preconditions" value="{{system.preconditions}}"
-                    placeholder="{{ localize " fs4.perks.fields.preconditions" }}" />
-            </span>
+            {{editor
+                preconditions
+                engine="prosemirror"
+                editable=false
+            }}
         </div>
     </div>
 
+    {{#if system.tl}}
+        <h2>{{ localize "fs4.perks.fields.cyberdevice" }}</h2>
+    {{/if}}
     <div class="form-group">
         <div class="form-fields">
             {{#if system.techCompulsion}}

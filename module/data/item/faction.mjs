@@ -7,7 +7,7 @@ export default class FactionData extends ItemDataModel {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
       id: new StringField(),
-      class: new StringField(),
+      _class: new StringField(),
       description: new StringField(),
       capabilities: new SetField(new StringField()),
       perk: new StringField(),
@@ -17,5 +17,11 @@ export default class FactionData extends ItemDataModel {
       skills: new ArrayField(new ArrayField(score())),
       characteristics: new ArrayField(new ArrayField(score())),
     });
+  }
+
+  get class() {
+    return game.items.find(
+      (item) => item.type === "class" && item.system.id === this._class
+    );
   }
 }

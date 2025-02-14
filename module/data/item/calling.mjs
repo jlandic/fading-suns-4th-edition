@@ -1,30 +1,42 @@
 import { ItemDataModel } from "../abstract.mjs";
 import { score } from "../fields/character.mjs";
 
-const { StringField, SetField, ArrayField } = foundry.data.fields;
+const { StringField, SetField, ArrayField, HTMLField } = foundry.data.fields;
 
 export default class CallingData extends ItemDataModel {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
       id: new StringField(),
-      class: new StringField(),
-      description: new StringField(),
-      patrons: new StringField(),
+      _class: new StringField(),
+      description: new HTMLField(),
+      patrons: new HTMLField(),
       capabilities: new SetField(new StringField()),
       perk: new StringField(),
       equipment: new StringField(),
-      perks: new ArrayField(new StringField()),
+      _perks: new ArrayField(new StringField()),
       skills: new ArrayField(new ArrayField(score())),
       characteristics: new ArrayField(new ArrayField(score())),
     });
   }
 
-  get linkedPerks() {
+  get class() {
+    if (this._class === "open") {
+      return undefined;
+    }
+
+    const item = game.items.find(
+      (item) => item.type === "class" && item.system.id === this._class
+    );
+
+    return item;
+  }
+
+  get perks() {
     const allPerks = game.items.filter(
       (item) => item.type === "perk" && item.system.id != "special_see_with_gm"
     );
 
-    return this.perks.map((perk) =>
+    return this._perks.map((perk) =>
       allPerks.find((item) => item.system.id === perk)
     );
   }
