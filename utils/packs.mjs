@@ -6,7 +6,7 @@ import { compilePack } from "@foundryvtt/foundryvtt-cli";
 import logger from "fancy-log";
 
 const PACK_OUTPUT = "packs";
-const PACK_INPUT = "packs/src";
+const PACK_INPUT = "source";
 
 const packageCommand = () => {
   return {
@@ -62,6 +62,10 @@ const compile = async (packName) => {
     await compilePack(src, dest, {
       recursive: true,
       log: true,
+      yaml: true,
+      options: {
+        transformEntry: (entry) => {},
+      },
     });
   }
 };

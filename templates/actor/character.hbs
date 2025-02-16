@@ -1,0 +1,338 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{> "fs4.sheet-header" document=actor documentType=actorType }}
+
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="stats">{{ localize "fs4.sheets.tabs.stats" }}</a>
+        <a class="item" data-tab="identity">{{ localize "fs4.sheets.tabs.identity" }}</a>
+        <a class="item" data-tab="equipment">{{ localize "fs4.sheets.tabs.equipment" }}</a>
+    </nav>
+
+    <section class="sheet-body">
+        <section class="tab" data-group="primary" data-tab="stats">
+            <section class="flexrow">
+                <section class="flexcol flex3 skills">
+                    <h3 class="flex0">{{ localize "fs4.character.fields.skills" }}</h3>
+
+                    <section class="flexrow">
+                        <section class="flexcol skills-left">
+                            {{#each firstSkillGroup}}
+                                {{> "fs4.score"
+                                    label=this.localizedName
+                                    value=this.actorValue
+                                    key=this.key
+                                }}
+                            {{/each}}
+                        </section>
+
+                        <section class="flexcol skills-right">
+                            {{#each secondSkillGroup}}
+                                {{> "fs4.score"
+                                    label=this.localizedName
+                                    value=this.actorValue
+                                    key=this.key
+                                }}
+                            {{/each}}
+                        </section>
+                    </section>
+                </section>
+
+                <section class="flexcol characteristics">
+                    <h3 class="flex0">{{ localize "fs4.character.fields.characteristics" }}</h3>
+                    <div>
+                        <section class="flexcol flex0 characteristics-body">
+                            {{#each characteristics.body}}
+                            {{> "fs4.score"
+                                label=this.localizedName
+                                    value=this.actorValue
+                                    key=this.key
+                                }}
+                            {{/each}}
+                        </section>
+
+                        <hr>
+
+                        <section class="flexcol flex0 characteristics-mind">
+                            {{#each characteristics.mind}}
+                                {{> "fs4.score"
+                                    label=this.localizedName
+                                    value=this.actorValue
+                                    key=this.key
+                                }}
+                            {{/each}}
+                        </section>
+
+                        <hr>
+
+                        <section class="flexcol flex0 characteristics-spirit">
+                            {{#each characteristics.spirit}}
+                                {{> "fs4.score"
+                                    label=this.localizedName
+                                    value=this.actorValue
+                                    key=this.key
+                                }}
+                            {{/each}}
+                        </section>
+
+                        <section class="flexcol res">
+                            <h3>{{ localize "fs4.character.fields.res.resistance" }}</h3>
+                            {{#each resistance}}
+                                {{> "fs4.score"
+                                    value=this.actorValue.value
+                                    key=this.key
+                                    label=this.localizedName
+                                    modKey=this.modKey
+                                    modValue=this.actorValue.mod
+                                }}
+                            {{/each}}
+                        </section>
+                    </div>
+                </section> <!-- end of characteristics -->
+            </section> <!-- end of skills and characteristics -->
+
+            <hr>
+
+            <section class="flexrow centered highlight-labels">
+                <div class="flexcol">
+                    <label for="system.psi">{{ localize "fs4.character.fields.psi" }}</label>
+                    <input name="system.psi" type="number" value="{{system.psi}}" />
+                </div>
+                <div class="flexcol">
+                    <label for="system.urge">{{ localize "fs4.character.fields.urge" }}</label>
+                    <input name="system.urge" type="number" value="{{system.urge}}" />
+                </div>
+                <div class="flexcol">
+                    <label for="system.theurgy">{{ localize "fs4.character.fields.theurgy" }}</label>
+                    <input name="system.theurgy" type="number" value="{{system.theurgy}}" />
+                </div>
+                <div class="flexcol">
+                    <label for="system.hubris">{{ localize "fs4.character.fields.hubris" }}</label>
+                    <input name="system.hubris" type="number" value="{{system.hubris}}" />
+                </div>
+            </section>
+
+            <hr>
+
+            <section class="flexrow centered highlight-labels">
+                <div class="form-group flex1">
+                    <label for="system.vitality.value">{{ localize "fs4.character.fields.vitality" }} ({{system.vitalityRating}})</label>
+                    <input class="short" name="system.vitality.value" type="number" value="{{system.vitality.value}}" />
+                </div>
+
+                <div class="form-group flex3">
+                    <label class="flex5" for="system.revivals">{{ localize "fs4.character.fields.revivals" }}</label>
+                    <input class="short" name="system.revivals" type="number" value="{{system.revivals}}" />
+                    <span>
+                        <strong>{{ localize "fs4.fields.value" }}:</strong> {{system.revivalRating}}
+                    </span>
+                    <span>
+                        <strong>{{ localize "fs4.fields.amount" }}:</strong> {{system.revivalAmount}}
+                    </span>
+                </div>
+            </section>
+
+            <hr>
+
+            <section class="flexrow centered highlight-labels">
+                <div class="flexcol">
+                    <label for="system.bank.vp">{{ localize "fs4.character.fields.bank" }} ({{ system.bankCapacity }})</label>
+                    <div class="flexrow centered">
+                        <input name="system.bank.vp" type="number" value="{{system.bank.vp}}" />
+                        <input name="system.bank.wp" type="number" value="{{system.bank.wp}}" />
+                    </div>
+                </div>
+
+                <div class="form-group flex3">
+                    <label class="flex5" for="system.bank.surge">{{ localize "fs4.character.fields.surge" }}</label>
+                    <input class="short" name="system.bank.surge" type="number" value="{{system.bank.surge}}" />
+                    <span>
+                        <strong>{{ localize "fs4.fields.value" }}:</strong> {{system.surgeRating}}
+                    </span>
+                    <span>
+                        <strong>{{ localize "fs4.fields.amount" }}:</strong> {{system.surgeAmount}}
+                    </span>
+                </div>
+            </section>
+
+            <section class="flexcol maneuvers">
+                <h3>{{ localize "fs4.character.fields.maneuvers" }}</h3>
+
+                {{#each maneuvers}}
+                    {{> "fs4.maneuver"
+                        key=this.key
+                        value=this.actorValue
+                    }}
+                {{/each}}
+            </section>
+        </section> <!-- end of stats tab -->
+
+        <section class="tab" data-group="primary" data-tab="identity">
+            <section class="flexcol">
+                <div class="flexrow">
+                    <div class="form-fields">
+                        <label for="system.level">{{ localize "fs4.character.fields.level" }}</label>
+                        <input name="system.level" type="number" value="{{system.level}}"
+                            placeholder="{{ localize "fs4.character.fields.level" }}" />
+                    </div>
+
+                    <div class="form-fields">
+                        <label for="system.class">{{ localize "fs4.character.fields.class" }}</label>
+                        <input name="system.class" type="text" value="{{system.class}}"
+                            placeholder="{{ localize "fs4.character.fields.class" }}" />
+                    </div>
+
+                    <div class="form-fields">
+                        <label for="system.faction">{{ localize "fs4.character.fields.faction" }}</label>
+                        <input name="system.faction" type="text" value="{{system.faction}}"
+                            placeholder="{{ localize "fs4.character.fields.faction" }}" />
+                    </div>
+                </div>
+
+                <div class="flexrow">
+                    <div class="form-fields">
+                        <label for="system.calling">{{ localize "fs4.character.fields.calling" }}</label>
+                        <input name="system.calling" type="number" value="{{system.calling}}"
+                            placeholder="{{ localize "fs4.character.fields.calling" }}" />
+                    </div>
+
+                    <div class="form-fields">
+                        <label for="system.rank">{{ localize "fs4.character.fields.rank" }}</label>
+                        <input name="system.rank" type="text" value="{{system.rank}}"
+                            placeholder="{{ localize "fs4.character.fields.rank" }}" />
+                    </div>
+
+                    <section class="flexrow">
+                        <div class="form-fields">
+                            <label for="system.size">{{ localize "fs4.species.fields.size" }}</label>
+                            <input name="system.size" type="number" value="{{system.size}}"
+                                placeholder="{{ localize "fs4.species.fields.size" }}" />
+                        </div>
+                        <div class="form-fields">
+                            <label for="system.speed" title="{{ localize "fs4.species.fields.speedHint" }}">{{ localize "fs4.species.fields.speed" }}</label>
+                            <input name="system.speed" type="text" value="{{system.speed}}"
+                                placeholder="{{ localize "fs4.species.fields.speed" }}" />
+                        </div>
+                    </section>
+                </div>
+            </section>
+
+            <section class="flexcol">
+                <h2>{{ localize "fs4.character.fields.capabilities" }}</h2>
+                <div class="form-group">
+                    {{editor
+                        capabilities
+                        engine="prosemirror"
+                        button=true
+                        target="system.capabilities"
+                    }}
+                </div>
+            </section>
+
+            <section class="flexcol">
+                <h2>{{ localize "fs4.character.fields.perks" }}</h2>
+                <div class="form-group">
+                    {{editor
+                        perks
+                        engine="prosemirror"
+                        button=true
+                        target="system.perks"
+                    }}
+                </div>
+            </section>
+
+            <section class="flexcol">
+                <h2>{{ localize "fs4.fields.description" }}</h2>
+                <div class="form-group">
+                    {{editor
+                        description
+                        engine="prosemirror"
+                        button=true
+                        target="system.description"
+                    }}
+                </div>
+            </section>
+        </section> <!-- end of background tab -->
+
+        <section class="tab" data-group="primary" data-tab="equipment">
+            <h3>{{ localize "fs4.character.fields.armor" }}</h3>
+            <div class="flexrow  centered highlight-labels">
+                <div class="flexcol">
+                    <div class="form-group">
+                        <label class="flex1" for="system.armor.name">{{ localize "fs4.character.fields.armor" }}</label>
+                        <input name="system.armor.name" type="text" value="{{system.armor.name}}" />
+                    </div>
+                    <div class="flexrow">
+                        {{#each armor}}
+                            <span
+                                class="armor-type {{#if this.checked}}active{{else}}inactive{{/if}}"
+                                data-type="{{this.type}}"
+                                title="{{ localize (concat "fs4.armorTypes." this.type) }}"
+                            >
+                                {{ localize (concat "fs4.armorTypes.abbr." this.type) }}
+                            </span>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <div class="flexcol">
+                    <div class="form-group">
+                        <label for="system.eshield.name">{{ localize "fs4.character.fields.eshield" }}</label>
+                        <input name="system.eshield.name" type="text" value="{{system.eshield.name}}" />
+                    </div>
+                    <div class="flexrow">
+                        <div class="form-group">
+                            <label class="flex1" for="system.eshield.hits">{{ localize "fs4.eshield.hits" }}</label>
+                            <input class="short" name="system.eshield.hits" type="number" value="{{system.eshield.hits}}" />
+                        </div>
+                        <div class="form-group">
+                            <label>{{ localize "fs4.eshield.thresholds" }}</label>
+                            <input class="short" name="system.eshield.thresholdMin" type="number" value="{{system.eshield.thresholdMin}}" />
+                            <span class="centered">&nbsp-&nbsp</span>
+                            <input class="short" name="system.eshield.thresholdMax" type="number" value="{{system.eshield.thresholdMax}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>{{ localize "fs4.character.fields.weapons" }}</h3>
+            <div class="flexcol">
+                <div class="flexrow">
+                    <input class="fake-label long-inline" type="text"
+                        placeholder={{ localize "fs4.fields.name" }} readonly aria-readonly="true"/>
+                    <input class="fake-label short" type="text"
+                        placeholder={{ localize "fs4.weapons.fields.tl" }} readonly aria-readonly="true"/>
+                    <input class="fake-label short" type="text"
+                        placeholder={{ localize "fs4.weapons.fields.goal" }} readonly aria-readonly="true"/>
+                    <input class="fake-label short" type="text"
+                        placeholder={{ localize "fs4.weapons.fields.damage" }} readonly aria-readonly="true"/>
+                    <input class="fake-label short" type="text"
+                        placeholder={{ localize "fs4.weapons.fields.str" }} readonly aria-readonly="true"/>
+                    <input class="fake-label short" type="text"
+                        placeholder={{ localize "fs4.weapons.fields.range" }} readonly aria-readonly="true"/>
+                    <input class="fake-label short" type="text"
+                        placeholder={{ localize "fs4.weapons.fields.rof" }} readonly aria-readonly="true"/>
+                    <input class="fake-label short" type="text"
+                        placeholder={{ localize "fs4.weapons.fields.ammo" }} readonly aria-readonly="true"/>
+                    <input class="fake-label long-inline" type="text"
+                        placeholder={{ localize "fs4.weapons.fields.features" }} readonly aria-readonly="true"/>
+                </div>
+
+                {{#each weapons}}
+                    {{> "fs4.weapon"
+                        weapon=this.weapon
+                        key=this.key
+                    }}
+                {{/each}}
+            </div>
+
+            <h3>{{ localize "fs4.character.fields.equipment" }}</h3>
+            <div class="flexrow">
+                {{editor
+                    equipment
+                    engine="prosemirror"
+                    button=true
+                    target="system.equipment"
+                }}
+            </div>
+        </section> <!-- end of equipment tab -->
+    </section>
+</form>

@@ -1,8 +1,13 @@
+.editor.prosemirror {
+  min-height: 5em;
+}
+
 .editor-container {
-  min-height: 200px;
+  min-height: 10em;
 }
 
 .editor-content {
+  min-height: 5em;
   padding-top: 0.2em;
   padding-bottom: 0.2em;
 
@@ -12,7 +17,7 @@
   }
 }
 
-aside.item-type {
+aside.document-type {
   font-weight: bold;
   font-size: 1.2em;
   flex: 0 0 auto;
@@ -25,7 +30,7 @@ aside.item-type {
   gap: 0.2em;
 }
 
-.item-name {
+.document-name {
   flex: 1;
   margin: 0;
 
@@ -33,5 +38,119 @@ aside.item-type {
     width: 100%;
     margin-left: 0 !important;
     margin-right: 0 !important;
+  }
+}
+
+.characteristics {
+  hr {
+    margin: 1px;
+  }
+
+  .form-group {
+    margin: 0;
+  }
+
+  label {
+    padding-left: 1em;
+  }
+}
+
+.skills {
+  .form-group {
+    margin: 0;
+  }
+
+  label {
+    padding-left: 0.5em;
+  }
+}
+
+.score {
+  input[type="number"] {
+    max-width: 2em;
+    text-align: center;
+  }
+}
+
+.maneuver {
+  input.name {
+    max-width: 30%;
+  }
+}
+
+.maneuver.form-group {
+  margin: 1px;
+}
+
+input.goal {
+  max-width: 3em;
+  text-align: center;
+}
+
+input[type="text"].long-inline {
+  font-size: 0.8em;
+}
+
+input[type="text"].xlong-inline {
+  font-size: 0.7em;
+}
+
+input.short {
+  font-size: 0.8em;
+  max-width: 3em;
+  text-align: center;
+}
+
+input.range {
+  font-size: 0.8em;
+  max-width: 4em;
+  text-align: center;
+}
+
+.centered {
+  text-align: center;
+}
+
+.highlight-labels {
+  label {
+    font-weight: bold;
+  }
+}
+
+label.flex5 {
+  flex: 5 !important;
+}
+
+.armor-type {
+  border: grey 1px solid;
+  border-radius: 20%;
+  text-align: center;
+  align-content: center;
+}
+
+.armor-type.active {
+  color: green;
+  border-color: green;
+}
+
+.armor-type.inactive {
+  color: grey;
+  border-color: grey;
+}
+
+label.flex1 {
+  flex: 1 !important;
+}
+
+input.fake-label {
+  border: none;
+  background-color: transparent;
+  font-weight: bold;
+  text-align: center;
+  user-select: none;
+  cursor: default;
+
+  &:focus {
+    outline: none;
   }
 }

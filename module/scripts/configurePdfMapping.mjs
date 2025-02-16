@@ -188,8 +188,7 @@ const generateSkillLabelMapping = (rollSkillMacroId) => {
 
 export const configurePdfMapping = () => {
   const rollSkillMacro = game.macros.find(
-    (macro) =>
-      macro.getFlag("fading-suns-4th-edition", "rollSkillFromSheet") === true
+    (macro) => macro.getFlag("fs4", "rollSkillFromSheet") === true
   );
 
   let mapping = actorMapping;

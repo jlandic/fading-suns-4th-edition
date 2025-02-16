@@ -1,11 +1,33 @@
 {
+  "TYPES": {
+    "Actor": {
+      "character": "Personnage"
+    },
+    "Item": {
+      "faction": "Faction",
+      "perk": "Avantage",
+      "capability": "Aptitude",
+      "calling": "Vocation",
+      "class": "Classe",
+      "species": "Espèce"
+    }
+  },
   "fs4": {
     "sheets": {
       "ItemSheetFS4": "Fiche d'item",
-      "PerkSheetFS4": "Fiche d'avantage"
+      "PerkSheetFS4": "Fiche d'avantage",
+      "tabs": {
+        "stats": "Stats",
+        "identity": "Identité",
+        "equipment": "Équipement"
+      }
     },
     "fields": {
-      "description": "Description"
+      "description": "Description",
+      "mod": "Mod.",
+      "value": "Valeur",
+      "amount": "Nombre",
+      "name": "Nom"
     },
     "characteristics": {
       "strength": "Force",
@@ -50,10 +72,28 @@
     "species": {
       "fields": {
         "size": "Taille",
-        "speed": "Vitesse",
+        "speed": "Mvt.",
         "speedHint": "En mètres par tour",
         "threeSpeedsHint": "Respectivement: à 2, 4 et 6 pattes"
       }
+    },
+    "armorTypes": {
+      "abbr": {
+        "blstr": "Blast.",
+        "flm": "Feu",
+        "hrd": "Perf.",
+        "lsr": "Laser",
+        "shk": "Choc",
+        "slm": "Impct.",
+        "son": "Son."
+      },
+      "blstr": "Blaster",
+      "flm": "Feu",
+      "hrd": "Perforant",
+      "lsr": "Laser",
+      "shk": "Choc",
+      "slm": "Impact",
+      "son": "Sonique"
     },
     "capabilities": {
       "reserved": "Réservée",
@@ -114,7 +154,45 @@
         "capabilities": "Aptitudes",
         "perk": "Avantage",
         "perks": "Avantages",
-        "skills": "Compétences"
+        "skills": "Compétences",
+        "faction": "Faction",
+        "level": "Niveau",
+        "vitality": "Vitalité",
+        "revivals": "Seconds souffles",
+        "size": "Taille",
+        "speed": "Mvt.",
+        "rank": "Rang",
+        "bank": "Banque",
+        "vp": "PV",
+        "wp": "PW",
+        "surge": "Adrénaline",
+        "psi": "Psi",
+        "urge": "Pulsion",
+        "theurgy": "Théurgie",
+        "hubris": "Hybris",
+        "armor": "Armure",
+        "eshield": "Bouclier-e",
+        "weapons": "Armes",
+        "res": {
+          "resistance": "Résistance",
+          "body": "Corps",
+          "mind": "Mental",
+          "spirit": "Esprit"
+        },
+        "maneuvers": "Manœuvres"
+      }
+    },
+    "eshield": {
+      "hits": "Coups",
+      "thresholds": "Seuils",
+      "min": "Min",
+      "max": "Max"
+    },
+    "maneuvers": {
+      "fields": {
+        "name": "Nom",
+        "goal": "Cible",
+        "impact": "Impact"
       }
     },
     "itemTypes": {
@@ -125,6 +203,9 @@
       "calling": "Vocation",
       "class": "Classe",
       "species": "Espèce"
+    },
+    "actorTypes": {
+      "character": "Personnage"
     },
     "factions": {
       "fields": {
@@ -390,6 +471,18 @@
       "special_see_with_gm": "Voir avec le mj",
       "well_traveled": "Voyageur expérimenté",
       "temporary_autonomous_zone": "Zone autonome temporaire"
+    },
+    "weapons": {
+      "fields": {
+        "tl": "NT",
+        "goal": "Cible",
+        "damage": "Dég.",
+        "str": "For.",
+        "range": "Port.",
+        "rof": "CdT",
+        "ammo": "Mun.",
+        "features": "Particularités"
+      }
     },
     "dialog": {
       "rollSkill": {

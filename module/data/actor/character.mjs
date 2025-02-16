@@ -19,7 +19,8 @@ import {
 } from "../fields/character.mjs";
 import CreatureTemplate from "./templates/creature.mjs";
 
-const { StringField, NumberField, SchemaField } = foundry.data.fields;
+const { StringField, NumberField, SchemaField, HTMLField } =
+  foundry.data.fields;
 
 export default class CharacterData extends CreatureTemplate {
   static _systemType = "character";
@@ -45,9 +46,7 @@ export default class CharacterData extends CreatureTemplate {
       faction: new StringField(),
       blessing: new StringField(),
       curse: new StringField(),
-      calling1: new StringField(),
-      calling2: new StringField(),
-      calling3: new StringField(),
+      calling: new StringField(),
       // Characteristics
       characteristics: characteristics(),
       // Skills
@@ -59,7 +58,7 @@ export default class CharacterData extends CreatureTemplate {
       urge: new NumberField({
         ...defaultNumberFieldOptions(0),
       }),
-      theury: new NumberField({
+      theurgy: new NumberField({
         ...defaultNumberFieldOptions(0),
       }),
       hubris: new NumberField({
@@ -81,8 +80,8 @@ export default class CharacterData extends CreatureTemplate {
       }),
       maneuvers: indexedMap(9, maneuver),
       bank: bank(),
-      perks: new StringField(),
-      capabilities: new StringField(),
+      perks: new HTMLField(),
+      capabilities: new HTMLField(),
       birthrights: new StringField(),
       techgnosis: new NumberField({
         ...defaultNumberFieldOptions(),
@@ -107,9 +106,9 @@ export default class CharacterData extends CreatureTemplate {
     return (
       this.size +
       this.level +
-      this.characteristics.end +
-      this.characteristics.wil +
-      this.characteristics.fth
+      this.characteristics.endurance +
+      this.characteristics.will +
+      this.characteristics.faith
     );
   }
 
@@ -124,9 +123,9 @@ export default class CharacterData extends CreatureTemplate {
   get surgeRating() {
     return (
       Math.max(
-        this.characteristics.str,
-        this.characteristics.wit,
-        this.characteristics.pre
+        this.characteristics.strength,
+        this.characteristics.wits,
+        this.characteristics.presence
       ) + this.level
     );
   }

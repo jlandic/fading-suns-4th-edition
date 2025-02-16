@@ -2,7 +2,8 @@ import { ARMOR_TYPES } from "../../registry/armorTypes.mjs";
 import { CHARACTERISTICS } from "../../registry/characteristics.mjs";
 import { RESERVED_SKILLS, SKILLS } from "../../registry/skills.mjs";
 
-const { NumberField, SchemaField, StringField } = foundry.data.fields;
+const { NumberField, SchemaField, StringField, BooleanField } =
+  foundry.data.fields;
 
 const DEFAULT_CHARACTERISTIC_SCORE = 3;
 const DEFAULT_SKILL_SCORE = 3;
@@ -76,7 +77,9 @@ export const armor = () =>
     ...ARMOR_TYPES.reduce(
       (acc, item) => ({
         ...acc,
-        [item]: new StringField(),
+        [item]: new BooleanField({
+          initial: false,
+        }),
       }),
       {}
     ),

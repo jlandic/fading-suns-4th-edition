@@ -47,6 +47,8 @@ export default [
         loadTemplates: "readonly",
         Handlebars: "readonly",
         DragDrop: "readonly",
+        ActorSheet: "readonly",
+        Actors: "readonly",
       },
 
       parser: babelParser,

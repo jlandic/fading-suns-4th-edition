@@ -1,6 +1,6 @@
 {
   "title": "Fading Suns 4th Edition",
-  "id": "fading-suns-4th-edition",
+  "id": "fs4",
   "name": "fading-suns-4th-edition",
   "version": "0.0.1",
   "compatibility": {
@@ -10,7 +10,14 @@
   "author": "@jlandic",
   "esmodules": ["fs4.mjs"],
   "styles": ["dist/fs4.css"],
-  "packs": [],
+  "packs": [
+    {
+      "name": "fs4-character-creation",
+      "type": "Item",
+      "path": "packs/fs4-character-creation",
+      "label": "[FS4] Création de persos"
+    }
+  ],
   "languages": [
     {
       "lang": "fr",

@@ -4,13 +4,16 @@ import * as documents from "./module/documents/_module.mjs";
 import { rollSkill } from "./module/scripts/rollSkill.mjs";
 import { skillFromLabel } from "./module/registry/pdfLabelMapping.mjs";
 import PerkSheetFS4 from "./module/sheets/item/perk-sheet.mjs";
-import * as utils from "./module/utils.mjs";
 import CapabilitySheetFS4 from "./module/sheets/item/capability-sheet.mjs";
 import CallingSheetFS4 from "./module/sheets/item/calling-sheet.mjs";
 import ClassSheetFS4 from "./module/sheets/item/class-sheet.mjs";
 import FactionSheetFS4 from "./module/sheets/item/faction-sheet.mjs";
 import { registerHandlebarsHelpers } from "./module/handlebarHelpers.mjs";
 import SpeciesSheetFS4 from "./module/sheets/item/species-sheet.mjs";
+import { preloadTemplates } from "./module/utils/configureTemplates.mjs";
+import { FSID } from "./module/utils/FSID.mjs";
+import { importJson } from "./module/scripts/importJson.mjs";
+import CharacterSheetFS4 from "./module/sheets/actor/character-sheet.mjs";
 
 globalThis.fs4 = {
   dataModels,
@@ -27,6 +30,12 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels = dataModels.item.config;
   CONFIG.Item.documentClass = documents.ItemFS4;
 
+  Actors.unregisterSheet("core", ActorSheet);
+  Actors.registerSheet("fs4", CharacterSheetFS4, {
+    types: ["character"],
+    label: "FS4.sheets.CharacterSheetFS4",
+    makeDefault: true,
+  });
   DocumentSheetConfig.unregisterSheet(Item, "core", ItemSheet);
   DocumentSheetConfig.registerSheet(Item, "fs4", PerkSheetFS4, {
     label: "FS4.sheets.PerkSheetFS4",
@@ -53,8 +62,9 @@ Hooks.once("init", () => {
     types: ["species"],
   });
 
-  utils.preloadTemplates();
+  preloadTemplates();
   registerHandlebarsHelpers();
+  FSID.init();
 });
 
 Hooks.once("ready", async () => {
@@ -72,6 +82,7 @@ Hooks.once("ready", async () => {
 
     window.fs4.scripts.configurePdfMapping = configurePdfMapping;
     window.fs4.scripts.rollSkill = rollSkill;
+    window.fs4.scripts.importJson = importJson;
 
     window.fs4.utils = {
       skillFromLabel,
@@ -92,7 +103,7 @@ Hooks.once("ready", async () => {
         command:
           "window.fs4.scripts.rollSkill(window.fs4.utils.skillFromLabel(label))",
         flags: {
-          "fading-suns-4th-edition.rollSkillFromSheet": true,
+          "fs4.rollSkillFromSheet": true,
         },
       },
       {
@@ -100,6 +111,12 @@ Hooks.once("ready", async () => {
         type: "script",
         folder: rootFolder.id,
         command: "window.fs4.scripts.rollSkill()",
+      },
+      {
+        name: "Import JSON",
+        type: "script",
+        folder: rootFolder.id,
+        command: "window.fs4.scripts.importJson()",
       },
     ];
 

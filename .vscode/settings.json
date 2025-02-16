@@ -4,6 +4,7 @@
   "editor.renderWhitespace": "all",
   "html.format.indentHandlebars": true,
   "[handlebars]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": false
   }
 }

@@ -9,3 +9,9 @@ export const CHARACTERISTICS = [
   "intuition",
   "faith",
 ];
+
+export const CHARACTERISTIC_GROUPS = {
+  body: ["strength", "dexterity", "endurance"],
+  mind: ["wits", "perception", "will"],
+  spirit: ["presence", "intuition", "faith"],
+};

@@ -14,7 +14,7 @@ export default class ItemSheetFS4 extends ItemSheet {
   }
 
   get template() {
-    return `systems/fading-suns-4th-edition/templates/item/${this.item.type}.hbs`;
+    return `systems/fs4/templates/item/${this.item.type}.hbs`;
   }
 
   async getData(options) {
