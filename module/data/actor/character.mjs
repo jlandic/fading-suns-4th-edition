@@ -82,18 +82,15 @@ export default class CharacterData extends CreatureTemplate {
       bank: bank(),
       perks: new HTMLField(),
       capabilities: new HTMLField(),
-      birthrights: new StringField(),
       techgnosis: new NumberField({
         ...defaultNumberFieldOptions(),
       }),
       // Belongings
-      items: indexedMap(8, item),
       weapons: indexedMap(5, weapon),
-      ownership: indexedMap(6, ownership),
+      equipment: new HTMLField(),
       cash: new NumberField({
         ...defaultNumberFieldOptions(0),
       }),
-      assets: indexedMap(4, asset),
       notes: new StringField(),
     });
   }

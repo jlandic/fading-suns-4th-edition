@@ -3,8 +3,8 @@ import { SKILLS } from "../registry/skills.mjs";
 
 const { getProperty } = foundry.utils;
 
-export const rollSkill = (selectedSkill) => {
-  const actor = canvas.tokens.controlled[0]?.actor;
+export const rollSkill = (selectedSkill, sourceActor = undefined) => {
+  const actor = sourceActor || canvas.tokens.controlled[0]?.actor;
 
   if (actor == null) {
     ui.notifications.error(
@@ -77,6 +77,9 @@ export const rollSkill = (selectedSkill) => {
           const skillValue = getProperty(actor, `system.skills.${skill}`);
 
           let roll = await new Roll("1d20").roll();
+          if (game.dice3d) {
+            await game.dice3d.showForRoll(roll, game.user, true);
+          }
           let rollResult = roll.total;
           let target = characteristicValue + skillValue;
 
@@ -106,7 +109,7 @@ export const rollSkill = (selectedSkill) => {
 
           if (pv > 0) {
             message += `<p><strong>${game.i18n.localize(
-              "fs4.character.pv"
+              "fs4.character.fields.pv"
             )}:</strong> ${pv}</p>`;
 
             if (rollResult == target) {

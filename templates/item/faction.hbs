@@ -2,9 +2,9 @@
     {{> "fs4.sheet-header" document=item documentType=itemType }}
 
     <div class="span">
-        <em>{{ localize "fs4.itemTypes.class" }} :</em>
+        <em>{{ localize "TYPES.Item.class" }} :</em>
         {{#if system.class}}
-            {{ localize (concat "fs4.classes." system.class.name) }}
+            {{ localize (concat "fs4.classes." system.class.system.id) }}
         {{else}}
             {{ localize "fs4.classes.unknown" }}
         {{/if}}

@@ -27,7 +27,7 @@ export default class FactionSheetFS4 extends ItemSheetFS4 {
 
       characteristics: item.system.characteristics.map((characteristicBundle) =>
         characteristicBundle
-          .map(({ key, value }) => {
+          .map(({ name: key, value }) => {
             const name = game.i18n.localize(`fs4.characteristics.${key}`);
             return `${name} +${value}`;
           })
@@ -35,7 +35,7 @@ export default class FactionSheetFS4 extends ItemSheetFS4 {
       ),
       skills: item.system.skills.map((skillBundle) =>
         skillBundle
-          .map(({ key, value }) => {
+          .map(({ name: key, value }) => {
             const name = game.i18n.localize(`fs4.skills.${key}`);
             return `${name} +${value}`;
           })

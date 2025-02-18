@@ -3,7 +3,14 @@ export default class ActorFS4 extends Actor {
     this.update({
       [`system.armor.${armorType}`]: !this.system.armor[armorType],
     });
+  }
 
-    console.log(this.system.armor);
+  emptyCache() {
+    this.update({
+      "system.bank.vp": Math.min(
+        this.system.bankCapacity - this.system.bank.wp,
+        this.system.bank.vp
+      ),
+    });
   }
 }

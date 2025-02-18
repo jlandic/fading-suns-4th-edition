@@ -9,9 +9,7 @@ export default class ClassSheetFS4 extends ItemSheetFS4 {
       .map((perk) => `<li>@UUID[Item.${perk.id}]</li>`)
       .join("");
     if (perkText === "") {
-      perkText = `<li>${game.i18n.localize(
-        "fs4.perks.special_see_with_gm"
-      )}</li>`;
+      perkText = `<li>${game.i18n.localize("fs4.perks.seeWithGm")}</li>`;
     }
     const factionText = item.system.factions
       .map((faction) => `<li>@UUID[Item.${faction.id}]</li>`)

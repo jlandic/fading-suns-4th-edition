@@ -26,7 +26,7 @@ export default class ItemSheetFS4 extends ItemSheet {
       source: source.system,
       system: item.system,
       user: game.user,
-      itemType: game.i18n.localize(`fs4.itemTypes.${this.item.type}`),
+      itemType: game.i18n.localize(`TYPES.Item.${this.item.type}`),
     });
 
     return context;

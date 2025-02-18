@@ -5,6 +5,7 @@
         <a class="item" data-tab="stats">{{ localize "fs4.sheets.tabs.stats" }}</a>
         <a class="item" data-tab="identity">{{ localize "fs4.sheets.tabs.identity" }}</a>
         <a class="item" data-tab="equipment">{{ localize "fs4.sheets.tabs.equipment" }}</a>
+        <a class="item" data-tab="notes">{{ localize "fs4.sheets.tabs.notes" }}</a>
     </nav>
 
     <section class="sheet-body">
@@ -20,6 +21,7 @@
                                     label=this.localizedName
                                     value=this.actorValue
                                     key=this.key
+                                    dataRoll=this.dataRoll
                                 }}
                             {{/each}}
                         </section>
@@ -30,6 +32,7 @@
                                     label=this.localizedName
                                     value=this.actorValue
                                     key=this.key
+                                    dataRoll=this.dataRoll
                                 }}
                             {{/each}}
                         </section>
@@ -134,8 +137,14 @@
 
             <section class="flexrow centered highlight-labels">
                 <div class="flexcol">
-                    <label for="system.bank.vp">{{ localize "fs4.character.fields.bank" }} ({{ system.bankCapacity }})</label>
-                    <div class="flexrow centered">
+                    <label for="system.bank.vp">
+                        {{ localize "fs4.character.fields.bank" }} ({{ system.bankCapacity }})
+                    </label>
+                    <div class="flexrow centered bank">
+                        <img id="empty-cache"
+                            src="icons/svg/cancel.svg"
+                            title="{{ localize "fs4.character.emptyCache" }}"
+                        />
                         <input name="system.bank.vp" type="number" value="{{system.bank.vp}}" />
                         <input name="system.bank.wp" type="number" value="{{system.bank.wp}}" />
                     </div>
@@ -253,6 +262,18 @@
         </section> <!-- end of background tab -->
 
         <section class="tab" data-group="primary" data-tab="equipment">
+            <div class="flexrow centered highlight-labels">
+                <div class="form-group">
+                    <label for="system.cash">{{ localize "fs4.character.fields.cash" }}</label>
+                    <input name="system.cash" type="number" value="{{system.cash}}" />
+                </div>
+
+                <div class="form-group">
+                    <label for="system.techGnosis">{{ localize "fs4.character.fields.techGnosis" }}</label>
+                    <input name="system.techGnosis" type="number" value="{{system.techGnosis}}" />
+                </div>
+            </div>
+
             <h3>{{ localize "fs4.character.fields.armor" }}</h3>
             <div class="flexrow  centered highlight-labels">
                 <div class="flexcol">
@@ -306,7 +327,7 @@
                         placeholder={{ localize "fs4.weapons.fields.damage" }} readonly aria-readonly="true"/>
                     <input class="fake-label short" type="text"
                         placeholder={{ localize "fs4.weapons.fields.str" }} readonly aria-readonly="true"/>
-                    <input class="fake-label short" type="text"
+                    <input class="fake-label range" type="text"
                         placeholder={{ localize "fs4.weapons.fields.range" }} readonly aria-readonly="true"/>
                     <input class="fake-label short" type="text"
                         placeholder={{ localize "fs4.weapons.fields.rof" }} readonly aria-readonly="true"/>
@@ -334,5 +355,14 @@
                 }}
             </div>
         </section> <!-- end of equipment tab -->
+
+        <section class="tab" data-group="primary" data-tab="notes">
+            {{editor
+                notes
+                engine="prosemirror"
+                button=true
+                target="system.notes"
+            }}
+        </section>
     </section>
 </form>

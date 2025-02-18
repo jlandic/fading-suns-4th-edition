@@ -9,9 +9,7 @@ export default class CallingSheetFS4 extends ItemSheetFS4 {
       .map((perk) => `<li>@UUID[Item.${perk.id}]</li>`)
       .join("");
     if (perkText === "") {
-      perkText = `<li>${game.i18n.localize(
-        "fs4.perks.special_see_with_gm"
-      )}</li>`;
+      perkText = `<li>${game.i18n.localize("fs4.perks.seeWithGm")}</li>`;
     }
 
     foundry.utils.mergeObject(context, {
@@ -60,19 +58,5 @@ export default class CallingSheetFS4 extends ItemSheetFS4 {
     });
 
     return context;
-  }
-
-  activateEventListeners(html) {
-    super.activateEventListeners(html);
-
-    html.on("drop", "form", this._onDrop.bind(this));
-  }
-
-  async _onDrop(event) {
-    let data = event.dataTransfer.getData("text/plain");
-
-    console.log(data);
-
-    await super._onDrop(event);
   }
 }

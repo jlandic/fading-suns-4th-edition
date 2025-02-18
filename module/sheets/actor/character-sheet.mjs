@@ -1,6 +1,7 @@
 import { ARMOR_TYPES } from "../../registry/armorTypes.mjs";
 import { CHARACTERISTIC_GROUPS } from "../../registry/characteristics.mjs";
 import { SKILLS } from "../../registry/skills.mjs";
+import { rollSkill } from "../../scripts/rollSkill.mjs";
 
 export default class CharacterSheetFS4 extends ActorSheet {
   static get defaultOptions() {
@@ -30,6 +31,7 @@ export default class CharacterSheetFS4 extends ActorSheet {
       key: `skills.${name}`,
       localizedName: game.i18n.localize(`fs4.skills.${name}`),
       actorValue: actor.system.skills[name],
+      dataRoll: name,
     })).sort((a, b) => a.localizedName.localeCompare(b.localizedName));
 
     foundry.utils.mergeObject(context, {
@@ -39,6 +41,9 @@ export default class CharacterSheetFS4 extends ActorSheet {
       actorType: game.i18n.localize(`fs4.actorTypes.${this.actor.type}`),
 
       description: await TextEditor.enrichHTML(actor.system.description, {
+        async: true,
+      }),
+      notes: await TextEditor.enrichHTML(actor.system.notes, {
         async: true,
       }),
       perks: await TextEditor.enrichHTML(actor.system.perks, {
@@ -105,6 +110,8 @@ export default class CharacterSheetFS4 extends ActorSheet {
     });
 
     html.on("click", ".armor-type", this._toggleArmorType.bind(this));
+    html.on("click", ".rollable", this._onRoll.bind(this));
+    html.on("click", "#empty-cache", this._emptyCache.bind(this));
   }
 
   _toggleArmorType(event) {
@@ -112,5 +119,18 @@ export default class CharacterSheetFS4 extends ActorSheet {
 
     const type = event.currentTarget.dataset.type;
     this.actor.toggleArmorType(type);
+  }
+
+  _onRoll(event) {
+    event.preventDefault();
+
+    const skill = event.currentTarget.dataset.roll;
+    rollSkill(skill, this.actor);
+  }
+
+  _emptyCache(event) {
+    event.preventDefault();
+
+    this.actor.emptyCache();
   }
 }

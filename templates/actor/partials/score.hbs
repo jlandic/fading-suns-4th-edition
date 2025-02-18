@@ -1,5 +1,14 @@
 <div class="form-group score">
-    <label for="system.{{key}}">{{ label }}</label>
+    {{#if dataRoll}}
+        <img class="rollable"
+            src="icons/svg/d20-highlight.svg"
+            data-roll="{{dataRoll}}"
+            title="{{ localize "fs4.dialog.rollSkill.buttons.roll" }}"
+        />
+    {{/if}}
+    <label for="system.{{key}}">
+        {{ label }}
+    </label>
     <input name="system.{{key}}" type="number" value="{{value}}" />
 
     {{#if modKey}}

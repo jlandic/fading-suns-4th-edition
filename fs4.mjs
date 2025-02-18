@@ -8,11 +8,9 @@ import CapabilitySheetFS4 from "./module/sheets/item/capability-sheet.mjs";
 import CallingSheetFS4 from "./module/sheets/item/calling-sheet.mjs";
 import ClassSheetFS4 from "./module/sheets/item/class-sheet.mjs";
 import FactionSheetFS4 from "./module/sheets/item/faction-sheet.mjs";
-import { registerHandlebarsHelpers } from "./module/handlebarHelpers.mjs";
+import { registerHandlebarsHelpers } from "./module/utils/handlebarHelpers.mjs";
 import SpeciesSheetFS4 from "./module/sheets/item/species-sheet.mjs";
 import { preloadTemplates } from "./module/utils/configureTemplates.mjs";
-import { FSID } from "./module/utils/FSID.mjs";
-import { importJson } from "./module/scripts/importJson.mjs";
 import CharacterSheetFS4 from "./module/sheets/actor/character-sheet.mjs";
 
 globalThis.fs4 = {
@@ -35,6 +33,10 @@ Hooks.once("init", () => {
     types: ["character"],
     label: "FS4.sheets.CharacterSheetFS4",
     makeDefault: true,
+  });
+  DocumentSheetConfig.registerSheet(Actor, "fs4", CharacterSheetFS4, {
+    label: "FS4.sheets.CharacterSheetFS4",
+    types: ["character"],
   });
   DocumentSheetConfig.unregisterSheet(Item, "core", ItemSheet);
   DocumentSheetConfig.registerSheet(Item, "fs4", PerkSheetFS4, {
@@ -64,7 +66,6 @@ Hooks.once("init", () => {
 
   preloadTemplates();
   registerHandlebarsHelpers();
-  FSID.init();
 });
 
 Hooks.once("ready", async () => {
@@ -82,7 +83,6 @@ Hooks.once("ready", async () => {
 
     window.fs4.scripts.configurePdfMapping = configurePdfMapping;
     window.fs4.scripts.rollSkill = rollSkill;
-    window.fs4.scripts.importJson = importJson;
 
     window.fs4.utils = {
       skillFromLabel,
@@ -111,12 +111,6 @@ Hooks.once("ready", async () => {
         type: "script",
         folder: rootFolder.id,
         command: "window.fs4.scripts.rollSkill()",
-      },
-      {
-        name: "Import JSON",
-        type: "script",
-        folder: rootFolder.id,
-        command: "window.fs4.scripts.importJson()",
       },
     ];
 

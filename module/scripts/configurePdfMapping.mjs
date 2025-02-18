@@ -175,8 +175,6 @@ const actorMapping = {
 };
 
 const generateSkillLabelMapping = (rollSkillMacroId) => {
-  console.log(skillLabels());
-
   return Object.values(skillLabels()).reduce(
     (acc, labelText) => ({
       ...acc,
