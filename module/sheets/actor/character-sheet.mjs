@@ -16,6 +16,12 @@ export default class CharacterSheetFS4 extends ActorSheet {
       width: 560,
       resizable: true,
       classes: ["sheet", "character"],
+      dragDrop: [
+        {
+          dragSelector: ".item-list .item",
+          dropSelector: null,
+        },
+      ],
     });
   }
 
@@ -33,6 +39,8 @@ export default class CharacterSheetFS4 extends ActorSheet {
       actorValue: actor.system.skills[name],
       dataRoll: name,
     })).sort((a, b) => a.localizedName.localeCompare(b.localizedName));
+
+    this._prepareItems(context);
 
     foundry.utils.mergeObject(context, {
       source: source.system,
@@ -112,6 +120,42 @@ export default class CharacterSheetFS4 extends ActorSheet {
     html.on("click", ".armor-type", this._toggleArmorType.bind(this));
     html.on("click", ".rollable", this._onRoll.bind(this));
     html.on("click", "#empty-cache", this._emptyCache.bind(this));
+
+    html.on("click", ".item-edit", (event) => {
+      const itemId = event.currentTarget.closest(".item").dataset.itemId;
+      this.actor.items.get(itemId).sheet.render(true);
+    });
+
+    html.on("click", ".item-delete", (event) => {
+      const li = event.currentTarget.closest(".item");
+      console.log(li.dataset);
+      const item = this.actor.items.get(li.dataset.itemId);
+      item.delete();
+    });
+  }
+
+  async _onDrop(event) {
+    const data = TextEditor.getDragEventData(event);
+    const item = await fromUuid(data.uuid);
+    if (item.type === "maneuver" || item.type === "perk") {
+      this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
+    }
+  }
+
+  _prepareItems(context) {
+    const maneuvers = [];
+    const ownedPerks = [];
+
+    for (let item of context.actor.items) {
+      if (item.type === "maneuver") {
+        maneuvers.push(item);
+      } else if (item.type === "perk") {
+        ownedPerks.push(item);
+      }
+    }
+
+    context.maneuvers = maneuvers;
+    context.ownedPerks = ownedPerks;
   }
 
   _toggleArmorType(event) {

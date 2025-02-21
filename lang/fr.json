@@ -10,7 +10,8 @@
       "calling": "Vocation",
       "class": "Classe",
       "species": "Espèce",
-      "techCompulsion": "Compulsion tech."
+      "techCompulsion": "Compulsion tech.",
+      "maneuver": "Manœuvre"
     }
   },
   "fs4": {
@@ -41,6 +42,12 @@
       "presence": "Présence",
       "intuition": "Intuition",
       "faith": "Foi"
+    },
+    "time": {
+      "instantaneous": "Instantané",
+      "presentTense": "Temps présent",
+      "narrated": "Narration",
+      "specialSeeDescription": "Spécial (cf. description)"
     },
     "skills": {
       "academia": "Érudition",
@@ -195,9 +202,11 @@
     },
     "maneuvers": {
       "fields": {
-        "name": "Nom",
         "goal": "Cible",
-        "impact": "Impact"
+        "impact": "Incidence",
+        "resistance": "Résistance",
+        "time": "Temps",
+        "capability": "Aptitude"
       }
     },
     "actorTypes": {
@@ -233,7 +242,8 @@
         "capability": "Capacité"
       },
       "specialPreconditions": {
-        "open": "Ouvert"
+        "open": "Ouvert",
+        "not_noble": "Non-noble"
       }
     },
     "weapons": {

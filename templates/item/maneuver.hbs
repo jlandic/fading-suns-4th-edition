@@ -1,0 +1,91 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{> "fs4.sheet-header" document=item documentType=itemType }}
+
+    <div class="form-group">
+        <div class="form-fields">
+            <select name="system.characteristic">
+                {{#select system.characteristic}}
+                    {{#each characteristics}}
+                        <option value="{{this.value}}">{{ this.name }}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+
+            <select name="system.skill">
+                {{#select system.skill}}
+                    {{#each skills}}
+                        <option value="{{this.value}}">{{ this.name }}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+
+            <select name="system.time">
+                {{#select system.time}}
+                    {{#each times}}
+                        <option value="{{this.value}}">{{ this.name }}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.fields.description" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                description
+                engine="prosemirror"
+                target="system.description"
+                button=true
+            }}
+        </div>
+    </div>
+
+    <h3>{{ localize "fs4.maneuvers.fields.time" }}</h3>
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                timeDescription
+                engine="prosemirror"
+                target="system.timeDescription"
+                button=true
+            }}
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.maneuvers.fields.capability" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                capability
+                engine="prosemirror"
+                target="system.capability"
+                button=true
+            }}
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.maneuvers.fields.resistance" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                resistance
+                engine="prosemirror"
+                target="system.resistance"
+                button=true
+            }}
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.maneuvers.fields.impact" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                impact
+                engine="prosemirror"
+                target="system.impact"
+                button=true
+            }}
+        </div>
+    </div>
+</form>

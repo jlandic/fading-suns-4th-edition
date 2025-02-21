@@ -6,6 +6,7 @@ const HANDLEBARS_TEMPLATES = [
   "systems/fs4/templates/item/class.hbs",
   "systems/fs4/templates/item/faction.hbs",
   "systems/fs4/templates/item/species.hbs",
+  "systems/fs4/templates/item/maneuver.hbs",
 
   // Actor
   "systems/fs4/templates/actor/character.hbs",

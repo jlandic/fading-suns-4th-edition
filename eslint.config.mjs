@@ -49,6 +49,7 @@ export default [
         DragDrop: "readonly",
         ActorSheet: "readonly",
         Actors: "readonly",
+        fromUuid: "readonly",
       },
 
       parser: babelParser,
