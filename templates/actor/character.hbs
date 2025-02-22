@@ -163,14 +163,34 @@
             </section>
 
             <section class="flexcol maneuvers">
-                <h3>{{ localize "fs4.character.fields.maneuvers" }}</h3>
+                <h3>
+                    {{ localize "fs4.character.fields.maneuvers" }}
 
-                {{#each maneuvers}}
-                    {{> "fs4.maneuver"
-                        key=this.key
-                        value=this.actorValue
-                    }}
-                {{/each}}
+                    <a class="item-control item-add" title="{{ localize "fs4.sheets.add" }}" data-item-type="maneuver">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </h3>
+
+                <ol class="items-list">
+                    {{#each maneuvers as |maneuver id|}}
+                        <li class="item flexrow" data-item-id="{{maneuver.id}}">
+                            <div class="item-name">
+                                <h4>{{maneuver.name}}</h4>
+                            </div>
+
+                            <div>({{ maneuver.goal }})</div>
+
+                            <div class="item-controls flex1">
+                                <a class="item-control item-edit" title="{{ localize "fs4.sheets.edit" }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="item-control item-delete" title="{{ localize "fs4.sheets.delete" }}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </li>
+                    {{/each}}
+                </ol>
             </section>
         </section> <!-- end of stats tab -->
 
@@ -236,17 +256,25 @@
                 </div>
             </section>
 
-            <section class="flexcol">
-                <h2>{{ localize "fs4.character.fields.perks" }}</h2>
-                <div class="form-group">
-                    {{editor
-                        perks
-                        engine="prosemirror"
-                        button=true
-                        target="system.perks"
-                    }}
-                </div>
-            </section>
+            <h2>{{ localize "fs4.character.fields.perks" }} </h2>
+            <ol class="items-list">
+                {{#each perks as |perk id|}}
+                    <li class="item flexrow" data-item-id="{{perk.id}}">
+                        <div class="item-name">
+                            <h4>{{perk.name}}</h4>
+                        </div>
+
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="{{ localize "fs4.sheets.edit" }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="item-control item-delete" title="{{ localize "fs4.sheets.delete" }}">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </li>
+                {{/each}}
+            </ol>
 
             <section class="flexcol">
                 <h2>{{ localize "fs4.fields.description" }}</h2>
@@ -354,26 +382,6 @@
                     target="system.equipment"
                 }}
             </div>
-
-            <h3>{{ localize "fs4.character.fields.equipment" }}</h3>
-            <ol class="items-list">
-                {{#each ownedPerks as |perk id|}}
-                    <li class="item flexrow" data-item-id="{{perk.id}}">
-                        <div class="item-name">
-                            <h4>{{perk.name}}</h4>
-                        </div>
-
-                        <div class="item-controls">
-                            <a class="item-control item-edit" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a class="item-control item-delete" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                {{/each}}
-            </ol>
         </section> <!-- end of equipment tab -->
 
         <section class="tab" data-group="primary" data-tab="notes">

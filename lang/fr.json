@@ -23,7 +23,10 @@
         "identity": "Identité",
         "equipment": "Équipement",
         "notes": "Notes"
-      }
+      },
+      "edit": "Éditer",
+      "delete": "Supprimer",
+      "add": "Ajouter"
     },
     "fields": {
       "description": "Description",

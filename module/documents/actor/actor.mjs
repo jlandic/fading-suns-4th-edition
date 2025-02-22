@@ -13,4 +13,8 @@ export default class ActorFS4 extends Actor {
       ),
     });
   }
+
+  calculateGoal(skill, characteristic) {
+    return this.system.skills[skill] + this.system.characteristics[characteristic];
+  }
 }

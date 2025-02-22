@@ -54,9 +54,6 @@ export default class CharacterSheetFS4 extends ActorSheet {
       notes: await TextEditor.enrichHTML(actor.system.notes, {
         async: true,
       }),
-      perks: await TextEditor.enrichHTML(actor.system.perks, {
-        async: true,
-      }),
       capabilities: await TextEditor.enrichHTML(actor.system.capabilities, {
         async: true,
       }),
@@ -83,10 +80,6 @@ export default class CharacterSheetFS4 extends ActorSheet {
         modKey: `res.${res}.mod`,
         localizedName: game.i18n.localize(`fs4.character.fields.res.${res}`),
         actorValue: actor.system.res[res],
-      })),
-      maneuvers: Object.keys(actor.system.maneuvers).map((index) => ({
-        key: `maneuvers.${index}`,
-        actorValue: actor.system.maneuvers[index],
       })),
       armor: ARMOR_TYPES.map((type) => ({
         type,
@@ -121,14 +114,19 @@ export default class CharacterSheetFS4 extends ActorSheet {
     html.on("click", ".rollable", this._onRoll.bind(this));
     html.on("click", "#empty-cache", this._emptyCache.bind(this));
 
+    html.on("click", ".item-add", async (event) => {
+      const itemType = event.currentTarget.dataset.itemType;
+      await this.actor.createEmbeddedDocuments("Item", [{ name: "Maneuver", type: itemType }]);
+    });
+
     html.on("click", ".item-edit", (event) => {
       const itemId = event.currentTarget.closest(".item").dataset.itemId;
+      console.log(this.actor.items.get)
       this.actor.items.get(itemId).sheet.render(true);
     });
 
     html.on("click", ".item-delete", (event) => {
       const li = event.currentTarget.closest(".item");
-      console.log(li.dataset);
       const item = this.actor.items.get(li.dataset.itemId);
       item.delete();
     });
@@ -144,18 +142,25 @@ export default class CharacterSheetFS4 extends ActorSheet {
 
   _prepareItems(context) {
     const maneuvers = [];
-    const ownedPerks = [];
+    const perks = [];
 
     for (let item of context.actor.items) {
       if (item.type === "maneuver") {
-        maneuvers.push(item);
+        maneuvers.push({
+          ...item,
+          id: item.id,
+          goal: context.actor.calculateGoal(
+            item.system.skill,
+            item.system.characteristic,
+          ),
+        });
       } else if (item.type === "perk") {
-        ownedPerks.push(item);
+        perks.push(item);
       }
     }
 
     context.maneuvers = maneuvers;
-    context.ownedPerks = ownedPerks;
+    context.perks = perks;
   }
 
   _toggleArmorType(event) {
