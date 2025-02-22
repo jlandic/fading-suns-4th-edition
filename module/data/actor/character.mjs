@@ -4,15 +4,12 @@ import {
 } from "../../rules/leveling.mjs";
 import {
   armor,
-  asset,
   bank,
   characteristics,
   defaultNumberFieldOptions,
   eshield,
   indexedMap,
-  item,
   maneuver,
-  ownership,
   res,
   skills,
   weapon,
@@ -81,7 +78,6 @@ export default class CharacterData extends CreatureTemplate {
       maneuvers: indexedMap(9, maneuver),
       bank: bank(),
       perks: new HTMLField(),
-      capabilities: new HTMLField(),
       techgnosis: new NumberField({
         ...defaultNumberFieldOptions(),
       }),

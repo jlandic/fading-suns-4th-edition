@@ -4,18 +4,20 @@
     <div class="form-group">
         <div class="form-fields">
             <select name="system.sourceType">
-                {{#select system.sourceType}}
-                    {{#each sourceTypes}}
-                        <option value="{{this}}">{{ localize (concat "fs4.perks.sourceTypes." this) }}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions
+                    sourceTypes
+                    selected=system.sourceType
+                    nameAttr="value"
+                    labelAttr="name"
+                }}
             </select>
             <select name="system.type">
-                {{#select system.type}}
-                    {{#each types}}
-                        <option value="{{this}}">{{ localize (concat "fs4.perks.types." this) }}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions
+                    types
+                    selected=system.type
+                    nameAttr="value"
+                    labelAttr="name"
+                }}
             </select>
         </div>
     </div>

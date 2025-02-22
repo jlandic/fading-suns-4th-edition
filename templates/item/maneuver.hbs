@@ -4,27 +4,30 @@
     <div class="form-group">
         <div class="form-fields">
             <select name="system.characteristic">
-                {{#select system.characteristic}}
-                    {{#each characteristics}}
-                        <option value="{{this.value}}">{{ this.name }}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions
+                    characteristics
+                    selected=system.characteristic
+                    nameAttr="value"
+                    labelAttr="name"
+                }}
             </select>
 
             <select name="system.skill">
-                {{#select system.skill}}
-                    {{#each skills}}
-                        <option value="{{this.value}}">{{ this.name }}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions
+                    skills
+                    selected=system.skill
+                    nameAttr="value"
+                    labelAttr="name"
+                }}
             </select>
 
             <select name="system.time">
-                {{#select system.time}}
-                    {{#each times}}
-                        <option value="{{this.value}}">{{ this.name }}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions
+                    times
+                    selected=system.time
+                    nameAttr="value"
+                    labelAttr="name"
+                }}
             </select>
         </div>
     </div>

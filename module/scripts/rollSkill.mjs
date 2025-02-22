@@ -70,67 +70,7 @@ export const rollSkill = (selectedSkill, sourceActor = undefined) => {
           const characteristic = html.find("#characteristic").val();
           const skill = selectedSkill || html.find("#skill").val();
 
-          const characteristicValue = getProperty(
-            actor,
-            `system.characteristics.${characteristic}`
-          );
-          const skillValue = getProperty(actor, `system.skills.${skill}`);
-
-          let roll = await new Roll("1d20").roll();
-          if (game.dice3d) {
-            await game.dice3d.showForRoll(roll, game.user, true);
-          }
-          let rollResult = roll.total;
-          let target = characteristicValue + skillValue;
-
-          let pv = rollResult;
-          if (rollResult > target) {
-            pv = 0;
-          }
-
-          let message = `
-            <p>
-              <strong>
-                ${game.i18n.localize(`fs4.characteristics.${characteristic}`)}
-              </strong> (${characteristicValue})
-              +
-              <strong>
-                ${game.i18n.localize(`fs4.skills.${skill}`)}
-              </strong> (${skillValue})
-            </p>
-            <p><strong>${game.i18n.localize(
-              "fs4.rules.target"
-            )}</strong>: ${characteristicValue} + ${skillValue} = ${target}</p>
-
-            <p><strong>${game.i18n.localize(
-              "fs4.dialog.rollSkill.result"
-            )}</strong>: ${rollResult}</p>
-          `;
-
-          if (pv > 0) {
-            message += `<p><strong>${game.i18n.localize(
-              "fs4.character.fields.pv"
-            )}:</strong> ${pv}</p>`;
-
-            if (rollResult == target) {
-              message += `<p><strong>${game.i18n.localize(
-                "fs4.dialog.rollSkill.criticalSuccess"
-              )}!</strong></p>`;
-            }
-          } else if (rollResult == 20) {
-            message += `<strong>${game.i18n.localize(
-              "fs4.dialog.rollSkill.criticalFailure"
-            )}!</strong>`;
-          } else {
-            message += `<strong>${game.i18n.localize(
-              "fs4.dialog.rollSkill.failure"
-            )}</strong>`;
-          }
-
-          ChatMessage.create({
-            speaker: ChatMessage.getSpeaker({ actor }),
-            content: message,
-          });
+          roll(actor, characteristic, skill);
         },
       },
       cancel: {
@@ -139,4 +79,68 @@ export const rollSkill = (selectedSkill, sourceActor = undefined) => {
     },
     default: "roll",
   }).render(true);
+};
+
+export const roll = async (actor, characteristic, skill) => {
+  const characteristicValue = getProperty(
+    actor,
+    `system.characteristics.${characteristic}`
+  );
+  const skillValue = getProperty(actor, `system.skills.${skill}`);
+
+  let roll = await new Roll("1d20").roll();
+  if (game.dice3d) {
+    await game.dice3d.showForRoll(roll, game.user, true);
+  }
+  let rollResult = roll.total;
+  let target = characteristicValue + skillValue;
+
+  let pv = rollResult;
+  if (rollResult > target) {
+    pv = 0;
+  }
+
+  let message = `
+    <p>
+      <strong>
+        ${game.i18n.localize(`fs4.characteristics.${characteristic}`)}
+      </strong> (${characteristicValue})
+      +
+      <strong>
+        ${game.i18n.localize(`fs4.skills.${skill}`)}
+      </strong> (${skillValue})
+    </p>
+    <p><strong>${game.i18n.localize(
+      "fs4.rules.target"
+    )}</strong>: ${characteristicValue} + ${skillValue} = ${target}</p>
+
+    <p><strong>${game.i18n.localize(
+      "fs4.dialog.rollSkill.result"
+    )}</strong>: ${rollResult}</p>
+  `;
+
+  if (pv > 0) {
+    message += `<p><strong>${game.i18n.localize(
+      "fs4.character.fields.pv"
+    )}:</strong> ${pv}</p>`;
+
+    if (rollResult == target) {
+      message += `<p><strong>${game.i18n.localize(
+        "fs4.dialog.rollSkill.criticalSuccess"
+      )}!</strong></p>`;
+    }
+  } else if (rollResult == 20) {
+    message += `<strong>${game.i18n.localize(
+      "fs4.dialog.rollSkill.criticalFailure"
+    )}!</strong>`;
+  } else {
+    message += `<strong>${game.i18n.localize(
+      "fs4.dialog.rollSkill.failure"
+    )}</strong>`;
+  }
+
+  ChatMessage.create({
+    speaker: ChatMessage.getSpeaker({ actor }),
+    content: message,
+  });
 };

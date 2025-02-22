@@ -142,29 +142,6 @@ export const weapon = () =>
     features: new StringField(),
   });
 
-export const item = () =>
-  new SchemaField({
-    name: new StringField(),
-    tl: new NumberField({
-      ...defaultNumberFieldOptions(1),
-    }),
-    size: new NumberField({
-      ...defaultNumberFieldOptions(),
-    }),
-  });
-
-export const ownership = () =>
-  new SchemaField({
-    name: new StringField(),
-    location: new StringField(),
-  });
-
-export const asset = () =>
-  new SchemaField({
-    name: new StringField(),
-    income: new StringField(),
-  });
-
 export const bank = () =>
   new SchemaField({
     vp: new NumberField({

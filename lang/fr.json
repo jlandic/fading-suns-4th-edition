@@ -26,7 +26,8 @@
       },
       "edit": "Éditer",
       "delete": "Supprimer",
-      "add": "Ajouter"
+      "add": "Ajouter",
+      "rollManeuver": "Jet de maneuvre"
     },
     "fields": {
       "description": "Description",

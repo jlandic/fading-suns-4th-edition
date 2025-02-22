@@ -3,6 +3,8 @@ import { CHARACTERISTIC_GROUPS } from "../../registry/characteristics.mjs";
 import { SKILLS } from "../../registry/skills.mjs";
 import { rollSkill } from "../../scripts/rollSkill.mjs";
 
+const DROPABLE_TYPES = ["maneuver", "perk", "capability"];
+
 export default class CharacterSheetFS4 extends ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -52,9 +54,6 @@ export default class CharacterSheetFS4 extends ActorSheet {
         async: true,
       }),
       notes: await TextEditor.enrichHTML(actor.system.notes, {
-        async: true,
-      }),
-      capabilities: await TextEditor.enrichHTML(actor.system.capabilities, {
         async: true,
       }),
 
@@ -111,17 +110,20 @@ export default class CharacterSheetFS4 extends ActorSheet {
     });
 
     html.on("click", ".armor-type", this._toggleArmorType.bind(this));
-    html.on("click", ".rollable", this._onRoll.bind(this));
+    html.on("click", ".rollable-skill", this._onRoll.bind(this));
+    html.on("click", ".rollable-maneuver", this._onRollManeuver.bind(this));
     html.on("click", "#empty-cache", this._emptyCache.bind(this));
 
     html.on("click", ".item-add", async (event) => {
       const itemType = event.currentTarget.dataset.itemType;
-      await this.actor.createEmbeddedDocuments("Item", [{ name: "Maneuver", type: itemType }]);
+      await this.actor.createEmbeddedDocuments("Item", [
+        { name: game.i18n.localize("TYPES.Item.maneuver"), type: itemType },
+      ]);
     });
 
     html.on("click", ".item-edit", (event) => {
       const itemId = event.currentTarget.closest(".item").dataset.itemId;
-      console.log(this.actor.items.get)
+      console.log(this.actor.items.get);
       this.actor.items.get(itemId).sheet.render(true);
     });
 
@@ -135,32 +137,58 @@ export default class CharacterSheetFS4 extends ActorSheet {
   async _onDrop(event) {
     const data = TextEditor.getDragEventData(event);
     const item = await fromUuid(data.uuid);
-    if (item.type === "maneuver" || item.type === "perk") {
-      this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
+    if (DROPABLE_TYPES.includes(item.type)) {
+      await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
+    } else {
+      console.warn("Unsupported item type", item.type);
     }
   }
 
+  static ITEM_PREPARATION = {
+    maneuver: {
+      name: "maneuvers",
+      sort: true,
+      prepare: (actor, item) => ({
+        ...item,
+        id: item.id,
+        goal: actor.calculateGoal(
+          item.system.skill,
+          item.system.characteristic
+        ),
+        validStats: item.system.skill && item.system.characteristic,
+      }),
+    },
+    perk: {
+      name: "perks",
+      sort: true,
+    },
+    capability: {
+      name: "capabilities",
+      sort: true,
+    },
+  };
+
   _prepareItems(context) {
-    const maneuvers = [];
-    const perks = [];
+    Object.keys(CharacterSheetFS4.ITEM_PREPARATION).forEach((type) => {
+      context[CharacterSheetFS4.ITEM_PREPARATION[type].name] = [];
+    });
 
     for (let item of context.actor.items) {
-      if (item.type === "maneuver") {
-        maneuvers.push({
-          ...item,
-          id: item.id,
-          goal: context.actor.calculateGoal(
-            item.system.skill,
-            item.system.characteristic,
-          ),
-        });
-      } else if (item.type === "perk") {
-        perks.push(item);
+      if (CharacterSheetFS4.ITEM_PREPARATION[item.type]) {
+        const { name, prepare } = CharacterSheetFS4.ITEM_PREPARATION[item.type];
+        const preparedItem = prepare
+          ? prepare(context.actor, item)
+          : { ...item.toObject(), id: item._id };
+
+        context[name].push(preparedItem);
       }
     }
 
-    context.maneuvers = maneuvers;
-    context.perks = perks;
+    Object.values(CharacterSheetFS4.ITEM_PREPARATION).find(({ name, sort }) => {
+      if (sort) {
+        context[name].sort((a, b) => a.name.localeCompare(b.name));
+      }
+    });
   }
 
   _toggleArmorType(event) {
@@ -175,6 +203,14 @@ export default class CharacterSheetFS4 extends ActorSheet {
 
     const skill = event.currentTarget.dataset.roll;
     rollSkill(skill, this.actor);
+  }
+
+  _onRollManeuver(event) {
+    event.preventDefault();
+
+    console.log(event.currentTarget.dataset);
+    const maneuverId = event.currentTarget.dataset.maneuverId;
+    this.actor.rollManeuver(maneuverId);
   }
 
   _emptyCache(event) {

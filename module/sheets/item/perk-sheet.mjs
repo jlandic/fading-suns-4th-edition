@@ -32,8 +32,14 @@ export default class PerkSheetFS4 extends ItemSheetFS4 {
         { async: true }
       ),
 
-      types: PERK_TYPES,
-      sourceTypes: PERK_SOURCE_TYPES,
+      types: PERK_TYPES.map((type) => ({
+        name: game.i18n.localize(`fs4.perks.types.${type}`),
+        value: type,
+      })),
+      sourceTypes: PERK_SOURCE_TYPES.map((sourceType) => ({
+        name: game.i18n.localize(`fs4.perks.sourceTypes.${sourceType}`),
+        value: sourceType,
+      })),
     });
 
     return context;
