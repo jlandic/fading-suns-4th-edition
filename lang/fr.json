@@ -11,13 +11,26 @@
       "class": "Classe",
       "species": "Espèce",
       "techCompulsion": "Compulsion tech.",
-      "maneuver": "Manœuvre"
+      "maneuver": "Manœuvre",
+      "blessing": "Bénédiction",
+      "curse": "Malédiction",
+      "equipment": "Équipement",
+      "weapon": "Arme",
+      "armor": "Armure",
+      "shield": "Bouclier",
+      "affliction": "Affliction",
+      "state": "État"
     }
   },
   "fs4": {
     "sheets": {
       "ItemSheetFS4": "Fiche d'item",
       "PerkSheetFS4": "Fiche d'avantage",
+      "CapabilitySheetFS4": "Fiche d'aptitude",
+      "CallingSheetFS4": "Fiche de vocation",
+      "ClassSheetFS4": "Fiche de classe",
+      "SpeciesSheetFS4": "Fiche d'espèce",
+      "SimpleItemSheetFS4": "Fiche d'item simple",
       "tabs": {
         "stats": "Stats",
         "identity": "Identité",
@@ -165,6 +178,8 @@
         "equipment": "Équipement",
         "calling": "Vocation",
         "capabilities": "Aptitudes",
+        "blessing": "Bénédiction",
+        "curse": "Malédiction",
         "perk": "Avantage",
         "perks": "Avantages",
         "skills": "Compétences",
@@ -188,6 +203,7 @@
         "weapons": "Armes",
         "cash": "Argent",
         "techGnosis": "Tech gnose",
+        "species": "Espèce",
         "res": {
           "resistance": "Résistance",
           "body": "Corps",

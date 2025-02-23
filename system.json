@@ -45,7 +45,16 @@
       "calling": {},
       "class": {},
       "species": {},
-      "maneuver": {}
+      "maneuver": {},
+      "techCompulsion": {},
+      "blessing": {},
+      "curse": {},
+      "equipment": {},
+      "weapon": {},
+      "armor": {},
+      "shield": {},
+      "affliction": {},
+      "state": {}
     }
   }
 }

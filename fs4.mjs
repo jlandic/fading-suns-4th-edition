@@ -13,6 +13,7 @@ import SpeciesSheetFS4 from "./module/sheets/item/species-sheet.mjs";
 import { preloadTemplates } from "./module/utils/configureTemplates.mjs";
 import CharacterSheetFS4 from "./module/sheets/actor/character-sheet.mjs";
 import ManeuverSheetFS4 from "./module/sheets/item/maneuver-sheet.mjs";
+import SimpleItemSheetFS4 from "./module/sheets/item/simple-item-sheet.mjs";
 
 globalThis.fs4 = {
   dataModels,
@@ -67,6 +68,10 @@ Hooks.once("init", () => {
   DocumentSheetConfig.registerSheet(Item, "fs4", ManeuverSheetFS4, {
     label: "FS4.sheets.ManeuverSheetFS4",
     types: ["maneuver"],
+  });
+  DocumentSheetConfig.registerSheet(Item, "fs4", SimpleItemSheetFS4, {
+    label: "FS4.sheets.SimpleItemSheetFS4",
+    types: ["blessing", "curse"],
   });
 
   preloadTemplates();

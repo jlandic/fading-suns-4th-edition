@@ -4,6 +4,14 @@ import { SKILLS } from "../../registry/skills.mjs";
 import { rollSkill } from "../../scripts/rollSkill.mjs";
 
 const DROPABLE_TYPES = ["maneuver", "perk", "capability"];
+const LINKED_TYPES = [
+  "class",
+  "faction",
+  "calling",
+  "species",
+  "blessing",
+  "curse",
+];
 
 export default class CharacterSheetFS4 extends ActorSheet {
   static get defaultOptions() {
@@ -43,6 +51,7 @@ export default class CharacterSheetFS4 extends ActorSheet {
     })).sort((a, b) => a.localizedName.localeCompare(b.localizedName));
 
     this._prepareItems(context);
+    this._prepareLinkedItems(context);
 
     foundry.utils.mergeObject(context, {
       source: source.system,
@@ -115,6 +124,8 @@ export default class CharacterSheetFS4 extends ActorSheet {
     html.on("click", "#empty-cache", this._emptyCache.bind(this));
 
     html.on("click", ".item-add", async (event) => {
+      event.preventDefault();
+
       const itemType = event.currentTarget.dataset.itemType;
       await this.actor.createEmbeddedDocuments("Item", [
         { name: game.i18n.localize("TYPES.Item.maneuver"), type: itemType },
@@ -122,12 +133,24 @@ export default class CharacterSheetFS4 extends ActorSheet {
     });
 
     html.on("click", ".item-edit", (event) => {
-      const itemId = event.currentTarget.closest(".item").dataset.itemId;
-      console.log(this.actor.items.get);
+      event.preventDefault();
+
       this.actor.items.get(itemId).sheet.render(true);
+      const itemId = event.currentTarget.closest(".item").dataset.itemId;
+    });
+
+    html.on("click", ".linked-item", async (event) => {
+      event.preventDefault();
+
+      const item = await fromUuid(event.currentTarget.dataset.itemUuid);
+      if (item) {
+        item.sheet.render(true);
+      }
     });
 
     html.on("click", ".item-delete", (event) => {
+      event.preventDefault();
+
       const li = event.currentTarget.closest(".item");
       const item = this.actor.items.get(li.dataset.itemId);
       item.delete();
@@ -139,6 +162,8 @@ export default class CharacterSheetFS4 extends ActorSheet {
     const item = await fromUuid(data.uuid);
     if (DROPABLE_TYPES.includes(item.type)) {
       await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
+    } else if (LINKED_TYPES.includes(item.type)) {
+      await this.actor.update({ [`system.${item.type}`]: data.uuid });
     } else {
       console.warn("Unsupported item type", item.type);
     }
@@ -187,6 +212,18 @@ export default class CharacterSheetFS4 extends ActorSheet {
     Object.values(CharacterSheetFS4.ITEM_PREPARATION).find(({ name, sort }) => {
       if (sort) {
         context[name].sort((a, b) => a.name.localeCompare(b.name));
+      }
+    });
+  }
+
+  async _prepareLinkedItems(context) {
+    LINKED_TYPES.forEach(async (type) => {
+      const item = await fromUuid(context.actor.system[type]);
+      if (item) {
+        context[type] = {
+          name: item.name,
+          uuid: item.uuid,
+        };
       }
     });
   }
