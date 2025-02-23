@@ -31,6 +31,7 @@
       "ClassSheetFS4": "Fiche de classe",
       "SpeciesSheetFS4": "Fiche d'espèce",
       "SimpleItemSheetFS4": "Fiche d'item simple",
+      "SimpleItemSheetWithTypeFS4": "Fiche d'item simple avec type",
       "tabs": {
         "stats": "Stats",
         "identity": "Identité",
@@ -48,6 +49,13 @@
       "value": "Valeur",
       "amount": "Nombre",
       "name": "Nom"
+    },
+    "state": {
+      "types": {
+        "body": "Physique",
+        "mind": "Mental",
+        "spirit": "Social"
+      }
     },
     "characteristics": {
       "strength": "Force",

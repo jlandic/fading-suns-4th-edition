@@ -14,6 +14,7 @@ import { preloadTemplates } from "./module/utils/configureTemplates.mjs";
 import CharacterSheetFS4 from "./module/sheets/actor/character-sheet.mjs";
 import ManeuverSheetFS4 from "./module/sheets/item/maneuver-sheet.mjs";
 import SimpleItemSheetFS4 from "./module/sheets/item/simple-item-sheet.mjs";
+import SimpleItemWithTypeSheetFS4 from "./module/sheets/item/simple-item-with-type.mjs";
 
 globalThis.fs4 = {
   dataModels,
@@ -71,7 +72,11 @@ Hooks.once("init", () => {
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", SimpleItemSheetFS4, {
     label: "FS4.sheets.SimpleItemSheetFS4",
-    types: ["blessing", "curse"],
+    types: ["blessing", "curse", "techCompulsion", "affliction"],
+  });
+  DocumentSheetConfig.registerSheet(Item, "fs4", SimpleItemWithTypeSheetFS4, {
+    label: "FS4.sheets.SimpleItemWithTypeSheetFS4",
+    types: ["state"],
   });
 
   preloadTemplates();

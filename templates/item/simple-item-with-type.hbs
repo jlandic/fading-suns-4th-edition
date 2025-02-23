@@ -1,0 +1,27 @@
+<form class="{{cssClass}} simple-item" autocomplete="off">
+    {{> "fs4.sheet-header" document=item documentType=itemType }}
+
+    <div class="form-group">
+        <div class="form-fields">
+            <select name="system.type">
+                {{selectOptions
+                    types
+                    selected=system.type
+                    nameAttr="value"
+                    labelAttr="name"
+                }}
+            </select>
+        </div>
+    </div>
+    <h2>{{ localize "fs4.fields.description" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                description
+                engine="prosemirror"
+                target="system.description"
+                button=true
+            }}
+        </div>
+    </div>
+</form>

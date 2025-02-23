@@ -1,3 +1,4 @@
+import AfflictionData from "./affliction.mjs";
 import BlessingData from "./blessing.mjs";
 import CallingData from "./calling.mjs";
 import CapabilityData from "./capability.mjs";
@@ -7,6 +8,8 @@ import FactionData from "./faction.mjs";
 import ManeuverData from "./maneuver.mjs";
 import PerkData from "./perk.mjs";
 import SpeciesData from "./species.mjs";
+import StateData from "./state.mjs";
+import TechCompulsionData from "./techCompulsion.mjs";
 
 export {
   FactionData,
@@ -18,6 +21,9 @@ export {
   SpeciesData,
   BlessingData,
   CurseData,
+  TechCompulsionData,
+  AfflictionData,
+  StateData,
 };
 
 export const config = {
@@ -30,4 +36,7 @@ export const config = {
   species: SpeciesData,
   blessing: BlessingData,
   curse: CurseData,
+  techCompulsion: TechCompulsionData,
+  affliction: AfflictionData,
+  state: StateData,
 };

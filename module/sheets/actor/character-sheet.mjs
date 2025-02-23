@@ -164,6 +164,13 @@ export default class CharacterSheetFS4 extends ActorSheet {
       await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
     } else if (LINKED_TYPES.includes(item.type)) {
       await this.actor.update({ [`system.${item.type}`]: data.uuid });
+
+      if (item.type === "species" && item.system.size && item.system.speed) {
+        this.actor.update({
+          "system.size": item.system.size,
+          "system.speed": item.system.speed,
+        });
+      }
     } else {
       console.warn("Unsupported item type", item.type);
     }

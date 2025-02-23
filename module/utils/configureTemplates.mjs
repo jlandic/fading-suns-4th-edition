@@ -8,6 +8,7 @@ const HANDLEBARS_TEMPLATES = [
   "systems/fs4/templates/item/species.hbs",
   "systems/fs4/templates/item/maneuver.hbs",
   "systems/fs4/templates/item/simple-item.hbs",
+  "systems/fs4/templates/item/simple-item-with-type.hbs",
 
   // Actor
   "systems/fs4/templates/actor/character.hbs",

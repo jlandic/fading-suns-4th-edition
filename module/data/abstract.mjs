@@ -88,3 +88,14 @@ export default class SystemDataModel extends foundry.abstract.TypeDataModel {
 
 export class ActorDataModel extends SystemDataModel {}
 export class ItemDataModel extends SystemDataModel {}
+
+const { StringField, HTMLField } = foundry.data.fields;
+
+export class SimpleItemData extends ItemDataModel {
+  static defineSchema() {
+    return this.mergeSchema(super.defineSchema(), {
+      id: new StringField(),
+      description: new HTMLField(),
+    });
+  }
+}

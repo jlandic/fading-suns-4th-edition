@@ -3,14 +3,13 @@ import {
   PERK_TYPES,
   PRECONDITION_TYPES,
 } from "../../registry/perks.mjs";
-import { ItemDataModel } from "../abstract.mjs";
+import { SimpleItemData } from "../abstract.mjs";
 
 const { StringField, NumberField, ArrayField } = foundry.data.fields;
 
-export default class PerkData extends ItemDataModel {
+export default class PerkData extends SimpleItemData {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
-      id: new StringField(),
       sourceType: new StringField({
         choices: PERK_SOURCE_TYPES,
       }),
@@ -18,7 +17,6 @@ export default class PerkData extends ItemDataModel {
         choices: PERK_TYPES,
       }),
       _preconditions: new ArrayField(new ArrayField(new StringField())),
-      description: new StringField(),
       benefice: new StringField(),
       techCompulsion: new StringField(),
       tl: new NumberField({ nullable: true }),

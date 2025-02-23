@@ -1,14 +1,12 @@
-import { ItemDataModel } from "../abstract.mjs";
+import { SimpleItemData } from "../abstract.mjs";
 import { score } from "../fields/character.mjs";
 
 const { StringField, SetField, ArrayField, HTMLField } = foundry.data.fields;
 
-export default class CallingData extends ItemDataModel {
+export default class CallingData extends SimpleItemData {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
-      id: new StringField(),
       _class: new StringField(),
-      description: new HTMLField(),
       patrons: new HTMLField(),
       capabilities: new SetField(new StringField()),
       perk: new StringField(),
