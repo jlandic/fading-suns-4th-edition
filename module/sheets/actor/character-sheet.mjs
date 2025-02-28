@@ -135,8 +135,8 @@ export default class CharacterSheetFS4 extends ActorSheet {
     html.on("click", ".item-edit", (event) => {
       event.preventDefault();
 
-      this.actor.items.get(itemId).sheet.render(true);
       const itemId = event.currentTarget.closest(".item").dataset.itemId;
+      this.actor.items.get(itemId).sheet.render(true);
     });
 
     html.on("click", ".linked-item", async (event) => {
