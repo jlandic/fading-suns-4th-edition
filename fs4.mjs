@@ -1,8 +1,6 @@
-import { configurePdfMapping } from "./module/scripts/configurePdfMapping.mjs";
 import * as dataModels from "./module/data/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
 import { rollSkill } from "./module/scripts/rollSkill.mjs";
-import { skillFromLabel } from "./module/registry/pdfLabelMapping.mjs";
 import PerkSheetFS4 from "./module/sheets/item/perk-sheet.mjs";
 import CapabilitySheetFS4 from "./module/sheets/item/capability-sheet.mjs";
 import CallingSheetFS4 from "./module/sheets/item/calling-sheet.mjs";
