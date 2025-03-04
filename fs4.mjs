@@ -95,39 +95,10 @@ Hooks.once("ready", async () => {
     const rootFolder =
       game.folders.find((f) => f.name === "FS4" && f.type === "Macro") ||
       (await Folder.create({ name: "FS4", type: "Macro" }));
-    const configMacroFolder =
-      game.folders.find((f) => f.name === "Config" && f.type === "Macro") ||
-      (await Folder.create({
-        name: "Config",
-        type: "Macro",
-        folder: rootFolder.id,
-      }));
 
-    window.fs4.scripts.configurePdfMapping = configurePdfMapping;
     window.fs4.scripts.rollSkill = rollSkill;
 
-    window.fs4.utils = {
-      skillFromLabel,
-    };
-
     const macros = [
-      {
-        name: game.i18n.localize("fs4.macros.configurePdfFieldMapping"),
-        type: "script",
-        folder: configMacroFolder.id,
-        command: "window.fs4.scripts.configurePdfMapping();",
-        img: "icons/svg/circle.svg",
-      },
-      {
-        name: game.i18n.localize("fs4.macros.rollSkillFromSheet"),
-        type: "script",
-        folder: configMacroFolder.id,
-        command:
-          "window.fs4.scripts.rollSkill(window.fs4.utils.skillFromLabel(label))",
-        flags: {
-          "fs4.rollSkillFromSheet": true,
-        },
-      },
       {
         name: game.i18n.localize("fs4.macros.rollSkill"),
         type: "script",
