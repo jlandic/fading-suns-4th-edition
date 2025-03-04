@@ -54,7 +54,9 @@
       "armor": {},
       "shield": {},
       "affliction": {},
-      "state": {}
+      "state": {},
+      "weaponFeature": {},
+      "armorFeature": {}
     }
   }
 }

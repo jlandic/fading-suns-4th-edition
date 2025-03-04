@@ -72,7 +72,14 @@ Hooks.once("init", () => {
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", SimpleItemSheetFS4, {
     label: "FS4.sheets.SimpleItemSheetFS4",
-    types: ["blessing", "curse", "techCompulsion", "affliction"],
+    types: [
+      "blessing",
+      "curse",
+      "techCompulsion",
+      "affliction",
+      "armorFeature",
+      "weaponFeature",
+    ],
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", SimpleItemWithTypeSheetFS4, {
     label: "FS4.sheets.SimpleItemWithTypeSheetFS4",

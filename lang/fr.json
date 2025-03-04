@@ -19,7 +19,9 @@
       "armor": "Armure",
       "shield": "Bouclier",
       "affliction": "Affliction",
-      "state": "État"
+      "state": "État",
+      "weaponFeature": "Particularité d'arme",
+      "armorFeature": "Particularité d'armure"
     }
   },
   "fs4": {
@@ -49,6 +51,22 @@
       "value": "Valeur",
       "amount": "Nombre",
       "name": "Nom"
+    },
+    "size": {
+      "short": {
+        "xxs": "EP",
+        "xs": "TP",
+        "s": "P",
+        "m": "M",
+        "l": "G",
+        "xl": "TG"
+      },
+      "xxs": "Extrêmement petite",
+      "xs": "Très petite",
+      "s": "Petite",
+      "m": "Moyenne",
+      "l": "Grande",
+      "xl": "Très grande"
     },
     "state": {
       "types": {
@@ -128,6 +146,16 @@
       "shk": "Choc",
       "slm": "Impact",
       "son": "Sonique"
+    },
+    "eshieldTypes": {
+      "short": {
+        "es": "eS",
+        "ea": "eA",
+        "eb": "eG"
+      },
+      "es": "eS",
+      "ea": "eA",
+      "eb": "eG"
     },
     "capabilities": {
       "reserved": "Réservée",
