@@ -1,0 +1,45 @@
+<form class="{{cssClass}} drop" autocomplete="off">
+    {{> "fs4.sheet-header" document=item documentType=itemType }}
+
+    {{> "fs4.equipment-base" document=item }}
+
+    <div class="form-group">
+        <section class="flexrow centered highlight-labels">
+            <div class="flexcol">
+                <label for="system.res">{{ localize "fs4.armor.fields.res" }}</label>
+                <input name="system.res" type="number" value="{{system.res}}" />
+            </div>
+
+            <div class="flexcol">
+                <label for="system.dexModifier">{{ localize "fs4.armor.fields.dexModifier" }}</label>
+                <input name="system.dexModifier" type="number" value="{{system.dexModifier}}" />
+            </div>
+
+            <div class="flexcol">
+                <label for="system.vigorModifier">{{ localize "fs4.armor.fields.vigorModifier" }}</label>
+                <input name="system.vigorModifier" type="number" value="{{system.vigorModifier}}" />
+            </div>
+        </section>
+    </div>
+
+    <div class="form-group">
+        <section class="flexrow">
+            {{#each armorTypes}}
+                <span
+                    class="armor-type {{#if this.checked}}active{{else}}inactive{{/if}}"
+                    data-type="{{this.type}}"
+                    title="{{this.richName}}"
+                >
+                    {{this.name}}
+                </span>
+            {{/each}}
+        </section>
+    </div>
+
+    <div class="form-group">
+        <section class="flexcol">
+            <h2 class="flex0">{{ localize "fs4.armor.fields.features" }}</h2>
+            {{> "fs4.embedded-collection" collection=features collectionName="features" }}
+        </section>
+    </div>
+</form>

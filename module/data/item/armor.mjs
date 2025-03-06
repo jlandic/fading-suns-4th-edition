@@ -15,14 +15,18 @@ export default class ArmorData extends EquipmentData {
       }),
       dexModifier: new NumberField({
         ...defaultNumberFieldOptions(0),
+        min: null,
       }),
       vigorModifier: new NumberField({
         ...defaultNumberFieldOptions(0),
+        min: null,
       }),
-      agora: new StringField(),
-      anti: new ArrayField({
-        choices: ARMOR_TYPES,
-      }),
+      anti: new ArrayField(
+        new StringField({
+          choices: ARMOR_TYPES,
+        })
+      ),
+      features: new ArrayField(new StringField()),
     });
   }
 }

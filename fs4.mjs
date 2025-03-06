@@ -13,14 +13,15 @@ import CharacterSheetFS4 from "./module/sheets/actor/character-sheet.mjs";
 import ManeuverSheetFS4 from "./module/sheets/item/maneuver-sheet.mjs";
 import SimpleItemSheetFS4 from "./module/sheets/item/simple-item-sheet.mjs";
 import SimpleItemWithTypeSheetFS4 from "./module/sheets/item/simple-item-with-type.mjs";
+import ArmorSheetFS4 from "./module/sheets/item/armor-sheet.mjs";
 
 globalThis.fs4 = {
   dataModels,
 };
 
 Hooks.once("init", () => {
-  globalThis.fs4 = game.fs4 = Object.assign(game.system, globalThis.fs4);
   console.log("FS4 | Initializing the system");
+  globalThis.fs4 = game.fs4 = Object.assign(game.system, globalThis.fs4);
 
   CONFIG.Actor.dataModels = dataModels.actor.config;
   CONFIG.Actor.documentClass = documents.ActorFS4;
@@ -32,44 +33,44 @@ Hooks.once("init", () => {
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("fs4", CharacterSheetFS4, {
     types: ["character"],
-    label: "FS4.sheets.CharacterSheetFS4",
+    label: "fs4.sheets.CharacterSheetFS4",
     makeDefault: true,
   });
   DocumentSheetConfig.registerSheet(Actor, "fs4", CharacterSheetFS4, {
-    label: "FS4.sheets.CharacterSheetFS4",
+    label: "fs4.sheets.CharacterSheetFS4",
     types: ["character"],
   });
   DocumentSheetConfig.unregisterSheet(Item, "core", ItemSheet);
   DocumentSheetConfig.registerSheet(Item, "fs4", PerkSheetFS4, {
-    label: "FS4.sheets.PerkSheetFS4",
+    label: "fs4.sheets.PerkSheetFS4",
     types: ["perk"],
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", CapabilitySheetFS4, {
-    label: "FS4.sheets.CapabilitySheetFS4",
+    label: "fs4.sheets.CapabilitySheetFS4",
     types: ["capability"],
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", CallingSheetFS4, {
-    label: "FS4.sheets.CallingSheetFS4",
+    label: "fs4.sheets.CallingSheetFS4",
     types: ["calling"],
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", ClassSheetFS4, {
-    label: "FS4.sheets.ClassSheetFS4",
+    label: "fs4.sheets.ClassSheetFS4",
     types: ["class"],
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", FactionSheetFS4, {
-    label: "FS4.sheets.FactionSheetFS4",
+    label: "fs4.sheets.FactionSheetFS4",
     types: ["faction"],
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", SpeciesSheetFS4, {
-    label: "FS4.sheets.SpeciesSheetFS4",
+    label: "fs4.sheets.SpeciesSheetFS4",
     types: ["species"],
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", ManeuverSheetFS4, {
-    label: "FS4.sheets.ManeuverSheetFS4",
+    label: "fs4.sheets.ManeuverSheetFS4",
     types: ["maneuver"],
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", SimpleItemSheetFS4, {
-    label: "FS4.sheets.SimpleItemSheetFS4",
+    label: "fs4.sheets.SimpleItemSheetFS4",
     types: [
       "blessing",
       "curse",
@@ -80,8 +81,12 @@ Hooks.once("init", () => {
     ],
   });
   DocumentSheetConfig.registerSheet(Item, "fs4", SimpleItemWithTypeSheetFS4, {
-    label: "FS4.sheets.SimpleItemWithTypeSheetFS4",
+    label: "fs4.sheets.SimpleItemWithTypeSheetFS4",
     types: ["state"],
+  });
+  DocumentSheetConfig.registerSheet(Item, "fs4", ArmorSheetFS4, {
+    label: "fs4.sheets.ArmorSheetFS4",
+    types: ["armor"],
   });
 
   preloadTemplates();

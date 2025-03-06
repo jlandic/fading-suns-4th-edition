@@ -6,7 +6,7 @@ const { NumberField, StringField } = foundry.data.fields;
 export default class EquipmentData extends SimpleItemData {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
-      nt: new NumberField({
+      tl: new NumberField({
         ...defaultNumberFieldOptions(null),
         nullable: true,
       }),

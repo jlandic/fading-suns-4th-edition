@@ -26,6 +26,9 @@
   },
   "fs4": {
     "sheets": {
+      "CharacterSheetFS4": "Fiche de personnage",
+      "FactionSheetFS4": "Fiche de faction",
+      "ManeuverSheetFS4": "Fiche de manœuvre",
       "ItemSheetFS4": "Fiche d'item",
       "PerkSheetFS4": "Fiche d'avantage",
       "CapabilitySheetFS4": "Fiche d'aptitude",
@@ -34,6 +37,11 @@
       "SpeciesSheetFS4": "Fiche d'espèce",
       "SimpleItemSheetFS4": "Fiche d'item simple",
       "SimpleItemSheetWithTypeFS4": "Fiche d'item simple avec type",
+      "ArmorSheetFS4": "Fiche d'armure",
+      "WeaponSheetFS4": "Fiche d'arme",
+      "ShieldSheetFS4": "Fiche de bouclier",
+      "AfflictionSheetFS4": "Fiche d'affliction",
+      "StateSheetFS4": "Fiche d'état",
       "tabs": {
         "stats": "Stats",
         "identity": "Identité",
@@ -42,6 +50,7 @@
       },
       "edit": "Éditer",
       "delete": "Supprimer",
+      "show": "Afficher",
       "add": "Ajouter",
       "rollManeuver": "Jet de maneuvre"
     },
@@ -129,8 +138,23 @@
         "threeSpeedsHint": "Respectivement: à 2, 4 et 6 pattes"
       }
     },
+    "equipment": {
+      "fields": {
+        "tl": "NT",
+        "cost": "Phx",
+        "agora": "Agora"
+      }
+    },
+    "armor": {
+      "fields": {
+        "res": "Résistance",
+        "dexModifier": "Dex.",
+        "vigorModifier": "Vigueur",
+        "features": "Particularités"
+      }
+    },
     "armorTypes": {
-      "abbr": {
+      "short": {
         "blstr": "Blast.",
         "flm": "Feu",
         "hrd": "Perf.",

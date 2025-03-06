@@ -6,7 +6,6 @@ import EquipmentData from "./equipment.mjs";
 const {
   NumberField,
   ArrayField,
-  HTMLField,
   StringField,
   SchemaField,
   BooleanField,
@@ -17,6 +16,7 @@ export default class ArmorData extends EquipmentData {
     return this.mergeSchema(super.defineSchema(), {
       goalModifier: new NumberField({
         ...defaultNumberFieldOptions(0),
+        min: null,
       }),
       damage: new NumberField({
         ...defaultNumberFieldOptions(0),
@@ -46,8 +46,7 @@ export default class ArmorData extends EquipmentData {
       }),
       anti: new ArrayField({
         choices: ARMOR_TYPES,
-      }),
-      features: new HTMLField(),
+      })
     });
   }
 }
