@@ -98,4 +98,8 @@ export class SimpleItemData extends ItemDataModel {
       description: new HTMLField(),
     });
   }
+
+  get identifier() {
+    return this.id || this.parent.id;
+  }
 }

@@ -1,22 +1,21 @@
 <form class="{{cssClass}} drop" autocomplete="off">
     {{> "fs4.sheet-header" document=item documentType=itemType }}
 
-    <div class="form-group">
-        <div class="form-fields">
-            <em>
-                {{ localize "TYPES.Item.class" }} :
-                {{#if isOpen}}
-                    {{class}}
-                {{else}}
-                    {{editor
-                        class
-                        engine="prosemirror"
-                        editable=false
-                    }}
-                {{/if}}
-            </em>
-        </div>
-    </div>
+    <section class="flexrow">
+        <label for="system.open">{{ localize "fs4.callings.fields.open" }}</label>
+        <input name="system.open" type="checkbox" {{checked system.open}} />
+    </section>
+
+    {{#if (eq system.open false)}}
+    <section class="flexrow">
+        <label for="system.class">{{ localize "fs4.callings.fields.class" }}</label>
+        {{> "fs4.linked-item"
+            name=class.name
+            identifier=class.identifier
+            i18nKey="fs4.callings.fields.class"
+        }}
+    </section>
+    {{/if}}
 
     <div class="form-group">
         <div class="form-fields">
@@ -29,7 +28,7 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.character.fields.characteristics" }}</h2>
+    <h2>{{ localize "fs4.callings.fields.characteristics" }}</h2>
     <div class="form-group">
         <div class="form-fields">
             {{#if (eq characteristics "") }}
@@ -44,7 +43,7 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.character.fields.skills" }}</h2>
+    <h2>{{ localize "fs4.callings.fields.skills" }}</h2>
     <div class="form-group">
         <div class="form-fields">
             {{#if (eq skills "") }}
@@ -59,7 +58,7 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.character.fields.capabilities" }}</h2>
+    <h2>{{ localize "fs4.callings.fields.capabilities" }}</h2>
     <div class="form-group">
         <div class="form-fields">
             <ul>
@@ -70,7 +69,7 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.character.fields.perk" }}</h2>
+    <h2>{{ localize "fs4.callings.fields.perk" }}</h2>
     <div class="form group">
         <div class="form-fields">
             {{editor
@@ -82,18 +81,14 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.callings.perks" }}</h2>
     <div class="form-group">
-        <div class="form-fields">
-            {{editor
-                perks
-                engine="prosemirror"
-                editable=false
-            }}
-        </div>
+        <section class="flexcol">
+            <h2 class="flex0">{{ localize "fs4.callings.fields.perks" }}</h2>
+            {{> "fs4.linked-item-collection" collection=perks collectionName="perks" withDescription=true }}
+        </section>
     </div>
 
-    <h2>{{ localize "fs4.character.fields.equipment" }}</h2>
+    <h2>{{ localize "fs4.callings.fields.equipment" }}</h2>
     <div class="form-group">
         <div class="form-fields">
             {{editor
@@ -105,7 +100,7 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.callings.patrons" }}</h2>
+    <h2>{{ localize "fs4.callings.fields.patrons" }}</h2>
     <div class="form group">
         <div class="form-fields">
             {{editor

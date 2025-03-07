@@ -8,7 +8,7 @@ export default class ArmorSheetFS4 extends ItemSheetFS4 {
     });
   }
 
-  static get embeddedCollections() {
+  static get referenceCollections() {
     return {
       armorFeature: "features",
     };
@@ -30,7 +30,6 @@ export default class ArmorSheetFS4 extends ItemSheetFS4 {
         type,
         checked: item.system.anti.includes(type),
       })),
-      features: this._prepareCollection("armorFeature"),
     });
 
     return context;
@@ -40,12 +39,6 @@ export default class ArmorSheetFS4 extends ItemSheetFS4 {
     super.activateListeners(html);
 
     html.on("click", ".armor-type", this._toggleArmorType.bind(this));
-    html.on("click", ".item-show", this._onShowItem.bind(this));
-    html.on("click", ".item-delete", this._onDeleteEmbeddedItem.bind(this));
-  }
-
-  async _onDrop(event) {
-    this._onDropEmbeddedItem(event);
   }
 
   async _toggleArmorType(event) {

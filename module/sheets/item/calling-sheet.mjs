@@ -1,16 +1,21 @@
 import ItemSheetFS4 from "../item-sheet.mjs";
 
 export default class CallingSheetFS4 extends ItemSheetFS4 {
+  static get references() {
+    return {
+      class: "class",
+    };
+  }
+
+  static get referenceCollections() {
+    return {
+      perk: "perks",
+    };
+  }
+
   async getData(options) {
     const context = await super.getData(options);
     const item = context.item;
-
-    let perkText = item.system.perks
-      .map((perk) => `<li>@UUID[Item.${perk.id}]</li>`)
-      .join("");
-    if (perkText === "") {
-      perkText = `<li>${game.i18n.localize("fs4.perks.seeWithGm")}</li>`;
-    }
 
     foundry.utils.mergeObject(context, {
       description: await TextEditor.enrichHTML(item.system.description, {
@@ -45,17 +50,11 @@ export default class CallingSheetFS4 extends ItemSheetFS4 {
           })
           .join(game.i18n.localize("fs4.base.orSeparator"))
       ),
-
-      perks: await TextEditor.enrichHTML(`<ul>${perkText}</ul>`, {
-        async: true,
-      }),
-      isOpen: item.system.class === undefined,
-      class: item.system.class
-        ? await TextEditor.enrichHTML(`@UUID[Item.${item.system.class.id}]`, {
-            async: true,
-          })
-        : game.i18n.localize("fs4.perks.specialPreconditions.open"),
     });
+
+    if (item.system.open) {
+      context.class = game.i18n.localize(`fs4.callings.open`);
+    }
 
     return context;
   }

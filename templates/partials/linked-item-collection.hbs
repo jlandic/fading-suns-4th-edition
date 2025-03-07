@@ -1,11 +1,11 @@
 <ol class="items-list collection" data-collection-name="{{collectionName}}">
     {{#each collection}}
-        <li class="item flexrow" data-id="{{this.id}}">
+        <li class="item flexrow" data-identifier="{{this.identifier}}">
             <div class="item-name">
                 <h4>{{this.name}}</h4>
             </div>
 
-            {{#if this.description}}
+            {{#if ../withDescription}}
             <div class="flex3">
                 {{{this.description}}}
             </div>

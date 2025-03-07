@@ -28,7 +28,6 @@ export default class CharacterSheetFS4 extends ActorSheet {
       classes: ["sheet", "character"],
       dragDrop: [
         {
-          dragSelector: ".item-list .item",
           dropSelector: null,
         },
       ],
@@ -139,10 +138,10 @@ export default class CharacterSheetFS4 extends ActorSheet {
       this.actor.items.get(itemId).sheet.render(true);
     });
 
-    html.on("click", ".linked-item", async (event) => {
+    html.on("click", ".linked-item", (event) => {
       event.preventDefault();
 
-      const item = await fromUuid(event.currentTarget.dataset.itemUuid);
+      const item = game.items.get(event.currentTarget.dataset.identifier);
       if (item) {
         item.sheet.render(true);
       }
@@ -229,7 +228,7 @@ export default class CharacterSheetFS4 extends ActorSheet {
       if (item) {
         context[type] = {
           name: item.name,
-          uuid: item.uuid,
+          id: item.id,
         };
       }
     });

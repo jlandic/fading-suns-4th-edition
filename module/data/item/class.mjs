@@ -23,12 +23,12 @@ export default class ClassData extends SimpleItemData {
   get callings() {
     let items = game.items
       .filter((item) => item.type === "calling")
-      .filter((calling) => calling.system.class?.system.id === this.id);
+      .filter((calling) => calling.system._class === this.id);
 
     if (items.length === 0) {
       items = game.items
         .filter((item) => item.type === "calling")
-        .filter((calling) => calling.system.class === undefined);
+        .filter((calling) => calling.system._class === undefined);
     }
 
     return items;

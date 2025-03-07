@@ -1,18 +1,27 @@
 export default class ItemFS4 extends Item {
-    removeEmbeddedItem(itemId, collectionName) {
-        console.log(collectionName)
-        this.update({
-            system: {
-              [collectionName]: this.system[collectionName].filter((id) => id !== itemId)
-            }
-        });
-    }
+  removeEmbeddedItem(identifier, collectionName) {
+    this.update({
+      system: {
+        [collectionName]: this.system[collectionName].filter(
+          (id) => id !== identifier
+        ),
+      },
+    });
+  }
 
-    async addEmbeddedItem(item, collectionName) {
-        this.update({
-            system: {
-              [collectionName]: this.system[collectionName].concat(item.id)
-            }
-        });
-    }
+  addEmbeddedItem(identifier, collectionName) {
+    this.update({
+      system: {
+        [collectionName]: this.system[collectionName].concat(identifier),
+      },
+    });
+  }
+
+  addReference(identifier, field) {
+    this.update({
+      system: {
+        [field]: identifier,
+      },
+    });
+  }
 }

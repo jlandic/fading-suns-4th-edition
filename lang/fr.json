@@ -206,9 +206,18 @@
       }
     },
     "callings": {
-      "patrons": "Saints patrons",
-      "specialSeeDescription": "Spécial (cf. description)",
-      "perks": "Avantages de vocation"
+      "fields": {
+        "class": "Classe",
+        "perks": "Avantages de vocation",
+        "perk": "Avantages",
+        "equipment": "Équipement",
+        "patrons": "Saints patrons",
+        "open": "Ouvert",
+        "capabilities": "Aptitudes",
+        "skills": "Compétences",
+        "characteristics": "Caractéristiques"
+      },
+      "specialSeeDescription": "Spécial (cf. description)"
     },
     "classes": {
       "fields": {

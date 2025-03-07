@@ -1,3 +1,5 @@
+import { findItem } from "../utils/dataAccess.mjs";
+
 export default class ItemSheetFS4 extends ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -13,7 +15,11 @@ export default class ItemSheetFS4 extends ItemSheet {
     });
   }
 
-  static get embeddedCollections() {
+  static get referenceCollections() {
+    return {};
+  }
+
+  static get references() {
     return {};
   }
 
@@ -33,51 +39,87 @@ export default class ItemSheetFS4 extends ItemSheet {
       itemType: game.i18n.localize(`TYPES.Item.${this.item.type}`),
     });
 
+    this._prepareEmbeddedCollections(context);
+    this._prepareReferences(context);
+
     return context;
   }
 
-  _prepareCollection(itemType) {
-    return this.item.system[this.constructor.embeddedCollections[itemType]].map((id) => {
-      const { name, system: { description } } = game.items.get(id);
+  activateListeners(html) {
+    super.activateListeners(html);
 
-      return {
-        name,
-        description,
-        id,
-      }
+    html.on("click", ".linked-item", this._onShowItem.bind(this));
+    html.on("click", ".item-show", this._onShowItem.bind(this));
+    html.on("click", ".item-delete", this._onDeleteEmbeddedItem.bind(this));
+  }
+
+  async _onDrop(event) {
+    await this._onDropItem(event);
+  }
+
+  _prepareEmbeddedCollections(context) {
+    Object.keys(this.constructor.referenceCollections).forEach((type) => {
+      const field = this.constructor.referenceCollections[type];
+      context[field] = this.item.system[field].map((identifier) => {
+        const linked = findItem(identifier);
+
+        return {
+          name: linked?.name,
+          description: linked?.system?.description,
+          identifier,
+        };
+      });
     });
   }
 
-  async _onDropEmbeddedItem(event) {
+  _prepareReferences(context) {
+    Object.keys(this.constructor.references).forEach((type) => {
+      const field = this.constructor.references[type];
+      const linked = findItem(this.item.system[field]);
+
+      context[type] = {
+        name: linked?.name,
+        identifier: linked?.system?.identifier,
+      };
+    });
+  }
+
+  async _onDropItem(event) {
+    console.debug("Received event", event);
     event.preventDefault();
 
     const { uuid } = TextEditor.getDragEventData(event);
     const item = await fromUuid(uuid);
-    const collectionName = this.constructor.embeddedCollections[item.type];
-
-    if (collectionName === undefined) {
-      console.warn("This item has no embedded collection of type", item.type);
-      return;
+    let field = this.constructor.references[item.type];
+    if (field !== undefined) {
+      this.item.addReference(item.system.identifier, field);
+    } else {
+      field = this.constructor.referenceCollections[item.type];
+      this.item.addEmbeddedItem(item.system.identifier, field);
     }
 
-    await this.item.addEmbeddedItem(item, collectionName);
+    if (field === undefined)
+      console.warn("This item has no reference of type", item.type);
   }
 
   _onShowItem(event) {
+    console.debug("Received event", event);
     event.preventDefault();
 
-    const id = event.currentTarget.closest(".item").dataset.id;
-    const item = game.items.get(id);
+    const identifier = event.currentTarget.closest(".item").dataset.identifier;
+    const item = findItem(identifier);
     if (item) {
       item.sheet.render(true);
     }
   }
 
   _onDeleteEmbeddedItem(event) {
+    console.debug("Received event", event);
     event.preventDefault();
 
-    const id = event.currentTarget.closest(".item").dataset.id;
-    const collectionName = event.currentTarget.closest(".collection").dataset.collectionName;
+    const id = event.currentTarget.closest(".item").dataset.identifier;
+    const collectionName =
+      event.currentTarget.closest(".collection").dataset.collectionName;
     this.item.removeEmbeddedItem(id, collectionName);
   }
 }

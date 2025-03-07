@@ -24,7 +24,7 @@ const HANDLEBARS_TEMPLATES = [
   // Shared Partials
   "systems/fs4/templates/partials/sheet-header.hbs",
   "systems/fs4/templates/partials/linked-item.hbs",
-  "systems/fs4/templates/partials/embedded-collection.hbs",
+  "systems/fs4/templates/partials/linked-item-collection.hbs",
 ];
 
 export async function preloadTemplates() {
