@@ -26,7 +26,7 @@ export default class PerkData extends SimpleItemData {
   get preconditions() {
     return this._preconditions.map((conditionSet) =>
       conditionSet.map((condition) => {
-        const specialKey = `fs4.perks.specialPreconditions.${condition}`;
+        const specialKey = `fs4.perk.specialPreconditions.${condition}`;
         const text = game.i18n.localize(specialKey);
         if (text !== specialKey) {
           return { special: true, text: text };

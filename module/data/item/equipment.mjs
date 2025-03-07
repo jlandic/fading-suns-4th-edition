@@ -15,6 +15,7 @@ export default class EquipmentData extends SimpleItemData {
         ...defaultNumberFieldOptions(null),
         nullable: true,
       }),
+      techCompulsion: new StringField(),
     });
   }
 }

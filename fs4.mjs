@@ -14,6 +14,7 @@ import ManeuverSheetFS4 from "./module/sheets/item/maneuver-sheet.mjs";
 import SimpleItemSheetFS4 from "./module/sheets/item/simple-item-sheet.mjs";
 import SimpleItemWithTypeSheetFS4 from "./module/sheets/item/simple-item-with-type.mjs";
 import ArmorSheetFS4 from "./module/sheets/item/armor-sheet.mjs";
+import WeaponSheetFS4 from "./module/sheets/item/weapon-sheet.mjs";
 
 globalThis.fs4 = {
   dataModels,
@@ -87,6 +88,10 @@ Hooks.once("init", () => {
   DocumentSheetConfig.registerSheet(Item, "fs4", ArmorSheetFS4, {
     label: "fs4.sheets.ArmorSheetFS4",
     types: ["armor"],
+  });
+  DocumentSheetConfig.registerSheet(Item, "fs4", WeaponSheetFS4, {
+    label: "fs4.sheets.WeaponSheetFS4",
+    types: ["weapon"],
   });
 
   preloadTemplates();

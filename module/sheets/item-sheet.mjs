@@ -60,6 +60,8 @@ export default class ItemSheetFS4 extends ItemSheet {
   _prepareEmbeddedCollections(context) {
     Object.keys(this.constructor.referenceCollections).forEach((type) => {
       const field = this.constructor.referenceCollections[type];
+      console.log(field);
+      console.log(this.item.system);
       context[field] = this.item.system[field].map((identifier) => {
         const linked = findItem(identifier);
 

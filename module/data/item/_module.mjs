@@ -12,6 +12,7 @@ import PerkData from "./perk.mjs";
 import SpeciesData from "./species.mjs";
 import StateData from "./state.mjs";
 import TechCompulsionData from "./techCompulsion.mjs";
+import WeaponData from "./weapon.mjs";
 import WeaponFeatureData from "./weaponFeature.mjs";
 
 export {
@@ -30,6 +31,7 @@ export {
   WeaponFeatureData,
   ArmorFeatureData,
   ArmorData,
+  WeaponData,
 };
 
 export const config = {
@@ -48,4 +50,5 @@ export const config = {
   weaponFeature: WeaponFeatureData,
   armorFeature: ArmorFeatureData,
   armor: ArmorData,
+  weapon: WeaponData,
 };

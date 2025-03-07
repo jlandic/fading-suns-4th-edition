@@ -11,4 +11,8 @@
         <label for="system.agora">{{ localize "fs4.equipment.fields.agora" }}</label>
         <input name="system.agora" type="text" value="{{system.agora}}" />
     </div>
+    <div class="flexcol">
+        <label for="system.techCompulsion">{{ localize "fs4.equipment.fields.techCompulsion" }}</label>
+        {{> "fs4.linked-item" name=techCompulsion.name identifier=techCompulsion.identifier i18nKey="fs4.equipment.noTechCompulsion" }}
+    </div>
 </section>

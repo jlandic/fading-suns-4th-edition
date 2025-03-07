@@ -9,6 +9,8 @@ const HANDLEBARS_TEMPLATES = [
   "systems/fs4/templates/item/maneuver.hbs",
   "systems/fs4/templates/item/simple-item.hbs",
   "systems/fs4/templates/item/simple-item-with-type.hbs",
+  "systems/fs4/templates/item/armor.hbs",
+  "systems/fs4/templates/item/weapon.hbs",
 
   // Item partials
   "systems/fs4/templates/item/partials/equipment-base.hbs",

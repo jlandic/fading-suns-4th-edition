@@ -2,17 +2,17 @@
     {{> "fs4.sheet-header" document=item documentType=itemType }}
 
     <section class="flexrow">
-        <label for="system.open">{{ localize "fs4.callings.fields.open" }}</label>
+        <label for="system.open">{{ localize "fs4.calling.fields.open" }}</label>
         <input name="system.open" type="checkbox" {{checked system.open}} />
     </section>
 
     {{#if (eq system.open false)}}
     <section class="flexrow">
-        <label for="system.class">{{ localize "fs4.callings.fields.class" }}</label>
+        <label for="system.class">{{ localize "fs4.calling.fields.class" }}</label>
         {{> "fs4.linked-item"
             name=class.name
             identifier=class.identifier
-            i18nKey="fs4.callings.fields.class"
+            i18nKey="fs4.calling.fields.class"
         }}
     </section>
     {{/if}}
@@ -28,11 +28,11 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.callings.fields.characteristics" }}</h2>
+    <h2>{{ localize "fs4.calling.fields.characteristics" }}</h2>
     <div class="form-group">
         <div class="form-fields">
             {{#if (eq characteristics "") }}
-                <em>{{ localize "fs4.callings.specialSeeDescription" }}</em>
+                <em>{{ localize "fs4.calling.specialSeeDescription" }}</em>
             {{else}}
                 <ul>
                     {{#each characteristics}}
@@ -43,11 +43,11 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.callings.fields.skills" }}</h2>
+    <h2>{{ localize "fs4.calling.fields.skills" }}</h2>
     <div class="form-group">
         <div class="form-fields">
             {{#if (eq skills "") }}
-                <em>{{ localize "fs4.callings.specialSeeDescription" }}</em>
+                <em>{{ localize "fs4.calling.specialSeeDescription" }}</em>
             {{else}}
                 <ul>
                     {{#each skills}}
@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.callings.fields.capabilities" }}</h2>
+    <h2>{{ localize "fs4.calling.fields.capabilities" }}</h2>
     <div class="form-group">
         <div class="form-fields">
             <ul>
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.callings.fields.perk" }}</h2>
+    <h2>{{ localize "fs4.calling.fields.perk" }}</h2>
     <div class="form group">
         <div class="form-fields">
             {{editor
@@ -83,12 +83,12 @@
 
     <div class="form-group">
         <section class="flexcol">
-            <h2 class="flex0">{{ localize "fs4.callings.fields.perks" }}</h2>
+            <h2 class="flex0">{{ localize "fs4.calling.fields.perks" }}</h2>
             {{> "fs4.linked-item-collection" collection=perks collectionName="perks" withDescription=true }}
         </section>
     </div>
 
-    <h2>{{ localize "fs4.callings.fields.equipment" }}</h2>
+    <h2>{{ localize "fs4.calling.fields.equipment" }}</h2>
     <div class="form-group">
         <div class="form-fields">
             {{editor
@@ -100,7 +100,7 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.callings.fields.patrons" }}</h2>
+    <h2>{{ localize "fs4.calling.fields.patrons" }}</h2>
     <div class="form group">
         <div class="form-fields">
             {{editor

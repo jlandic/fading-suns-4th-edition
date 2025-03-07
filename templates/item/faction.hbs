@@ -4,9 +4,9 @@
     <div class="span">
         <em>{{ localize "TYPES.Item.class" }} :</em>
         {{#if system.class}}
-            {{ localize (concat "fs4.classes." system.class.system.id) }}
+            {{ localize (concat "fs4.class." system.class.system.id) }}
         {{else}}
-            {{ localize "fs4.classes.unknown" }}
+            {{ localize "fs4.class.unknown" }}
         {{/if}}
     </div>
 
@@ -78,7 +78,7 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.factions.fields.blessing" }}</h2>
+    <h2>{{ localize "fs4.faction.fields.blessing" }}</h2>
     <div class="form group">
         <div class="form-fields">
             {{editor
@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.factions.fields.curse" }}</h2>
+    <h2>{{ localize "fs4.faction.fields.curse" }}</h2>
     <div class="form group">
         <div class="form-fields">
             {{editor

@@ -63,12 +63,12 @@
     },
     "size": {
       "short": {
-        "xxs": "EP",
-        "xs": "TP",
-        "s": "P",
+        "xxs": "XXS",
+        "xs": "XS",
+        "s": "S",
         "m": "M",
-        "l": "G",
-        "xl": "TG"
+        "l": "L",
+        "xl": "XL"
       },
       "xxs": "Extrêmement petite",
       "xs": "Très petite",
@@ -142,8 +142,10 @@
       "fields": {
         "tl": "NT",
         "cost": "Phx",
-        "agora": "Agora"
-      }
+        "agora": "Agora",
+        "techCompulsion": "Compulsion tech."
+      },
+      "noTechCompulsion": "Aucune"
     },
     "armor": {
       "fields": {
@@ -184,7 +186,7 @@
       "ea": "eA",
       "eb": "eG"
     },
-    "capabilities": {
+    "capability": {
       "reserved": "Réservée",
       "types": {
         "equipment": "Équipement",
@@ -208,7 +210,7 @@
         "vehicle": "Transports"
       }
     },
-    "callings": {
+    "calling": {
       "fields": {
         "class": "Classe",
         "perks": "Avantages de vocation",
@@ -222,7 +224,7 @@
       },
       "specialSeeDescription": "Spécial (cf. description)"
     },
-    "classes": {
+    "class": {
       "fields": {
         "factions": "Factions",
         "callings": "Vocations",
@@ -292,7 +294,7 @@
       "min": "Min",
       "max": "Max"
     },
-    "maneuvers": {
+    "maneuver": {
       "fields": {
         "goal": "Cible",
         "impact": "Incidence",
@@ -304,13 +306,13 @@
     "actorTypes": {
       "character": "Personnage"
     },
-    "factions": {
+    "faction": {
       "fields": {
         "blessing": "Bénédiction",
         "curse": "Malédiction"
       }
     },
-    "perks": {
+    "perk": {
       "fields": {
         "TL": "NT",
         "source": "Source",
@@ -338,17 +340,30 @@
         "not_noble": "Non-noble"
       }
     },
-    "weapons": {
+    "weapon": {
       "fields": {
         "tl": "NT",
         "goal": "Cible",
         "damage": "Dég.",
         "str": "For.",
         "range": "Port.",
+        "burst": "Rafale",
         "rof": "CdT",
         "ammo": "Mun.",
-        "features": "Particularités"
-      }
+        "features": "Particularités",
+        "capability": "Aptitude",
+        "strRequirement": "FOR",
+        "size": "Taille",
+        "goalModifier": "Val. ciblée",
+        "melee": "Mêlée",
+        "extremeRange": "Portée extrême"
+      },
+      "range": {
+        "extreme": "Extrême",
+        "short": "Courte",
+        "long": "Longue"
+      },
+      "noCapabilityRequirement": "Aucun prérequis"
     },
     "dialog": {
       "rollSkill": {

@@ -1,0 +1,123 @@
+<form class="{{cssClass}} drop" autocomplete="off">
+    {{> "fs4.sheet-header" document=item documentType=itemType }}
+
+    {{> "fs4.equipment-base" document=item }}
+
+    <div class="form-group">
+        <section class="flexrow centered highlight-labels">
+            <div class="flexcol flex2">
+                <label for="system.capability">{{ localize "fs4.weapon.fields.capability" }}</label>
+                {{> "fs4.linked-item"
+                    name=capability.name
+                    identifier=capability.identifier
+                    i18nKey="fs4.weapon.noCapabilityRequirement"
+                }}
+            </div>
+            <div class="flexcol">
+                <label for="system.damage">{{ localize "fs4.weapon.fields.damage" }}</label>
+                <input name="system.damage" type="number" value="{{system.damage}}" />
+            </div>
+
+            <div class="flexcol">
+                <label for="system.goalModifier">{{ localize "fs4.weapon.fields.goalModifier" }}</label>
+                <input name="system.goalModifier" type="number" value="{{system.goalModifier}}" />
+            </div>
+
+            <div class="flexcol">
+                <label for="system.strRequirement">{{ localize "fs4.weapon.fields.strRequirement" }}</label>
+                <input name="system.strRequirement" type="number" value="{{system.strRequirement}}" />
+            </div>
+
+            <div class="flexcol">
+                <label for="system.size">{{ localize "fs4.weapon.fields.size" }}</label>
+                <select name="system.size">
+                    {{selectOptions
+                        sizes
+                        selected=system.size
+                        valueAttr="value"
+                        labelAttr="name"
+                    }}
+                </select>
+            </div>
+        </section>
+    </div>
+
+    <div class="form-group">
+        <section class="flexrow centered highlight-labels">
+            <div class="flexcol centered center-items">
+                <label for="system.melee">{{ localize "fs4.weapon.fields.melee" }}</label>
+                <input name="system.melee" type="checkbox" {{checked system.melee}} />
+            </div>
+
+            <div class="flexcol centered center-items">
+                <label for="system.range.extreme">{{ localize "fs4.weapon.fields.extremeRange" }}</label>
+                <input type="checkbox"
+                    title="{{ localize "fs4.weapon.range.extreme" }}"
+                    name="system.range.extreme"
+                    {{checked system.range.extreme }}
+                    {{#if system.melee}}disabled{{/if}}
+                />
+            </div>
+
+            <div class="flexcol flex2">
+                <label for="system.range">{{ localize "fs4.weapon.fields.range" }}</label>
+                <div class="flexrow">
+                    <input type="number"
+                        title="{{ localize "fs4.weapon.range.short" }}"
+                        name="system.range.short"
+                        value="{{system.range.short}}"
+                        {{#if system.melee}}disabled{{/if}}
+                    />
+                    <input type="number"
+                        title="{{ localize "fs4.weapon.range.long" }}"
+                        name="system.range.long"
+                        value="{{system.range.long}}"
+                        {{#if system.melee}}disabled{{/if}}
+                    />
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {{#if (not system.melee) }}
+    <div class="form-group">
+        <div class="flexrow centered highlight-labels">
+            <div class="flexcol">
+                <label for="system.ammo">{{ localize "fs4.weapon.fields.ammo" }}</label>
+                <input name="system.ammo" type="number" value="{{system.ammo}}" />
+            </div>
+
+            <div class="flexcol">
+                <label for="system.rof">{{ localize "fs4.weapon.fields.rof" }}</label>
+                <input name="system.rof" type="number" value="{{system.rof}}" />
+            </div>
+
+            <div class="flexcol center-items">
+                <label for="system.burst">{{ localize "fs4.weapon.fields.burst" }}</label>
+                <input name="system.burst" type="checkbox" {{checked system.burst}} />
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+    <div class="form-group">
+        <section class="flexrow">
+            {{#each armorTypes}}
+                <span
+                    class="armor-type {{#if this.checked}}active{{else}}inactive{{/if}}"
+                    data-type="{{this.type}}"
+                    title="{{this.richName}}"
+                >
+                    {{this.name}}
+                </span>
+            {{/each}}
+        </section>
+    </div>
+
+    <div class="form-group">
+        <section class="flexcol">
+            <h2 class="flex0">{{ localize "fs4.weapon.fields.features" }}</h2>
+            {{> "fs4.linked-item-collection" collection=features collectionName="features" withDescription=true}}
+        </section>
+    </div>
+</form>

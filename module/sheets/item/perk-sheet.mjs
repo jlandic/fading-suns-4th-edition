@@ -33,11 +33,11 @@ export default class PerkSheetFS4 extends ItemSheetFS4 {
       ),
 
       types: PERK_TYPES.map((type) => ({
-        name: game.i18n.localize(`fs4.perks.types.${type}`),
+        name: game.i18n.localize(`fs4.perk.types.${type}`),
         value: type,
       })),
       sourceTypes: PERK_SOURCE_TYPES.map((sourceType) => ({
-        name: game.i18n.localize(`fs4.perks.sourceTypes.${sourceType}`),
+        name: game.i18n.localize(`fs4.perk.sourceTypes.${sourceType}`),
         value: sourceType,
       })),
     });

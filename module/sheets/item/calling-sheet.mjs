@@ -53,7 +53,7 @@ export default class CallingSheetFS4 extends ItemSheetFS4 {
     });
 
     if (item.system.open) {
-      context.class = game.i18n.localize(`fs4.callings.open`);
+      context.class = game.i18n.localize(`fs4.calling.open`);
     }
 
     return context;

@@ -1,7 +1,8 @@
-import { ARMOR_TYPES, ESHIELD_TYPES } from "../../registry/armorTypes.mjs";
+import { ARMOR_TYPES } from "../../registry/armorTypes.mjs";
+import { SIZES } from "../../registry/size.mjs";
 import EquipmentSheetFS4 from "./equipment-sheet.mjs";
 
-export default class ArmorSheetFS4 extends EquipmentSheetFS4 {
+export default class WeaponSheetFS4 extends EquipmentSheetFS4 {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       height: 410,
@@ -10,7 +11,7 @@ export default class ArmorSheetFS4 extends EquipmentSheetFS4 {
 
   static get referenceCollections() {
     return {
-      armorFeature: "features",
+      weaponFeature: "features",
     };
   }
 
@@ -25,16 +26,16 @@ export default class ArmorSheetFS4 extends EquipmentSheetFS4 {
     const item = context.item;
 
     foundry.utils.mergeObject(context, {
-      eshieldTypes: ESHIELD_TYPES.map((type) => ({
-        name: game.i18n.localize(`fs4.eshieldTypes.short.${type}`),
-        richName: game.i18n.localize(`fs4.eshieldTypes.${type}`),
-        value: type,
-      })),
       armorTypes: ARMOR_TYPES.map((type) => ({
         name: game.i18n.localize(`fs4.armorTypes.short.${type}`),
         richName: game.i18n.localize(`fs4.armorTypes.${type}`),
         type,
         checked: item.system.anti.includes(type),
+      })),
+      sizes: SIZES.map((size) => ({
+        name: game.i18n.localize(`fs4.size.short.${size}`),
+        richName: game.i18n.localize(`fs4.size.${size}`),
+        value: size,
       })),
     });
 
@@ -44,10 +45,25 @@ export default class ArmorSheetFS4 extends EquipmentSheetFS4 {
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.on("click", ".armor-type", this._toggleArmorType.bind(this));
+    html.on("click", ".armor-type", this._toggleAntiType.bind(this));
+    html.on(
+      "change",
+      "input[name='system.melee']",
+      this._onToggleRange.bind(this)
+    );
   }
 
-  async _toggleArmorType(event) {
+  _onToggleRange(event) {
+    event.preventDefault();
+
+    if (this.item.system.melee === false) {
+      this.item.update({
+        system: { range: { short: 0, long: 0, extreme: false } },
+      });
+    }
+  }
+
+  async _toggleAntiType(event) {
     event.preventDefault();
 
     const type = event.currentTarget.dataset.type;
