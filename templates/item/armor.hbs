@@ -5,6 +5,14 @@
 
     <div class="form-group">
         <section class="flexrow centered highlight-labels">
+            <div class="flexcol flex2">
+                <label for="system.capability">{{ localize "fs4.armor.fields.capability" }}</label>
+                {{> "fs4.linked-item"
+                    name=capability.name
+                    identifier=capability.identifier
+                    i18nKey="fs4.armor.noCapabilityRequirement"
+                }}
+            </div>
             <div class="flexcol">
                 <label for="system.res">{{ localize "fs4.armor.fields.res" }}</label>
                 <input name="system.res" type="number" value="{{system.res}}" />
@@ -24,6 +32,15 @@
 
     <div class="form-group">
         <section class="flexrow">
+            <select name="system.eshieldCompatibility" title="{{ localize "fs4.armor.fields.eshieldCompatibility" }}">
+                {{selectOptions
+                    eshieldTypes
+                    selected=system.eshieldCompatibility
+                    nameAttr="value"
+                    labelAttr="name"
+                }}
+            </select>
+
             {{#each armorTypes}}
                 <span
                     class="armor-type {{#if this.checked}}active{{else}}inactive{{/if}}"

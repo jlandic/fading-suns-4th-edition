@@ -1,14 +1,13 @@
 import { CHARACTERISTICS } from "../../registry/characteristics.mjs";
 import { SKILLS } from "../../registry/skills.mjs";
 import { TIME_TYPES } from "../../registry/time.mjs";
-import { ItemDataModel } from "../abstract.mjs";
+import { SimpleItemData } from "../abstract.mjs";
 
 const { StringField, HTMLField } = foundry.data.fields;
 
-export default class ManeuverData extends ItemDataModel {
+export default class ManeuverData extends SimpleItemData {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
-      description: new HTMLField(),
       characteristic: new StringField({
         choices: CHARACTERISTICS,
       }),

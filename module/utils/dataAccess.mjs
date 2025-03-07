@@ -3,5 +3,5 @@ export const findItem = (id) => {
 
   if (item) return item;
 
-  return game.items.find((item) => item.system.id === id);
+  return game.items.find((item) => item.system.identifier === id);
 };

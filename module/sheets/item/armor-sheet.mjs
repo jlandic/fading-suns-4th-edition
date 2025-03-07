@@ -14,6 +14,12 @@ export default class ArmorSheetFS4 extends ItemSheetFS4 {
     };
   }
 
+  static get references() {
+    return {
+      capability: "capability",
+    };
+  }
+
   async getData(options) {
     const context = await super.getData(options);
     const item = context.item;
@@ -31,6 +37,8 @@ export default class ArmorSheetFS4 extends ItemSheetFS4 {
         checked: item.system.anti.includes(type),
       })),
     });
+
+    console.log(context);
 
     return context;
   }

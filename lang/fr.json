@@ -150,8 +150,11 @@
         "res": "Résistance",
         "dexModifier": "Dex.",
         "vigorModifier": "Vigueur",
-        "features": "Particularités"
-      }
+        "features": "Particularités",
+        "eshieldCompatibility": "Compatibilité bouclier-e",
+        "capability": "Aptitude"
+      },
+      "noCapabilityRequirement": "Aucun prérequis"
     },
     "armorTypes": {
       "short": {

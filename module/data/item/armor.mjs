@@ -7,11 +7,13 @@ const { StringField, NumberField, ArrayField } = foundry.data.fields;
 export default class ArmorData extends EquipmentData {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
+      capability: new StringField(),
       res: new NumberField({
         ...defaultNumberFieldOptions(1),
       }),
-      eshieldCompability: new StringField({
+      eshieldCompatibility: new StringField({
         choices: ESHIELD_TYPES,
+        initial: ESHIELD_TYPES[0],
       }),
       dexModifier: new NumberField({
         ...defaultNumberFieldOptions(0),
