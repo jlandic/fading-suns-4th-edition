@@ -55,6 +55,15 @@ export default class WeaponData extends EquipmentData {
     return this.range.long * 2;
   }
 
+  get rangeText() {
+    if (this.melee) return game.i18n.localize("fs4.weapon.fields.melee");
+
+    if (this.range.extremeRange)
+      return `${this.range.short}/${this.range.long}/${this.extremeRange}`;
+
+    return `${this.range.short}/${this.range.long}`;
+  }
+
   resetRange() {
     this.range.short = undefined;
     this.range.long = undefined;

@@ -81,8 +81,6 @@ export default class CharacterData extends CreatureTemplate {
       techgnosis: new NumberField({
         ...defaultNumberFieldOptions(),
       }),
-      // Belongings
-      weapons: indexedMap(5, weapon),
       equipment: new HTMLField(),
       cash: new NumberField({
         ...defaultNumberFieldOptions(0),

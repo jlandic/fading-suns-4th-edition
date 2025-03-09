@@ -2,8 +2,16 @@ import { ARMOR_TYPES } from "../../registry/armorTypes.mjs";
 import { CHARACTERISTIC_GROUPS } from "../../registry/characteristics.mjs";
 import { SKILLS } from "../../registry/skills.mjs";
 import { rollSkill } from "../../scripts/rollSkill.mjs";
+import { findItem } from "../../utils/dataAccess.mjs";
 
-const DROPABLE_TYPES = ["maneuver", "perk", "capability"];
+const DROPABLE_TYPES = [
+  "maneuver",
+  "perk",
+  "capability",
+  "weapon",
+  "armor",
+  "equipment",
+];
 const LINKED_TYPES = [
   "class",
   "faction",
@@ -23,7 +31,7 @@ export default class CharacterSheetFS4 extends ActorSheet {
           initial: "stats",
         },
       ],
-      width: 560,
+      width: 580,
       resizable: true,
       classes: ["sheet", "character"],
       dragDrop: [
@@ -51,6 +59,7 @@ export default class CharacterSheetFS4 extends ActorSheet {
 
     this._prepareItems(context);
     this._prepareLinkedItems(context);
+    this._prepareArmor(context);
 
     foundry.utils.mergeObject(context, {
       source: source.system,
@@ -88,14 +97,6 @@ export default class CharacterSheetFS4 extends ActorSheet {
         localizedName: game.i18n.localize(`fs4.character.fields.res.${res}`),
         actorValue: actor.system.res[res],
       })),
-      armor: ARMOR_TYPES.map((type) => ({
-        type,
-        checked: actor.system.armor[type],
-      })),
-      weapons: Object.keys(actor.system.weapons).map((index) => ({
-        key: `weapons.${index}`,
-        weapon: actor.system.weapons[index],
-      })),
     });
 
     return context;
@@ -117,7 +118,6 @@ export default class CharacterSheetFS4 extends ActorSheet {
       event.currentTarget.blur();
     });
 
-    html.on("click", ".armor-type", this._toggleArmorType.bind(this));
     html.on("click", ".rollable-skill", this._onRoll.bind(this));
     html.on("click", ".rollable-maneuver", this._onRollManeuver.bind(this));
     html.on("click", "#empty-cache", this._emptyCache.bind(this));
@@ -147,20 +147,22 @@ export default class CharacterSheetFS4 extends ActorSheet {
       }
     });
 
-    html.on("click", ".item-delete", (event) => {
-      event.preventDefault();
-
-      const li = event.currentTarget.closest(".item");
-      const item = this.actor.items.get(li.dataset.itemId);
-      item.delete();
-    });
+    html.on("click", ".item-delete", this._removeItem.bind(this));
+    html.on("click", ".item-equip", this._equipItem.bind(this));
+    html.on("click", ".item-unequip", this._unequipItem.bind(this));
   }
 
   async _onDrop(event) {
     const data = TextEditor.getDragEventData(event);
     const item = await fromUuid(data.uuid);
     if (DROPABLE_TYPES.includes(item.type)) {
-      await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
+      const items = await this.actor.createEmbeddedDocuments("Item", [
+        item.toObject(),
+      ]);
+
+      if (item.type === "weapon") {
+        this.actor.onAddWeapon(items[0]);
+      }
     } else if (LINKED_TYPES.includes(item.type)) {
       await this.actor.update({ [`system.${item.type}`]: data.uuid });
 
@@ -196,6 +198,36 @@ export default class CharacterSheetFS4 extends ActorSheet {
     capability: {
       name: "capabilities",
       sort: true,
+    },
+    weapon: {
+      name: "weapons",
+      sort: false,
+      prepare: (actor, weapon) => ({
+        ...weapon,
+        ...weapon.system,
+        id: weapon.id,
+        rangeText: weapon.system.rangeText,
+        features: weapon.system.features
+          .map((identifier) => findItem(identifier)?.name)
+          .join(", "),
+        ammo:
+          actor.getFlag("fs4", `ammo.${weapon.id}`) + "/" + weapon.system.ammo,
+      }),
+    },
+    equipment: {
+      name: "equipment",
+      sort: false,
+    },
+    armor: {
+      name: "equipment",
+      sort: false,
+      prepare: (actor, armor) => ({
+        ...armor,
+        ...armor.system,
+        id: armor.id,
+        equipped: actor.getFlag("fs4", `equipped.${armor.id}`),
+        equippable: true,
+      }),
     },
   };
 
@@ -234,6 +266,22 @@ export default class CharacterSheetFS4 extends ActorSheet {
     });
   }
 
+  _prepareArmor(context) {
+    const equipped = context.actor.items.filter(
+      (item) =>
+        item.type === "armor" &&
+        context.actor.getFlag("fs4", `equipped.${item.id}`)
+    );
+    context.armorTypes = ARMOR_TYPES.map((type) => ({
+      type,
+      checked: equipped.some((item) => item.system.anti.includes(type)),
+    }));
+
+    context.armor = {
+      res: equipped.reduce((acc, item) => acc + item.system.res || 0, 0),
+    };
+  }
+
   _toggleArmorType(event) {
     event.preventDefault();
 
@@ -260,5 +308,27 @@ export default class CharacterSheetFS4 extends ActorSheet {
     event.preventDefault();
 
     this.actor.emptyCache();
+  }
+
+  _equipItem(event) {
+    event.preventDefault();
+
+    const { itemId } = event.currentTarget.closest(".item").dataset;
+    console.log("Equip item", itemId);
+    this.actor.equipItem(itemId);
+  }
+
+  _unequipItem(event) {
+    event.preventDefault();
+
+    const { itemId } = event.currentTarget.closest(".item").dataset;
+    this.actor.unequipItem(itemId);
+  }
+
+  _removeItem(event) {
+    event.preventDefault();
+
+    const { itemId } = event.currentTarget.closest(".item").dataset;
+    this.actor.removeItem(itemId);
   }
 }

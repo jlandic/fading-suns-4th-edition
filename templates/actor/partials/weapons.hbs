@@ -1,0 +1,36 @@
+<ol class="items-list">
+    <li class="item-headers flexrow">
+        <div>{{ localize "fs4.fields.name" }}</div>
+        <div>{{ localize "fs4.weapon.fields.goalModifier" }}</div>
+        <div>{{ localize "fs4.weapon.fields.damage" }}</div>
+        <div>{{ localize "fs4.weapon.fields.range" }}</div>
+        <div>{{ localize "fs4.weapon.fields.rof" }}</div>
+        <div>{{ localize "fs4.weapon.fields.ammo" }}</div>
+        <div>{{ localize "fs4.sheets.actions" }}</div>
+    </li>
+
+    {{#each weapons as |weapon id|}}
+    <li class="item flexrow" data-item-id="{{weapon.id}}">
+        <div class="item-name" title="{{weapon.features}}">
+            <h4>{{weapon.name}}</h4>
+        </div>
+
+        <div class="centered">{{ weapon.goalModifier }}</div>
+        <div class="centered">{{ weapon.damage }}</div>
+        <div class="centered">{{ weapon.rangeText }}</div>
+        <div class="centered">{{#if weapon.melee}}-{{else}}{{ weapon.rof }}{{/if}}</div>
+        <div class="centered">{{#if weapon.melee}}-{{else}}{{ weapon.ammo }}{{/if}}</div>
+
+        <div class="item-controls">
+            <div class="flexrow">
+                <a class="item-control item-edit centered" title="{{ localize "fs4.sheets.edit" }}">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a class="item-control item-delete centered" title="{{ localize "fs4.sheets.delete" }}">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </div>
+        </div>
+    </li>
+    {{/each}}
+</ol>

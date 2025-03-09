@@ -171,41 +171,9 @@
                     </a>
                 </h3>
 
-                <ol class="items-list">
-                    {{#each maneuvers as |maneuver id|}}
-                        <li class="item flexrow" data-item-id="{{maneuver.id}}">
-                            <img class="rollable rollable-maneuver"
-                                data-maneuver-id="{{maneuver.id}}"
-                                src="icons/svg/d20-highlight.svg"
-                                title="{{ localize "fs4.sheets.rollManeuver" }}"
-                            />
-                            <div class="item-name">
-                                <h4>{{maneuver.name}}</h4>
-                            </div>
-
-                            <div>
-                                {{#if maneuver.validStats}}
-                                    {{ localize (concat "fs4.skills." maneuver.system.skill) }} + {{ localize (concat "fs4.characteristics." maneuver.system.characteristic) }}
-                                    &nbsp;({{ maneuver.goal }})
-                                {{else}}
-                                    -
-                                {{/if}}
-                            </div>
-
-                            <div class="item-controls flex0">
-                                <div class="flexrow flexnowrap">
-                                    <a class="item-control item-edit" title="{{ localize "fs4.sheets.edit" }}">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-
-                                    <a class="item-control item-delete" title="{{ localize "fs4.sheets.delete" }}">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                    {{/each}}
-                </ol>
+                {{> "fs4.maneuvers"
+                    maneuvers=maneuvers
+                }}
             </section>
         </section> <!-- end of stats tab -->
 
@@ -380,10 +348,12 @@
                 <div class="flexcol">
                     <div class="form-group">
                         <label class="flex1" for="system.armor.name">{{ localize "fs4.character.fields.armor" }}</label>
-                        <input name="system.armor.name" type="text" value="{{system.armor.name}}" />
+                        <span>
+                            {{ localize "fs4.armor.fields.res" }}: {{armor.res}}
+                        </span>
                     </div>
                     <div class="flexrow">
-                        {{#each armor}}
+                        {{#each armorTypes}}
                             <span
                                 class="armor-type {{#if this.checked}}active{{else}}inactive{{/if}}"
                                 data-type="{{this.type}}"
@@ -416,45 +386,23 @@
             </div>
 
             <h3>{{ localize "fs4.character.fields.weapons" }}</h3>
-            <div class="flexcol">
-                <div class="flexrow">
-                    <input class="fake-label long-inline" type="text"
-                        placeholder={{ localize "fs4.fields.name" }} readonly aria-readonly="true"/>
-                    <input class="fake-label short" type="text"
-                        placeholder={{ localize "fs4.weapon.fields.tl" }} readonly aria-readonly="true"/>
-                    <input class="fake-label short" type="text"
-                        placeholder={{ localize "fs4.weapon.fields.goal" }} readonly aria-readonly="true"/>
-                    <input class="fake-label short" type="text"
-                        placeholder={{ localize "fs4.weapon.fields.damage" }} readonly aria-readonly="true"/>
-                    <input class="fake-label short" type="text"
-                        placeholder={{ localize "fs4.weapon.fields.str" }} readonly aria-readonly="true"/>
-                    <input class="fake-label range" type="text"
-                        placeholder={{ localize "fs4.weapon.fields.range" }} readonly aria-readonly="true"/>
-                    <input class="fake-label short" type="text"
-                        placeholder={{ localize "fs4.weapon.fields.rof" }} readonly aria-readonly="true"/>
-                    <input class="fake-label short" type="text"
-                        placeholder={{ localize "fs4.weapon.fields.ammo" }} readonly aria-readonly="true"/>
-                    <input class="fake-label long-inline" type="text"
-                        placeholder={{ localize "fs4.weapon.fields.features" }} readonly aria-readonly="true"/>
-                </div>
+            {{> "fs4.weapons"
+                weapons=weapons
+            }}
 
-                {{#each weapons}}
-                    {{> "fs4.weapon"
-                        weapon=this.weapon
-                        key=this.key
-                    }}
-                {{/each}}
-            </div>
+           <section class="flexcol equipment">
+                <h3>
+                    {{ localize "fs4.character.fields.equipment" }}
 
-            <h3>{{ localize "fs4.character.fields.equipment" }}</h3>
-            <div class="flexrow">
-                {{editor
-                    equipment
-                    engine="prosemirror"
-                    button=true
-                    target="system.equipment"
+                    <a class="item-control item-add" title="{{ localize "fs4.sheets.add" }}" data-item-type="equipment">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </h3>
+
+                {{> "fs4.equipment"
+                    items=equipment
                 }}
-            </div>
+            </section>
         </section> <!-- end of equipment tab -->
 
         <section class="tab" data-group="primary" data-tab="notes">

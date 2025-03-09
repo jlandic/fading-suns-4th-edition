@@ -20,8 +20,9 @@ const HANDLEBARS_TEMPLATES = [
 
   // Actor partials
   "systems/fs4/templates/actor/partials/score.hbs",
-  "systems/fs4/templates/actor/partials/maneuver.hbs",
-  "systems/fs4/templates/actor/partials/weapon.hbs",
+  "systems/fs4/templates/actor/partials/maneuvers.hbs",
+  "systems/fs4/templates/actor/partials/weapons.hbs",
+  "systems/fs4/templates/actor/partials/equipment.hbs",
 
   // Shared Partials
   "systems/fs4/templates/partials/sheet-header.hbs",

@@ -52,7 +52,10 @@
       "delete": "Supprimer",
       "show": "Afficher",
       "add": "Ajouter",
-      "rollManeuver": "Jet de maneuvre"
+      "rollManeuver": "Jet de maneuvre",
+      "equip": "Équiper",
+      "unequip": "Déséquiper",
+      "actions": "Actions"
     },
     "fields": {
       "description": "Description",
