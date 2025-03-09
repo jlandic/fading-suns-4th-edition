@@ -296,9 +296,9 @@
                     <ol class="items-list">
                         {{#each perks as |perk id|}}
                             <li class="item flexrow" data-item-id="{{perk.id}}">
-                                <div class="item-name">
+                                <span class="item-name" data-tooltip="{{{perk.system.benefice}}}">
                                     <h4>{{perk.name}}</h4>
-                                </div>
+                                </span>
 
                                 <div class="item-controls flex0">
                                     <div class="flexrow flexnowrap">
@@ -399,7 +399,7 @@
                     </a>
                 </h3>
 
-                {{> "fs4.equipment"
+                {{> "fs4.equipments"
                     items=equipment
                 }}
             </section>

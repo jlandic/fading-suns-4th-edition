@@ -11,6 +11,7 @@ const HANDLEBARS_TEMPLATES = [
   "systems/fs4/templates/item/simple-item-with-type.hbs",
   "systems/fs4/templates/item/armor.hbs",
   "systems/fs4/templates/item/weapon.hbs",
+  "systems/fs4/templates/item/equipment.hbs",
 
   // Item partials
   "systems/fs4/templates/item/partials/equipment-base.hbs",
@@ -22,7 +23,7 @@ const HANDLEBARS_TEMPLATES = [
   "systems/fs4/templates/actor/partials/score.hbs",
   "systems/fs4/templates/actor/partials/maneuvers.hbs",
   "systems/fs4/templates/actor/partials/weapons.hbs",
-  "systems/fs4/templates/actor/partials/equipment.hbs",
+  "systems/fs4/templates/actor/partials/equipments.hbs",
 
   // Shared Partials
   "systems/fs4/templates/partials/sheet-header.hbs",

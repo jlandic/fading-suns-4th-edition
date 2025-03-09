@@ -139,6 +139,7 @@ export default class CharacterSheetFS4 extends ActorSheet {
     });
 
     html.on("click", ".linked-item", (event) => {
+      console.log("Clicked linked item", event.currentTarget.closedataset);
       event.preventDefault();
 
       const item = game.items.get(event.currentTarget.dataset.identifier);

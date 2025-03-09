@@ -6,6 +6,7 @@ import CallingData from "./calling.mjs";
 import CapabilityData from "./capability.mjs";
 import ClassData from "./class.mjs";
 import CurseData from "./curse.mjs";
+import EquipmentData from "./equipment.mjs";
 import FactionData from "./faction.mjs";
 import ManeuverData from "./maneuver.mjs";
 import PerkData from "./perk.mjs";
@@ -32,6 +33,7 @@ export {
   ArmorFeatureData,
   ArmorData,
   WeaponData,
+  EquipmentData,
 };
 
 export const config = {
@@ -51,4 +53,5 @@ export const config = {
   armorFeature: ArmorFeatureData,
   armor: ArmorData,
   weapon: WeaponData,
+  equipment: EquipmentData,
 };

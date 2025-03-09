@@ -37,6 +37,9 @@ export default class ItemSheetFS4 extends ItemSheet {
       system: item.system,
       user: game.user,
       itemType: game.i18n.localize(`TYPES.Item.${this.item.type}`),
+      description: await TextEditor.enrichHTML(item.system.description, {
+        async: true,
+      }),
     });
 
     this._prepareEmbeddedCollections(context);

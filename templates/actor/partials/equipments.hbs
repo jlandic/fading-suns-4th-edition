@@ -1,7 +1,7 @@
 <ol class="items-list">
     {{#each items as |item id|}}
         <li class="item flexrow" data-item-id="{{item.id}}" data-item-type="{{item.type}}">
-            <div class="item-name {{#unless item.equipped}}deactivated{{/unless}}">
+            <div class="item-name flex3 {{#if item.equippable}}{{#unless item.equipped}}deactivated{{/unless}}{{/if}}">
                 <h4>
                     {{#if item.equippable}}
                         {{#if item.equipped}}
@@ -15,15 +15,17 @@
                         {{/if}}
                     {{/if}}
 
-                    {{item.name}}
+                    <span data-tooltip="{{{item.system.description}}}" data-tooltip-direction="UP">
+                        {{item.name}}
+                    </span>
                 </h4>
             </div>
 
             <div>
-                {{#if item.description}}
-                    {{item.description}}
-                {{else}}
+                {{#if (eq item.system.tl undefined)}}
                     -
+                {{else}}
+                    {{ localize "fs4.equipment.fields.tl" }}{{item.system.tl}}
                 {{/if}}
             </div>
 
