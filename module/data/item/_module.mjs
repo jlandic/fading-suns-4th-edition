@@ -10,6 +10,8 @@ import EquipmentData from "./equipment.mjs";
 import FactionData from "./faction.mjs";
 import ManeuverData from "./maneuver.mjs";
 import PerkData from "./perk.mjs";
+import ShieldData from "./shield.mjs";
+import ShieldFeatureData from "./shieldFeature.mjs";
 import SpeciesData from "./species.mjs";
 import StateData from "./state.mjs";
 import TechCompulsionData from "./techCompulsion.mjs";
@@ -34,6 +36,8 @@ export {
   ArmorData,
   WeaponData,
   EquipmentData,
+  ShieldData,
+  ShieldFeatureData,
 };
 
 export const config = {
@@ -54,4 +58,6 @@ export const config = {
   armor: ArmorData,
   weapon: WeaponData,
   equipment: EquipmentData,
+  shield: ShieldData,
+  shieldFeature: ShieldFeatureData,
 };

@@ -21,7 +21,8 @@
       "affliction": "Affliction",
       "state": "État",
       "weaponFeature": "Particularité d'arme",
-      "armorFeature": "Particularité d'armure"
+      "armorFeature": "Particularité d'armure",
+      "shieldFeature": "Particularité de bouclier"
     }
   },
   "fs4": {
@@ -156,7 +157,7 @@
         "dexModifier": "Dex.",
         "vigorModifier": "Vigueur",
         "features": "Particularités",
-        "eshieldCompatibility": "Compatibilité bouclier-e",
+        "eshieldCompatibility": "Compatibilité e-bouclier",
         "capability": "Aptitude"
       },
       "noCapabilityRequirement": "Aucun prérequis"
@@ -188,6 +189,15 @@
       "es": "eS",
       "ea": "eA",
       "eb": "eG"
+    },
+    "affliction": {
+      "fields": {
+        "preconditions": "Prérequis",
+        "effects": "Effets"
+      },
+      "specialPreconditions": {
+        "not_priest": "Non-prêtre"
+      }
     },
     "capability": {
       "reserved": "Réservée",
@@ -276,7 +286,7 @@
         "theurgy": "Théurgie",
         "hubris": "Hybris",
         "armor": "Armure",
-        "eshield": "Bouclier-e",
+        "eshield": "E-bouclier",
         "weapons": "Armes",
         "cash": "Argent",
         "techGnosis": "Tech gnose",
@@ -297,12 +307,29 @@
       "min": "Min",
       "max": "Max"
     },
+    "shield": {
+      "fields": {
+        "size": "Taille",
+        "hits": "Coups",
+        "burnout": "Épuisement",
+        "distortion": "Distorsion",
+        "res": "Rés.",
+        "damage": "Dég.",
+        "thresholds": "Seuils",
+        "features": "Particularités",
+        "handheld": "Portatif"
+      },
+      "recharge": "Recharger",
+      "resetBurnout": "Réinitialiser épuisement",
+      "testBurnout": "Tester",
+      "toggleDistortion": "Distortion"
+    },
     "maneuver": {
       "fields": {
         "goal": "Cible",
         "impact": "Incidence",
         "resistance": "Résistance",
-        "time": "Temps",
+        "time": "Temps/coût",
         "capability": "Aptitude"
       }
     },

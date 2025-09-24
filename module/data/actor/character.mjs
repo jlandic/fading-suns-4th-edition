@@ -3,16 +3,13 @@ import {
   getSurgeAndRevivalAmountForLevel,
 } from "../../rules/leveling.mjs";
 import {
-  armor,
   bank,
   characteristics,
   defaultNumberFieldOptions,
-  eshield,
   indexedMap,
   maneuver,
   res,
   skills,
-  weapon,
 } from "../fields/character.mjs";
 import CreatureTemplate from "./templates/creature.mjs";
 
@@ -62,8 +59,6 @@ export default class CharacterData extends CreatureTemplate {
         ...defaultNumberFieldOptions(0),
       }),
       res: res(),
-      armor: armor(),
-      eshield: eshield(),
       vitality: new SchemaField({
         value: new NumberField({
           ...defaultNumberFieldOptions(0),
@@ -81,7 +76,6 @@ export default class CharacterData extends CreatureTemplate {
       techgnosis: new NumberField({
         ...defaultNumberFieldOptions(),
       }),
-      equipment: new HTMLField(),
       cash: new NumberField({
         ...defaultNumberFieldOptions(0),
       }),

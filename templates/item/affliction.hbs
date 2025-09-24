@@ -1,0 +1,40 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{> "fs4.sheet-header" document=item documentType=itemType }}
+
+    <h2>{{ localize "fs4.affliction.fields.preconditions" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                preconditions
+                engine="prosemirror"
+                editable=false
+            }}
+        </div>
+    </div>
+
+    <h2>{{ localize "fs4.fields.description" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                description
+                engine="prosemirror"
+                target="system.description"
+                button=true
+            }}
+        </div>
+    </div>
+
+    <hr />
+
+    <h2>{{ localize "fs4.affliction.fields.effects" }}</h2>
+    <div class="form-group">
+        <div class="form-fields">
+            {{editor
+                effects
+                engine="prosemirror"
+                target="system.effects"
+                button=true
+            }}
+        </div>
+    </div>
+</form>

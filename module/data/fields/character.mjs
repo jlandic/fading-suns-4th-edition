@@ -1,8 +1,7 @@
-import { ARMOR_TYPES } from "../../registry/armorTypes.mjs";
 import { CHARACTERISTICS } from "../../registry/characteristics.mjs";
 import { RESERVED_SKILLS, SKILLS } from "../../registry/skills.mjs";
 
-const { NumberField, SchemaField, StringField, BooleanField } =
+const { NumberField, SchemaField, StringField } =
   foundry.data.fields;
 
 const DEFAULT_CHARACTERISTIC_SCORE = 3;
@@ -71,33 +70,6 @@ export const res = () =>
     spirit: moddedField(),
   });
 
-export const armor = () =>
-  new SchemaField({
-    name: new StringField(),
-    ...ARMOR_TYPES.reduce(
-      (acc, item) => ({
-        ...acc,
-        [item]: new BooleanField({
-          initial: false,
-        }),
-      }),
-      {}
-    ),
-  });
-
-export const eshield = () =>
-  new SchemaField({
-    name: new StringField(),
-    hits: new NumberField({
-      ...defaultNumberFieldOptions(),
-    }),
-    thresholdMin: new NumberField({
-      ...defaultNumberFieldOptions(),
-    }),
-    thresholdMax: new NumberField({
-      ...defaultNumberFieldOptions(),
-    }),
-  });
 
 export const indexedMap = (length, fieldType) =>
   new SchemaField({

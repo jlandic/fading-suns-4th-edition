@@ -1,6 +1,6 @@
 import { findItem } from "../utils/dataAccess.mjs";
 
-export default class ItemSheetFS4 extends ItemSheet {
+export default class ItemSheetFS4 extends foundry.appv1.sheets.ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       tabs: [],
@@ -54,6 +54,11 @@ export default class ItemSheetFS4 extends ItemSheet {
     html.on("click", ".linked-item", this._onShowItem.bind(this));
     html.on("click", ".item-show", this._onShowItem.bind(this));
     html.on("click", ".item-delete", this._onDeleteEmbeddedItem.bind(this));
+
+    html.on("focus", "input[type=number]", (event) => {
+      event.preventDefault();
+      event.currentTarget.select();
+    });
   }
 
   async _onDrop(event) {

@@ -4,8 +4,8 @@
     "build:code": "rollup fs4.mjs -f es -o dist/fs4.mjs -p node-resolve -m --sourcemapFile fs4.mjs",
     "build:css": "lessc less/fs4.less dist/fs4.css",
     "build:packs": "node ./utils/packs.mjs package pack",
-    "lint": "eslint ./",
-    "lint:fix": "eslint ./ --fix",
+    "lint": "eslint ./module",
+    "lint:fix": "eslint ./module --fix",
     "watch": "less-watch-compiler less/ dist/ fs4.less"
   },
   "dependencies": {

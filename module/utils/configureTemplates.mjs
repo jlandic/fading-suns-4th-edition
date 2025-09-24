@@ -12,6 +12,8 @@ const HANDLEBARS_TEMPLATES = [
   "systems/fs4/templates/item/armor.hbs",
   "systems/fs4/templates/item/weapon.hbs",
   "systems/fs4/templates/item/equipment.hbs",
+  "systems/fs4/templates/item/affliction.hbs",
+  "systems/fs4/templates/item/shield.hbs",
 
   // Item partials
   "systems/fs4/templates/item/partials/equipment-base.hbs",
@@ -40,5 +42,5 @@ export async function preloadTemplates() {
     return acc;
   }, {});
 
-  return loadTemplates(paths);
+  return foundry.applications.handlebars.loadTemplates(paths);
 }

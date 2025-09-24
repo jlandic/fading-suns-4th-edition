@@ -27,8 +27,6 @@ export default class ActorFS4 extends Actor {
   }
 
   rollManeuver(maneuverId) {
-    console.log("Rolling maneuver", maneuverId);
-    console.log(this.items);
     const maneuver = this.items.get(maneuverId);
     roll(this, maneuver.system.characteristic, maneuver.system.skill);
   }
@@ -60,5 +58,25 @@ export default class ActorFS4 extends Actor {
 
   onRemoveWeapon(item) {
     this.unsetFlag("fs4", `ammo.${item.id}`);
+  }
+
+  updateShieldState(field, value) {
+    this._shield()?.updateState(field, value);
+  }
+
+  rechargeShield() {
+    this._shield()?.recharge();
+  }
+
+  resetShieldBurnout() {
+    this._shield()?.resetBurnout();
+  }
+
+  toggleShieldDistortion() {
+    this._shield()?.toggleDistortion();
+  }
+
+  _shield() {
+    return this.items.find((item) => item.type === "shield" && this.getFlag("fs4", `equipped.${item.id}`));
   }
 }

@@ -8,14 +8,18 @@
     "verified": "12.331"
   },
   "author": "@jlandic",
-  "esmodules": ["fs4.mjs"],
-  "styles": ["dist/fs4.css"],
+  "esmodules": [
+    "fs4.mjs"
+  ],
+  "styles": [
+    "dist/fs4.css"
+  ],
   "packs": [
     {
       "name": "fs4-character-creation",
       "type": "Item",
       "path": "packs/fs4-character-creation",
-      "label": "[FS4] Création de persos"
+      "label": "TMP DO NOT USE"
     }
   ],
   "languages": [
@@ -27,8 +31,16 @@
   ],
   "flags": {
     "hotReload": {
-      "extensions": ["css", "hbs", "json"],
-      "paths": ["dist/fs4.css", "templates", "lang"]
+      "extensions": [
+        "css",
+        "hbs",
+        "json"
+      ],
+      "paths": [
+        "dist/fs4.css",
+        "templates",
+        "lang"
+      ]
     }
   },
   "url": "https://github.com/jlandic/foundry-fading-suns-4th-edition",
@@ -56,7 +68,8 @@
       "affliction": {},
       "state": {},
       "weaponFeature": {},
-      "armorFeature": {}
+      "armorFeature": {},
+      "shieldFeature": {}
     }
   }
 }

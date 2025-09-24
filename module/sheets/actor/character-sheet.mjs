@@ -10,6 +10,7 @@ const DROPABLE_TYPES = [
   "capability",
   "weapon",
   "armor",
+  "shield",
   "equipment",
 ];
 const LINKED_TYPES = [
@@ -21,7 +22,7 @@ const LINKED_TYPES = [
   "curse",
 ];
 
-export default class CharacterSheetFS4 extends ActorSheet {
+export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       tabs: [
@@ -60,6 +61,7 @@ export default class CharacterSheetFS4 extends ActorSheet {
     this._prepareItems(context);
     this._prepareLinkedItems(context);
     this._prepareArmor(context);
+    this._prepareShield(context);
 
     foundry.utils.mergeObject(context, {
       source: source.system,
@@ -121,6 +123,8 @@ export default class CharacterSheetFS4 extends ActorSheet {
     html.on("click", ".rollable-skill", this._onRoll.bind(this));
     html.on("click", ".rollable-maneuver", this._onRollManeuver.bind(this));
     html.on("click", "#empty-cache", this._emptyCache.bind(this));
+    html.on("click", "#recharge-shield", this._rechargeShield.bind(this));
+    html.on("click", "#reset-shield-burnout", this._resetShieldBurnout.bind(this));
 
     html.on("click", ".item-add", async (event) => {
       event.preventDefault();
@@ -139,7 +143,6 @@ export default class CharacterSheetFS4 extends ActorSheet {
     });
 
     html.on("click", ".linked-item", (event) => {
-      console.log("Clicked linked item", event.currentTarget.closedataset);
       event.preventDefault();
 
       const item = game.items.get(event.currentTarget.dataset.identifier);
@@ -151,6 +154,9 @@ export default class CharacterSheetFS4 extends ActorSheet {
     html.on("click", ".item-delete", this._removeItem.bind(this));
     html.on("click", ".item-equip", this._equipItem.bind(this));
     html.on("click", ".item-unequip", this._unequipItem.bind(this));
+
+    html.on("blur", "input.shield", this._updateShield.bind(this));
+    html.on("click", "#toggle-shield-distortion", this._toggleShieldDistortion.bind(this));
   }
 
   async _onDrop(event) {
@@ -230,6 +236,17 @@ export default class CharacterSheetFS4 extends ActorSheet {
         equippable: true,
       }),
     },
+    shield: {
+      name: "equipment",
+      sort: false,
+      prepare: (actor, shield) => ({
+        ...shield,
+        ...shield.system,
+        id: shield.id,
+        equipped: actor.getFlag("fs4", `equipped.${shield.id}`),
+        equippable: true,
+      }),
+    }
   };
 
   _prepareItems(context) {
@@ -283,6 +300,23 @@ export default class CharacterSheetFS4 extends ActorSheet {
     };
   }
 
+  _prepareShield(context) {
+    const equipped = context.actor.items.find(
+      (item) =>
+        item.type === "shield" &&
+        context.actor.getFlag("fs4", `equipped.${item.id}`)
+    );
+
+    if (equipped) {
+      context.shield = {
+        ...equipped.system,
+        id: equipped.id,
+        name: equipped.name,
+        canDistort: equipped.system.canDistort(),
+      };
+    }
+  }
+
   _toggleArmorType(event) {
     event.preventDefault();
 
@@ -300,7 +334,6 @@ export default class CharacterSheetFS4 extends ActorSheet {
   _onRollManeuver(event) {
     event.preventDefault();
 
-    console.log(event.currentTarget.dataset);
     const maneuverId = event.currentTarget.dataset.maneuverId;
     this.actor.rollManeuver(maneuverId);
   }
@@ -309,6 +342,30 @@ export default class CharacterSheetFS4 extends ActorSheet {
     event.preventDefault();
 
     this.actor.emptyCache();
+  }
+
+  _updateShield(event) {
+    event.preventDefault();
+
+    this.actor.updateShieldState(event.currentTarget.name, event.currentTarget.value);
+  }
+
+  _rechargeShield(event) {
+    event.preventDefault();
+
+    this.actor.rechargeShield();
+  }
+
+  _resetShieldBurnout(event) {
+    event.preventDefault();
+
+    this.actor.resetShieldBurnout();
+  }
+
+  _toggleShieldDistortion(event) {
+    event.preventDefault();
+
+    this.actor.toggleShieldDistortion();
   }
 
   _equipItem(event) {

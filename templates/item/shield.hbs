@@ -1,0 +1,114 @@
+<form class="{{cssClass}} drop" autocomplete="off">
+    {{> "fs4.sheet-header" document=item documentType=itemType }}
+
+    {{> "fs4.equipment-base" document=item }}
+
+    <div class="form-group">
+        <section class="flexrow centered highlight-labels">
+            <div class="flexcol centered center-items">
+                <label for="system.handheld">{{ localize "fs4.shield.fields.handheld" }}</label>
+                <input name="system.handheld" type="checkbox" {{checked system.handheld}} />
+            </div>
+
+            <div class="flexcol">
+                <label for="system.size">{{ localize "fs4.shield.fields.size" }}</label>
+                <select name="system.size">
+                    {{selectOptions
+                        sizes
+                        selected=system.size
+                        valueAttr="value"
+                        labelAttr="name"
+                    }}
+                </select>
+            </div>
+
+            <div class="flexcol">
+                <label for="system.res">{{ localize "fs4.shield.fields.res" }}</label>
+                <input name="system.res" type="number" value="{{system.res}}" {{#unless system.handheld}}disabled readonly{{/unless}}/>
+            </div>
+
+            <div class="flexcol">
+                <label for="system.damage">{{ localize "fs4.shield.fields.damage" }}</label>
+                <input name="system.damage" type="number" value="{{system.damage}}" {{#unless system.handheld}}disabled readonly{{/unless}}/>
+            </div>
+        </section>
+    </div>
+
+    {{#unless system.handheld}}
+        <div class="form-group">
+            <section class="flexrow centered highlight-labels">
+                <div class="flexcol">
+                    <label for="system.hits">{{ localize "fs4.shield.fields.hits" }}</label>
+                    <input name="system.hits" type="number" value="{{system.hits}}" />
+                </div>
+
+                <div class="flexcol">
+                    <label for="system.burnout">{{ localize "fs4.shield.fields.burnout" }}</label>
+                    <input name="system.burnout" type="number" value="{{system.burnout}}" />
+                </div>
+
+                <div class="flexcol">
+                    <label for="system.distortion">{{ localize "fs4.shield.fields.distortion" }}</label>
+                    <input name="system.distortion" type="number" value="{{system.distortion}}" />
+                </div>
+
+                <div class="flexcol centered center-items">
+                    <label>{{ localize "fs4.shield.fields.thresholds" }}</label>
+
+                    <div class="flexrow centered">
+                        <input class="short" name="system.thresholds.low" type="number" value="{{system.thresholds.low}}" />
+                        <span class="centered">&nbsp-&nbsp</span>
+                        <input class="short" name="system.thresholds.high" type="number" value="{{system.thresholds.high}}" />
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="form-group">
+            <section class="flexrow">
+                {{#each shieldTypes}}
+                    <span
+                        class="eshield-type {{#if this.checked}}active{{else}}inactive{{/if}}"
+                        data-type="{{this.type}}"
+                        title="{{this.richName}}"
+                    >
+                        {{this.name}}
+                    </span>
+                {{/each}}
+            </section>
+        </div>
+    {{/unless}}
+
+    {{#if system.handheld}}
+    <div class="form-group">
+        <section class="flexrow">
+            {{#each armorTypes}}
+                <span
+                    class="armor-type {{#if this.checked}}active{{else}}inactive{{/if}}"
+                    data-type="{{this.type}}"
+                    title="{{this.richName}}"
+                >
+                    {{this.name}}
+                </span>
+            {{/each}}
+        </section>
+    </div>
+    {{/if}}
+
+    <div class="form-group">
+        <section class="flexcol">
+            <h2 class="flex0">{{ localize "fs4.shield.fields.features" }}</h2>
+            {{> "fs4.linked-item-collection" collection=features collectionName="features" withDescription=true}}
+        </section>
+    </div>
+
+     <section class="flexcol"></section>
+        <h2>{{ localize "fs4.fields.description" }}</h2>
+        {{editor
+            description
+            engine="prosemirror"
+            target="system.description"
+            button=true
+        }}
+    </section>
+</form>

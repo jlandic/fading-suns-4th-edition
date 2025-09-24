@@ -141,7 +141,7 @@
                         {{ localize "fs4.character.fields.bank" }} ({{ system.bankCapacity }})
                     </label>
                     <div class="flexrow centered bank">
-                        <img id="empty-cache"
+                        <img class="action" id="empty-cache"
                             src="icons/svg/cancel.svg"
                             title="{{ localize "fs4.character.emptyCache" }}"
                         />
@@ -265,10 +265,10 @@
                 </div>
             </section>
 
-            <section class="flexrow">
+            <section class="flexrow align-top">
                 <section class="flexcol">
                     <h2 class="flex0">{{ localize "fs4.character.fields.capabilities" }}</h2>
-                    <ol class="items-list">
+                    <ol class="items-list flex1">
                         {{#each capabilities as |capability id|}}
                             <li class="item flexrow" data-item-id="{{capability.id}}">
                                 <div class="item-name">
@@ -293,7 +293,7 @@
 
                 <section class="flexcol">
                     <h2 class="flex0">{{ localize "fs4.character.fields.perks" }} </h2>
-                    <ol class="items-list">
+                    <ol class="items-list flex1">
                         {{#each perks as |perk id|}}
                             <li class="item flexrow" data-item-id="{{perk.id}}">
                                 <span class="item-name" data-tooltip="{{{perk.system.benefice}}}">
@@ -366,22 +366,60 @@
                 </div>
 
                 <div class="flexcol">
-                    <div class="form-group">
-                        <label for="system.eshield.name">{{ localize "fs4.character.fields.eshield" }}</label>
-                        <input name="system.eshield.name" type="text" value="{{system.eshield.name}}" />
-                    </div>
-                    <div class="flexrow">
-                        <div class="form-group">
-                            <label class="flex1" for="system.eshield.hits">{{ localize "fs4.eshield.hits" }}</label>
-                            <input class="short" name="system.eshield.hits" type="number" value="{{system.eshield.hits}}" />
+                    {{#if shield}}
+                        <div class="flexrow center-items">
+                            <label class="flex2">{{ localize "fs4.character.fields.eshield" }}</label>
+                            <div class="flexrow center-items flex2">
+                                {{#if shield.handheld}}
+                                    {{ shield.name }}
+                                {{else}}
+                                    {{ shield.thresholds.low }} / {{ shield.thresholds.high }}
+                                {{/if}}
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>{{ localize "fs4.eshield.thresholds" }}</label>
-                            <input class="short" name="system.eshield.thresholdMin" type="number" value="{{system.eshield.thresholdMin}}" />
-                            <span class="centered">&nbsp-&nbsp</span>
-                            <input class="short" name="system.eshield.thresholdMax" type="number" value="{{system.eshield.thresholdMax}}" />
-                        </div>
-                    </div>
+                        {{#unless shield.handheld}}
+                            <div class="flexrow center-items">
+                                <label for="system.state.hits">{{ localize "fs4.eshield.hits" }}</label>
+                                <div class="flexrow center-items">
+                                    <input class="short shield" name="system.state.hits" type="number" value="{{shield.state.hits}}" />&nbsp;({{ shield.hits }})&nbsp;
+                                    <img class="action" id="recharge-shield"
+                                        src="icons/svg/shield.svg"
+                                        title="{{ localize "fs4.shield.recharge" }}"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="flexrow  center-items">
+                                <label for="system.state.burnoutRounds">{{ localize "fs4.shield.fields.burnout" }}</label>
+
+                                <div class="flexrow center-items">
+                                    <input class="short shield" name="system.state.burnoutRounds" type="number" value="{{shield.state.burnoutRounds}}" />&nbsp;({{ shield.burnout }})&nbsp;
+                                    <div class="flexrow">
+                                        <img class="action" id="reset-shield-burnout"
+                                            src="icons/svg/shield.svg"
+                                            title="{{ localize "fs4.shield.resetBurnout" }}"
+                                        />
+                                    </div>
+
+                                    {{#if shield.canDistort}}
+                                        <div class="flexrow">
+                                            <img id="toggle-shield-distortion" class="action {{#if shield.state.distorting}}active{{/if}}"
+                                                src="icons/svg/regen.svg"
+                                                title="{{ localize "fs4.shield.toggleDistortion" }} (+{{ shield.distortion }})"
+                                            />
+                                        </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        {{else}}
+                            <div class="flexrow center-items">
+                                <label>{{ localize "fs4.shield.fields.res" }}</label>
+                                <span>{{ shield.res }}</span>
+                                <label>{{ localize "fs4.shield.fields.damage" }}</label>
+                                <span>{{ shield.damage }}</span>
+                            </div>
+                        {{/unless}}
+                    {{/if}}
                 </div>
             </div>
 
