@@ -10,8 +10,17 @@
     </li>
 
     {{#each weapons as |weapon id|}}
-    <li class="item flexrow" data-item-id="{{weapon.id}}">
-        <div class="item-name" title="{{weapon.features}}">
+    <li class="item flexrow center-items" data-item-id="{{weapon.id}}">
+        <div class="item-name flexrow center-items" title="{{weapon.features}}">
+            {{#if weapon.equipped}}
+                <a class="item-control item-unequip activated" title="{{ localize "fs4.sheets.unequip" }}">
+                    <i class="fas fa-hand" color="green"></i>
+                </a>
+            {{else}}
+                <a class="item-control item-equip deactivated" title="{{ localize "fs4.sheets.equip" }}">
+                    <i class="fas fa-hand" color="gray"></i>
+                </a>
+            {{/if}}
             <h4>{{weapon.name}}</h4>
         </div>
 
@@ -22,7 +31,7 @@
         <div class="centered">{{#if weapon.melee}}-{{else}}{{ weapon.ammo }}{{/if}}</div>
 
         <div class="item-controls">
-            <div class="flexrow">
+            <div class="flexrow flexnowrap">
                 <a class="item-control item-edit centered" title="{{ localize "fs4.sheets.edit" }}">
                     <i class="fas fa-edit"></i>
                 </a>

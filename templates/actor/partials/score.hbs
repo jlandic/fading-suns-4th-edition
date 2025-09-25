@@ -9,10 +9,12 @@
     <label for="system.{{key}}">
         {{ label }}
     </label>
-    <input name="system.{{key}}" type="number" value="{{value}}" />
+
+    <input name="system.{{key}}" type="text" class="enhanced-number" value="{{value}}" />
 
     {{#if modKey}}
         <input class="short" name="system.{{modKey}}" type="text" value="{{modValue}}"
             placeholder="{{ localize "fs4.fields.mod" }}" />
+        <span class="flex0">{{formatMod mod}}</span>
     {{/if}}
 </div>

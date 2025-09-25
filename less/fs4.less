@@ -62,6 +62,8 @@ aside.document-type {
 }
 
 .score {
+
+  input.enhanced-number,
   input[type="number"] {
     max-width: 2em;
     text-align: center;
@@ -125,7 +127,10 @@ label.flex5 {
 }
 
 .eshield-type {
-  &:extend(.armor-type);
+  border: grey 1px solid;
+  border-radius: 20%;
+  text-align: center;
+  align-content: center;
 }
 
 .armor-type.active {
@@ -275,4 +280,14 @@ li.item-headers {
 
 .flexcol .flex0 {
   flex: 0 !important;
+}
+
+.item-controls {
+  .flexrow {
+    justify-content: flex-end;
+
+    a.item-control {
+      flex: 0;
+    }
+  }
 }

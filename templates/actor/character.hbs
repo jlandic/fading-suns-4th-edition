@@ -85,6 +85,7 @@
                                     label=this.localizedName
                                     modKey=this.modKey
                                     modValue=this.actorValue.mod
+                                    mod=this.mod
                                 }}
                             {{/each}}
                         </section>
@@ -97,19 +98,19 @@
             <section class="flexrow centered highlight-labels">
                 <div class="flexcol">
                     <label for="system.psi">{{ localize "fs4.character.fields.psi" }}</label>
-                    <input name="system.psi" type="number" value="{{system.psi}}" />
+                    <input name="system.psi" class="enhanced-number" type="text" value="{{system.psi}}" />
                 </div>
                 <div class="flexcol">
                     <label for="system.urge">{{ localize "fs4.character.fields.urge" }}</label>
-                    <input name="system.urge" type="number" value="{{system.urge}}" />
+                    <input name="system.urge" class="enhanced-number" type="text" value="{{system.urge}}" />
                 </div>
                 <div class="flexcol">
                     <label for="system.theurgy">{{ localize "fs4.character.fields.theurgy" }}</label>
-                    <input name="system.theurgy" type="number" value="{{system.theurgy}}" />
+                    <input name="system.theurgy" class="enhanced-number" type="text" value="{{system.theurgy}}" />
                 </div>
                 <div class="flexcol">
                     <label for="system.hubris">{{ localize "fs4.character.fields.hubris" }}</label>
-                    <input name="system.hubris" type="number" value="{{system.hubris}}" />
+                    <input name="system.hubris" class="enhanced-number" type="text" value="{{system.hubris}}" />
                 </div>
             </section>
 
@@ -118,12 +119,12 @@
             <section class="flexrow centered highlight-labels">
                 <div class="form-group flex1">
                     <label for="system.vitality.value">{{ localize "fs4.character.fields.vitality" }} ({{system.vitalityRating}})</label>
-                    <input class="short" name="system.vitality.value" type="number" value="{{system.vitality.value}}" />
+                    <input class="short enhanced-number" type="text" name="system.vitality.value" value="{{system.vitality.value}}" />
                 </div>
 
                 <div class="form-group flex3">
                     <label class="flex5" for="system.revivals">{{ localize "fs4.character.fields.revivals" }}</label>
-                    <input class="short" name="system.revivals" type="number" value="{{system.revivals}}" />
+                    <input class="short enhanced-number" type="text" name="system.revivals" value="{{system.revivals}}" />
                     <span>
                         <strong>{{ localize "fs4.fields.value" }}:</strong> {{system.revivalRating}}
                     </span>
@@ -145,14 +146,14 @@
                             src="icons/svg/cancel.svg"
                             title="{{ localize "fs4.character.emptyCache" }}"
                         />
-                        <input name="system.bank.vp" type="number" value="{{system.bank.vp}}" />
-                        <input name="system.bank.wp" type="number" value="{{system.bank.wp}}" />
+                        <input class="enhanced-number" type="text" name="system.bank.vp" value="{{system.bank.vp}}" />
+                        <input class="enhanced-number" type="text" name="system.bank.wp" value="{{system.bank.wp}}" />
                     </div>
                 </div>
 
                 <div class="form-group flex3">
                     <label class="flex5" for="system.bank.surge">{{ localize "fs4.character.fields.surge" }}</label>
-                    <input class="short" name="system.bank.surge" type="number" value="{{system.bank.surge}}" />
+                    <input class="short enhanced-number" type="text" name="system.bank.surge" value="{{system.bank.surge}}" />
                     <span>
                         <strong>{{ localize "fs4.fields.value" }}:</strong> {{system.surgeRating}}
                     </span>
@@ -334,7 +335,7 @@
             <div class="flexrow centered highlight-labels">
                 <div class="form-group">
                     <label for="system.cash">{{ localize "fs4.character.fields.cash" }}</label>
-                    <input name="system.cash" type="number" value="{{system.cash}}" />
+                    <input name="system.cash" class="enhanced-number" type="text" value="{{system.cash}}" />
                 </div>
 
                 <div class="form-group">
@@ -381,7 +382,7 @@
                             <div class="flexrow center-items">
                                 <label for="system.state.hits">{{ localize "fs4.eshield.hits" }}</label>
                                 <div class="flexrow center-items">
-                                    <input class="short shield" name="system.state.hits" type="number" value="{{shield.state.hits}}" />&nbsp;({{ shield.hits }})&nbsp;
+                                    <input class="short shield enhanced-number" type="text"="system.state.hits" value="{{shield.state.hits}}" />&nbsp;({{ shield.hits }})&nbsp;
                                     <img class="action" id="recharge-shield"
                                         src="icons/svg/shield.svg"
                                         title="{{ localize "fs4.shield.recharge" }}"
@@ -393,7 +394,7 @@
                                 <label for="system.state.burnoutRounds">{{ localize "fs4.shield.fields.burnout" }}</label>
 
                                 <div class="flexrow center-items">
-                                    <input class="short shield" name="system.state.burnoutRounds" type="number" value="{{shield.state.burnoutRounds}}" />&nbsp;({{ shield.burnout }})&nbsp;
+                                    <input class="short shield enhanced-number" type="text" name="system.state.burnoutRounds" value="{{shield.state.burnoutRounds}}" />&nbsp;({{ shield.burnout }})&nbsp;
                                     <div class="flexrow">
                                         <img class="action" id="reset-shield-burnout"
                                             src="icons/svg/shield.svg"

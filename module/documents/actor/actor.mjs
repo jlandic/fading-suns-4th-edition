@@ -16,11 +16,25 @@ export default class ActorFS4 extends Actor {
     });
   }
 
-  calculateGoal(skill, characteristic) {
+  calculateGoal(skill, characteristic, addWeaponToRoll = "no") {
+    if (addWeaponToRoll !== "no") {
+      const weaponId = this.getFlag("fs4", `activeWeapon.${addWeaponToRoll}`);
+      const weapon = this.items.get(weaponId);
+
+      if (weapon) {
+        return (
+          this.system.skills[skill] +
+          this.system.characteristics[characteristic] +
+          weapon.system.goalModifier
+        );
+      }
+    }
+
     return (
       this.system.skills[skill] + this.system.characteristics[characteristic]
     );
   }
+
 
   rollSkill(skill) {
     rollSkill(this, skill);
@@ -39,15 +53,23 @@ export default class ActorFS4 extends Actor {
   }
 
   equipItem(itemId) {
-    if (!this.items.has(itemId)) return;
+    const item = this.items.get(itemId);
+    if (!item) return;
 
     this.setFlag("fs4", `equipped.${itemId}`, true);
+    if (item.type === "weapon") {
+      this.setFlag("fs4", `activeWeapon.${item.system.type}`, itemId);
+    }
   }
 
   unequipItem(itemId) {
-    if (!this.items.has(itemId)) return;
+    const item = this.items.get(itemId);
+    if (!item) return;
 
     this.unsetFlag("fs4", `equipped.${itemId}`);
+    if (item.type === "weapon") {
+      this.unsetFlag("fs4", `activeWeapon.${item.system.type}`);
+    }
   }
 
   onAddWeapon(item) {
@@ -58,6 +80,10 @@ export default class ActorFS4 extends Actor {
 
   onRemoveWeapon(item) {
     this.unsetFlag("fs4", `ammo.${item.id}`);
+    if (this.getFlag("fs4", `activeWeapon.${item.system.type}`) === item.id) {
+      this.unsetFlag("fs4", `activeWeapon.${item.system.type}`);
+    }
+    this.unsetFlag("fs4", `equipped.${item.id}`);
   }
 
   updateShieldState(field, value) {

@@ -64,6 +64,10 @@ export default class WeaponData extends EquipmentData {
     return `${this.range.short}/${this.range.long}`;
   }
 
+  get type() {
+    return this.melee ? "melee" : "ranged";
+  }
+
   resetRange() {
     this.range.short = undefined;
     this.range.long = undefined;

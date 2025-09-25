@@ -18,6 +18,8 @@ import WeaponSheetFS4 from "./module/sheets/item/weapon-sheet.mjs";
 import EquipmentSheetFS4 from "./module/sheets/item/equipment-sheet.mjs";
 import AfflictionSheetFS4 from "./module/sheets/item/affliction-sheet.mjs";
 import ShieldSheetFS4 from "./module/sheets/item/shield-sheet.mjs";
+import { importManeuvers } from "./module/scripts/importManeuvers.mjs";
+import { preUpdateActor } from "./module/hooks/init.mjs";
 
 const {
   DocumentSheetConfig,
@@ -132,6 +134,8 @@ Hooks.once("init", () => {
 
   preloadTemplates();
   registerHandlebarsHelpers();
+
+  Hooks.on("preUpdateActor", preUpdateActor);
 });
 
 Hooks.once("ready", async () => {
@@ -141,6 +145,7 @@ Hooks.once("ready", async () => {
       (await Folder.create({ name: "FS4", type: "Macro" }));
 
     window.fs4.scripts.rollSkill = rollSkill;
+    window.fs4.scripts.importManeuvers = importManeuvers;
 
     const macros = [
       {
@@ -149,6 +154,12 @@ Hooks.once("ready", async () => {
         folder: rootFolder.id,
         command: "window.fs4.scripts.rollSkill()",
       },
+      {
+        name: game.i18n.localize("fs4.macros.importManeuvers"),
+        type: "script",
+        folder: rootFolder.id,
+        command: "window.fs4.scripts.importManeuvers()",
+      }
     ];
 
     for (const macroData of macros) {

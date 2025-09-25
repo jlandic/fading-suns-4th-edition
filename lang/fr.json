@@ -54,6 +54,7 @@
       "show": "Afficher",
       "add": "Ajouter",
       "rollManeuver": "Jet de maneuvre",
+      "rollWeapon": "Jet d'arme",
       "equip": "Équiper",
       "unequip": "Déséquiper",
       "actions": "Actions"
@@ -251,9 +252,8 @@
       "unknown": "N/A"
     },
     "macros": {
-      "configurePdfFieldMapping": "Configurer le mappage de champs PDFPager",
       "rollSkill": "Jet de compétence",
-      "rollSkillFromSheet": "Jet de compétence (fiche perso)"
+      "importManeuvers": "Importer manœuvres"
     },
     "character": {
       "fields": {
@@ -329,8 +329,21 @@
         "goal": "Cible",
         "impact": "Incidence",
         "resistance": "Résistance",
-        "time": "Temps/coût",
+        "time": "Temps",
         "capability": "Aptitude"
+      },
+      "addToRollOptions": {
+        "no": "Pas de modificateur d'arme",
+        "melee": "Arme de mêlée",
+        "ranged": "Arme à distance"
+      },
+      "types": {
+        "influence": "Influence (persuasion ou coercition)",
+        "influence_persuasion": "Influence (persuasion)",
+        "influence_coercion": "Influence (coercition)",
+        "action": "Action",
+        "combat": "Combat",
+        "defense": "Défense"
       }
     },
     "actorTypes": {
@@ -396,6 +409,9 @@
       "noCapabilityRequirement": "Aucun prérequis"
     },
     "dialog": {
+      "selectSkill": {
+        "label": "Sélectionne une compétence"
+      },
       "rollSkill": {
         "title": "Jet de compétence",
         "selectACharacteristic": "Sélectionne une caractéristique",

@@ -45,6 +45,7 @@ export default [
         Handlebars: "readonly",
         DragDrop: "readonly",
         fromUuid: "readonly",
+        fromUuidSync: "readonly",
       },
 
       parser: babelParser,

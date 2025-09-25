@@ -6,14 +6,12 @@ import {
   bank,
   characteristics,
   defaultNumberFieldOptions,
-  indexedMap,
-  maneuver,
   res,
   skills,
 } from "../fields/character.mjs";
 import CreatureTemplate from "./templates/creature.mjs";
 
-const { StringField, NumberField, SchemaField, HTMLField } =
+const { StringField, NumberField, SchemaField } =
   foundry.data.fields;
 
 export default class CharacterData extends CreatureTemplate {
@@ -70,9 +68,7 @@ export default class CharacterData extends CreatureTemplate {
       revivals: new NumberField({
         ...defaultNumberFieldOptions(1),
       }),
-      maneuvers: indexedMap(9, maneuver),
       bank: bank(),
-      perks: new HTMLField(),
       techgnosis: new NumberField({
         ...defaultNumberFieldOptions(),
       }),

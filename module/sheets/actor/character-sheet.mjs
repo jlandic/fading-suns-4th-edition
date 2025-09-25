@@ -59,9 +59,16 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
     })).sort((a, b) => a.localizedName.localeCompare(b.localizedName));
 
     this._prepareItems(context);
-    this._prepareLinkedItems(context);
+    const linkedItems = await this._prepareLinkedItems(context);
+    Object.assign(context, linkedItems);
     this._prepareArmor(context);
     this._prepareShield(context);
+
+    const resistanceMods = {
+      body: context.armor?.res,
+      mind: null,
+      spirit: null,
+    }
 
     foundry.utils.mergeObject(context, {
       source: source.system,
@@ -98,6 +105,7 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
         modKey: `res.${res}.mod`,
         localizedName: game.i18n.localize(`fs4.character.fields.res.${res}`),
         actorValue: actor.system.res[res],
+        mod: resistanceMods[res],
       })),
     });
 
@@ -111,7 +119,11 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
       event.preventDefault();
       event.currentTarget.select();
     });
-    html.on("focus", "input[type=number].short", (event) => {
+    html.on("focus", "input[type=number]", (event) => {
+      event.preventDefault();
+      event.currentTarget.select();
+    });
+    html.on("focus", "input.enhanced-number", (event) => {
       event.preventDefault();
       event.currentTarget.select();
     });
@@ -163,12 +175,13 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
     const data = TextEditor.getDragEventData(event);
     const item = await fromUuid(data.uuid);
     if (DROPABLE_TYPES.includes(item.type)) {
-      const items = await this.actor.createEmbeddedDocuments("Item", [
+      const itemPromises = await this.actor.createEmbeddedDocuments("Item", [
         item.toObject(),
       ]);
+      const items = await Promise.all(itemPromises);
 
       if (item.type === "weapon") {
-        this.actor.onAddWeapon(items[0]);
+        await this.actor.onAddWeapon(items[0]);
       }
     } else if (LINKED_TYPES.includes(item.type)) {
       await this.actor.update({ [`system.${item.type}`]: data.uuid });
@@ -187,13 +200,20 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
   static ITEM_PREPARATION = {
     maneuver: {
       name: "maneuvers",
-      sort: true,
+      sort: (a, b) => {
+        if (a.system.skill === b.system.skill) {
+          return a.name.localeCompare(b.name);
+        }
+
+        return a.system.skill.localeCompare(b.system.skill);
+      },
       prepare: (actor, item) => ({
         ...item,
         id: item.id,
         goal: actor.calculateGoal(
           item.system.skill,
-          item.system.characteristic
+          item.system.characteristic,
+          item.system.addWeaponToRoll,
         ),
         validStats: item.system.skill && item.system.characteristic,
       }),
@@ -219,6 +239,7 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
           .join(", "),
         ammo:
           actor.getFlag("fs4", `ammo.${weapon.id}`) + "/" + weapon.system.ammo,
+        equipped: actor.getFlag("fs4", `activeWeapon.${weapon.system.type}`) === weapon.id,
       }),
     },
     equipment: {
@@ -267,21 +288,24 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
 
     Object.values(CharacterSheetFS4.ITEM_PREPARATION).find(({ name, sort }) => {
       if (sort) {
-        context[name].sort((a, b) => a.name.localeCompare(b.name));
+        if (sort instanceof Function) {
+          context[name].sort(sort);
+        } else {
+          context[name].sort((a, b) => a.name.localeCompare(b.name));
+        }
       }
     });
   }
 
   async _prepareLinkedItems(context) {
-    LINKED_TYPES.forEach(async (type) => {
-      const item = await fromUuid(context.actor.system[type]);
-      if (item) {
-        context[type] = {
-          name: item.name,
-          id: item.id,
-        };
-      }
-    });
+    const items = await Promise.all(
+      LINKED_TYPES.map(async (type) => {
+        const item = await fromUuid(context.actor.system[type]);
+        return item ? [type, { id: item.id, name: item.name }] : null;
+      })
+    );
+
+    return Object.fromEntries(items.filter(Boolean));
   }
 
   _prepareArmor(context) {
@@ -338,6 +362,13 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
     this.actor.rollManeuver(maneuverId);
   }
 
+  _onRollWeapon(event) {
+    event.preventDefault();
+
+    const weaponId = event.currentTarget.dataset.weaponId;
+    this.actor.rollWeapon(weaponId);
+  }
+
   _emptyCache(event) {
     event.preventDefault();
 
@@ -372,7 +403,6 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
     event.preventDefault();
 
     const { itemId } = event.currentTarget.closest(".item").dataset;
-    console.log("Equip item", itemId);
     this.actor.equipItem(itemId);
   }
 
