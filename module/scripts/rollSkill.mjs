@@ -1,5 +1,6 @@
 import { CHARACTERISTICS } from "../registry/characteristics.mjs";
 import { SKILLS } from "../registry/skills.mjs";
+import { findReferenceItem } from "../utils/dataAccess.mjs";
 
 const { getProperty } = foundry.utils;
 
@@ -26,11 +27,11 @@ export const rollSkill = (selectedSkill, sourceActor = undefined) => {
     <p>
       <select id="characteristic">
         ${Object.entries(characteristicsMap)
-          .map(
-            ([key, value]) =>
-              `<option value="${key}">${value} (${actor.system.characteristics[key]})</option>`
-          )
-          .join("")}
+      .map(
+        ([key, value]) =>
+          `<option value="${key}">${value} (${actor.system.characteristics[key]})</option>`
+      )
+      .join("")}
       </select>
     </p>
   `;
@@ -49,12 +50,12 @@ export const rollSkill = (selectedSkill, sourceActor = undefined) => {
       <p>
         <select id="skill">
           ${Object.entries(skillsMap)
-            .sort((a, b) => a[1].localeCompare(b[1]))
-            .map(
-              ([key, value]) =>
-                `<option value="${key}">${value} (${actor.system.skills[key]})</option>`
-            )
-            .join("")}
+        .sort((a, b) => a[1].localeCompare(b[1]))
+        .map(
+          ([key, value]) =>
+            `<option value="${key}">${value} (${actor.system.skills[key]})</option>`
+        )
+        .join("")}
         </select>\
       </p>
     `;
@@ -81,7 +82,7 @@ export const rollSkill = (selectedSkill, sourceActor = undefined) => {
   }).render(true);
 };
 
-export const roll = async (actor, characteristic, skill) => {
+export const roll = async (actor, characteristic, skill, itemId = null) => {
   const characteristicValue = getProperty(
     actor,
     `system.characteristics.${characteristic}`
@@ -100,7 +101,20 @@ export const roll = async (actor, characteristic, skill) => {
     pv = 0;
   }
 
-  let message = `
+  let message = "";
+
+  if (itemId) {
+    const item = actor.items.get(itemId);
+    const referenceId = item._source._stats.compendiumSource?.split(".")?.slice(-1)[0] ?? null;
+
+    if (referenceId) {
+      message += `<strong>@UUID[Item.${referenceId}]{${item.name}}</strong>`;
+    } else {
+      message += `<strong>${item.name}</strong>`;
+    }
+  }
+
+  message += `
     <p>
       <strong>
         ${game.i18n.localize(`fs4.characteristics.${characteristic}`)}
@@ -111,12 +125,12 @@ export const roll = async (actor, characteristic, skill) => {
       </strong> (${skillValue})
     </p>
     <p><strong>${game.i18n.localize(
-      "fs4.rules.target"
-    )}</strong>: ${characteristicValue} + ${skillValue} = ${target}</p>
+    "fs4.rules.target"
+  )}</strong>: ${characteristicValue} + ${skillValue} = ${target}</p>
 
     <p><strong>${game.i18n.localize(
-      "fs4.dialog.rollSkill.result"
-    )}</strong>: ${rollResult}</p>
+    "fs4.dialog.rollSkill.result"
+  )}</strong>: ${rollResult}</p>
   `;
 
   if (pv > 0) {

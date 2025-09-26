@@ -212,8 +212,8 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
       "text/plain",
       JSON.stringify({
         type: event.currentTarget.dataset.draggableType,
-        itemId: event.currentTarget.closest(".item")?.dataset?.itemId,
-        roll: event.currentTarget.dataset.roll,
+        itemId: event.currentTarget.dataset.itemId,
+        skill: event.currentTarget.dataset.skill,
         actorId: this.actor.id,
       })
     );
@@ -246,8 +246,8 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
   static #rollManeuver(event, target) {
     event.preventDefault();
 
-    const { maneuverId } = target.dataset;
-    this.document.rollManeuver(maneuverId);
+    const { itemId } = target.dataset;
+    this.document.rollManeuver(itemId);
   }
 
   static #emptyCache(event) {

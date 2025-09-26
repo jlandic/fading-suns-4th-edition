@@ -1,7 +1,7 @@
 export const hotbarDrop = async (_hotbar, data, slot) => {
   const {
     type,
-    roll,
+    skill,
     itemId,
     actorId,
   } = data;
@@ -17,8 +17,8 @@ export const hotbarDrop = async (_hotbar, data, slot) => {
   if (type === "maneuver") {
     command = `Actor.get("${actor.id}")?.rollManeuver("${item.id}");`;
   } else if (type === "skill") {
-    name = game.i18n.localize(`fs4.skills.${roll}`);
-    command = `Actor.get("${actor.id}")?.rollSkill("${roll}");`;
+    name = game.i18n.localize(`fs4.skills.${skill}`);
+    command = `Actor.get("${actor.id}")?.rollSkill("${skill}");`;
   }
 
   if (command === "") return;
