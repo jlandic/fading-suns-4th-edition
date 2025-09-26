@@ -37,7 +37,7 @@ export default class ActorFS4 extends Actor {
 
 
   rollSkill(skill) {
-    rollSkill(this, skill);
+    rollSkill(skill, this);
   }
 
   rollManeuver(maneuverId) {

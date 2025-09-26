@@ -19,7 +19,7 @@ import EquipmentSheetFS4 from "./module/sheets/item/equipment-sheet.mjs";
 import AfflictionSheetFS4 from "./module/sheets/item/affliction-sheet.mjs";
 import ShieldSheetFS4 from "./module/sheets/item/shield-sheet.mjs";
 import { importManeuvers } from "./module/scripts/importManeuvers.mjs";
-import { preUpdateActor } from "./module/hooks/init.mjs";
+import { hotbarDrop, preUpdateActor } from "./module/hooks/init.mjs";
 
 const {
   DocumentSheetConfig,
@@ -136,16 +136,21 @@ Hooks.once("init", () => {
   registerHandlebarsHelpers();
 
   Hooks.on("preUpdateActor", preUpdateActor);
+  Hooks.on("hotbarDrop", hotbarDrop);
 });
 
 Hooks.once("ready", async () => {
+  window.fs4.scripts.rollSkill = rollSkill;
+  window.fs4.scripts.importManeuvers = importManeuvers;
+
+  if (!game.folders.find((f) => f.name === "Hotbar" && f.type === "Macro")) {
+    await Folder.create({ name: "Hotbar", type: "Macro" });
+  }
+
   if (game.user.isGM) {
     const rootFolder =
       game.folders.find((f) => f.name === "FS4" && f.type === "Macro") ||
       (await Folder.create({ name: "FS4", type: "Macro" }));
-
-    window.fs4.scripts.rollSkill = rollSkill;
-    window.fs4.scripts.importManeuvers = importManeuvers;
 
     const macros = [
       {

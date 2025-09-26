@@ -1,13 +1,14 @@
 <ol class="items-list">
     {{#each maneuvers as |maneuver id|}}
         <li class="item flexrow" data-item-id="{{maneuver.id}}">
-            <img class="rollable rollable-maneuver"
+            <img class="rollable rollable-maneuver draggable"
                 data-maneuver-id="{{maneuver.id}}"
+                data-draggable-type="maneuver"
                 src="icons/svg/d20-highlight.svg"
                 title="{{ localize "fs4.sheets.rollManeuver" }}"
             />
             <div class="item-name">
-                <h4>{{maneuver.name}}</h4>
+                <h4 class="item-control item-edit">{{maneuver.name}}</h4>
             </div>
 
             <div>

@@ -38,6 +38,7 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
       dragDrop: [
         {
           dropSelector: null,
+          dragSelector: ".draggable",
         },
       ],
     });
@@ -195,6 +196,18 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
     } else {
       console.warn("Unsupported item type", item.type);
     }
+  }
+
+  _onDragStart(event) {
+    event.dataTransfer.setData(
+      "text/plain",
+      JSON.stringify({
+        type: event.currentTarget.dataset.draggableType,
+        itemId: event.currentTarget.closest(".item")?.dataset?.itemId,
+        roll: event.currentTarget.dataset.roll,
+        actorId: this.actor.id,
+      })
+    );
   }
 
   static ITEM_PREPARATION = {
@@ -360,13 +373,6 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
 
     const maneuverId = event.currentTarget.dataset.maneuverId;
     this.actor.rollManeuver(maneuverId);
-  }
-
-  _onRollWeapon(event) {
-    event.preventDefault();
-
-    const weaponId = event.currentTarget.dataset.weaponId;
-    this.actor.rollWeapon(weaponId);
   }
 
   _emptyCache(event) {

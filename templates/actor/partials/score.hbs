@@ -1,8 +1,9 @@
 <div class="form-group score">
     {{#if dataRoll}}
-        <img class="rollable rollable-skill"
+        <img class="rollable rollable-skill draggable"
             src="icons/svg/d20-highlight.svg"
             data-roll="{{dataRoll}}"
+            data-draggable-type="skill"
             title="{{ localize "fs4.dialog.rollSkill.buttons.roll" }}"
         />
     {{/if}}
