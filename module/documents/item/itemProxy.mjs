@@ -20,14 +20,14 @@ export const ItemProxyFS4 = new Proxy(function () { }, {
       case "createDocuments":
         return (data, options) => {
           if (data.constructor === Array) {
-            return data.map(i => ItemFS4.create(i, options));
+            return data.map(i => ItemFS4.create(foundry.utils.duplicate(i), options));
           }
 
           if (!itemMapping[data.type]) {
-            return ItemFS4.create(data, options);
+            return ItemFS4.create(foundry.utils.duplicate(data), options);
           }
 
-          return itemMapping[data.type].create(data, options);
+          return itemMapping[data.type].create(foundry.utils.duplicate(data), options);
         }
       case Symbol.hasInstance:
         return (instance) => Object.values(itemMapping).some(i => instance instanceof i) || instance instanceof ItemFS4;

@@ -71,5 +71,6 @@
       "armorFeature": {},
       "shieldFeature": {}
     }
-  }
+  },
+  "migrateWorld": "module/scripts/migrations.mjs"
 }

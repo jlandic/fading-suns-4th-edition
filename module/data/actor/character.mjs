@@ -69,9 +69,6 @@ export default class CharacterData extends CreatureTemplate {
         ...defaultNumberFieldOptions(1),
       }),
       bank: bank(),
-      techgnosis: new NumberField({
-        ...defaultNumberFieldOptions(),
-      }),
       cash: new NumberField({
         ...defaultNumberFieldOptions(0),
       }),
@@ -117,5 +114,9 @@ export default class CharacterData extends CreatureTemplate {
 
   get bankCapacity() {
     return getBankCapacityForLevel(this.level);
+  }
+
+  get techgnosis() {
+    return this.parent.items.filter(i => i.system.tl && i.system.tl > 4).length;
   }
 }

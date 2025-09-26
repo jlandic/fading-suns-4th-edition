@@ -4,6 +4,8 @@ import { SKILLS } from "../../registry/skills.mjs";
 import { rollSkill } from "../../scripts/rollSkill.mjs";
 import { findItem } from "../../utils/dataAccess.mjs";
 
+const { TextEditor } = foundry.applications.ux;
+
 const DROPABLE_TYPES = [
   "maneuver",
   "perk",
@@ -258,6 +260,13 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
     equipment: {
       name: "equipment",
       sort: false,
+      prepare: (actor, equipment) => ({
+        ...equipment,
+        ...equipment.system,
+        id: equipment.id,
+        equipped: actor.getFlag("fs4", `equipped.${equipment.id}`),
+        equippable: true,
+      }),
     },
     armor: {
       name: "equipment",
