@@ -19,7 +19,7 @@ import EquipmentSheetFS4 from "./module/sheets/item/equipment-sheet.mjs";
 import AfflictionSheetFS4 from "./module/sheets/item/affliction-sheet.mjs";
 import ShieldSheetFS4 from "./module/sheets/item/shield-sheet.mjs";
 import { importManeuvers } from "./module/scripts/importManeuvers.mjs";
-import { hotbarDrop, preUpdateActor } from "./module/hooks/init.mjs";
+import { hotbarDrop } from "./module/hooks/init.mjs";
 
 const {
   DocumentSheetConfig,
@@ -135,7 +135,6 @@ Hooks.once("init", () => {
   preloadTemplates();
   registerHandlebarsHelpers();
 
-  Hooks.on("preUpdateActor", preUpdateActor);
   Hooks.on("hotbarDrop", hotbarDrop);
 });
 
@@ -154,18 +153,23 @@ Hooks.once("ready", async () => {
 
     const macros = [
       {
-        name: game.i18n.localize("fs4.macros.rollSkill"),
+        key: "rollSkill",
         type: "script",
         folder: rootFolder.id,
         command: "window.fs4.scripts.rollSkill()",
       },
       {
-        name: game.i18n.localize("fs4.macros.importManeuvers"),
+        key: "importManeuvers",
         type: "script",
         folder: rootFolder.id,
         command: "window.fs4.scripts.importManeuvers()",
       }
-    ];
+    ]
+      .map((macroData) => ({
+        ...macroData,
+        name: game.i18n.localize(`fs4.macros.${macroData.key}`),
+      }))
+      .filter((macroData) => !macroData.key === macroData.name);
 
     for (const macroData of macros) {
       const existingMacro = game.macros.find((m) => m.name === macroData.name);

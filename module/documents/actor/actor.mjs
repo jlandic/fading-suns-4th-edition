@@ -1,10 +1,29 @@
 import { roll, rollSkill } from "../../scripts/rollSkill.mjs";
 
 export default class ActorFS4 extends Actor {
-  toggleArmorType(armorType) {
-    this.update({
-      [`system.armor.${armorType}`]: !this.system.armor[armorType],
-    });
+  validate({ changes, clean = false, fallback = false, dropInvalidEmbedded = false, strict = true, fields = true, joint } = {}) {
+    const source = this.toObject();
+
+    function walk(obj, path = []) {
+      for (const key of Object.keys(obj)) {
+        const value = obj[key];
+        const currentPath = path.concat(key);
+
+        if (value && typeof value === "object" && !Array.isArray(value)) {
+          walk(value, currentPath);
+        } else if (typeof value === "string" && /^[+-]\d+$/.test(value)) {
+          const fullPath = currentPath.join(".");
+          const current = foundry.utils.getProperty(source, fullPath);
+          const base = (typeof current === "number") ? current : (parseInt(current) || 0);
+
+          foundry.utils.setProperty(changes, fullPath, base + parseInt(value));
+        }
+      }
+    }
+
+    if (changes) walk(changes);
+
+    return super.validate({ changes, clean, fallback, dropInvalidEmbedded, strict, fields, joint });
   }
 
   emptyCache() {

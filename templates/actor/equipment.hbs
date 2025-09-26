@@ -1,0 +1,123 @@
+<section class="tab {{tabs.equipment.cssClass}}" data-group="{{tabs.equipment.group}}" data-tab="equipment">
+    <div class="tab-content">
+        <div class="flexrow centered highlight-labels">
+            <div class="form-group">
+                <label for="system.cash">{{ localize "fs4.character.fields.cash" }}</label>
+                <input name="system.cash" class="enhanced-number" type="text" value="{{system.cash}}" />
+            </div>
+
+            <div class="form-group">
+                <label for="system.techgnosis">{{ localize "fs4.character.fields.techgnosis" }}</label>
+                <span>{{system.techgnosis}} / {{system.level}}</span>
+            </div>
+        </div>
+
+        <h3>{{ localize "fs4.character.fields.armor" }}</h3>
+        <div class="flexrow  centered highlight-labels">
+            <div class="flexcol">
+                <div class="form-group">
+                    <label class="flex1" for="system.armor.name">{{ localize "fs4.character.fields.armor" }}</label>
+                    <span>
+                        {{ localize "fs4.armor.fields.res" }}: {{armor.res}}
+                    </span>
+                </div>
+                <div class="flexrow">
+                    {{#each armorTypes}}
+                        <span
+                            class="armor-type {{#if this.checked}}active{{else}}inactive{{/if}}"
+                            data-type="{{this.type}}"
+                            title="{{ localize (concat "fs4.armorTypes." this.type) }}"
+                        >
+                            {{ localize (concat "fs4.armorTypes.short." this.type) }}
+                        </span>
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="flexcol">
+                {{#if shield}}
+                    <div class="flexrow center-items">
+                        <label class="flex2">{{ localize "fs4.character.fields.eshield" }}</label>
+                        <div class="flexrow center-items flex2">
+                            {{#if shield.handheld}}
+                                {{ shield.name }}
+                            {{else}}
+                                {{ shield.thresholds.low }} / {{ shield.thresholds.high }}
+                            {{/if}}
+                        </div>
+                    </div>
+                    {{#unless shield.handheld}}
+                        <div class="flexrow center-items">
+                            <label for="system.state.hits">{{ localize "fs4.eshield.hits" }}</label>
+                            <div class="flexrow center-items">
+                                <input class="short shield enhanced-number" type="text" name="system.state.hits" value="{{shield.state.hits}}" />&nbsp;({{ shield.hits }})&nbsp;
+                                <img class="action" id="recharge-shield"
+                                    data-action="rechargeShield"
+                                    src="icons/svg/shield.svg"
+                                    title="{{ localize "fs4.shield.recharge" }}"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="flexrow  center-items">
+                            <label for="system.state.burnoutRounds">{{ localize "fs4.shield.fields.burnout" }}</label>
+
+                            <div class="flexrow center-items">
+                                <input class="short shield enhanced-number" type="text" name="system.state.burnoutRounds" value="{{shield.state.burnoutRounds}}" />&nbsp;({{ shield.burnout }})&nbsp;
+                                <div class="flexrow">
+                                    <img class="action" id="reset-shield-burnout"
+                                        data-action="resetShieldBurnout"
+                                        src="icons/svg/shield.svg"
+                                        title="{{ localize "fs4.shield.resetBurnout" }}"
+                                    />
+                                </div>
+
+                                {{#if shield.canDistort}}
+                                    {{log shield.state.distorting}}
+                                    <div class="flexrow">
+                                        <img id="toggle-shield-distortion"
+                                            class="action {{#if shield.state.distorting}}active{{/if}}"
+                                            src="icons/svg/regen.svg"
+                                            data-action="toggleShieldDistortion"
+                                            title="{{ localize "fs4.shield.toggleDistortion" }} (+{{ shield.distortion }})"
+                                        />
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="flexrow center-items">
+                            <label>{{ localize "fs4.shield.fields.res" }}</label>
+                            <span>{{ shield.res }}</span>
+                            <label>{{ localize "fs4.shield.fields.damage" }}</label>
+                            <span>{{ shield.damage }}</span>
+                        </div>
+                    {{/unless}}
+                {{/if}}
+            </div>
+        </div>
+
+        <h3>{{ localize "fs4.character.fields.weapons" }}</h3>
+        {{> "fs4.weapons"
+            weapons=weapons
+        }}
+
+        <section class="flexcol equipment">
+            <h3>
+                {{ localize "fs4.character.fields.equipment" }}
+
+                <a class="item-control item-add"
+                    title="{{ localize "fs4.sheets.add" }}"
+                    data-action="addItem"
+                    data-item-type="equipment"
+                >
+                    <i class="fas fa-plus"></i>
+                </a>
+            </h3>
+
+            {{> "fs4.equipments"
+                items=equipment
+            }}
+        </section>
+    </div>
+</section>

@@ -1,0 +1,181 @@
+<section class="tab {{tabs.stats.cssClass}}" data-group="{{tabs.stats.group}}" data-tab="stats">
+    <div class="tab-content">
+        <section class="flexrow align-start">
+            <section class="flexcol flex3 skills">
+                <h3 class="flex0">{{ localize "fs4.character.fields.skills" }}</h3>
+
+                <section class="flexrow">
+                    <section class="flexcol skills-left">
+                        {{#each firstSkillGroup}}
+                            {{> "fs4.score"
+                                label=this.localizedName
+                                value=this.actorValue
+                                key=this.key
+                                dataRoll=this.dataRoll
+                            }}
+                        {{/each}}
+                    </section>
+
+                    <section class="flexcol skills-right">
+                        {{#each secondSkillGroup}}
+                            {{> "fs4.score"
+                                label=this.localizedName
+                                value=this.actorValue
+                                key=this.key
+                                dataRoll=this.dataRoll
+                            }}
+                        {{/each}}
+                    </section>
+                </section>
+            </section>
+
+            <section class="flexcol characteristics">
+                <h3 class="flex0">{{ localize "fs4.character.fields.characteristics" }}</h3>
+                <div>
+                    <section class="flexcol flex0 characteristics-body">
+                        {{#each characteristics.body}}
+                        {{> "fs4.score"
+                            label=this.localizedName
+                                value=this.actorValue
+                                key=this.key
+                            }}
+                        {{/each}}
+                    </section>
+
+                    <hr>
+
+                    <section class="flexcol flex0 characteristics-mind">
+                        {{#each characteristics.mind}}
+                            {{> "fs4.score"
+                                label=this.localizedName
+                                value=this.actorValue
+                                key=this.key
+                            }}
+                        {{/each}}
+                    </section>
+
+                    <hr>
+
+                    <section class="flexcol flex0 characteristics-spirit">
+                        {{#each characteristics.spirit}}
+                            {{> "fs4.score"
+                                label=this.localizedName
+                                value=this.actorValue
+                                key=this.key
+                            }}
+                        {{/each}}
+                    </section>
+
+                    <section class="flexcol res">
+                        <h3>{{ localize "fs4.character.fields.res.resistance" }}</h3>
+                        {{#each resistance}}
+                            {{> "fs4.score"
+                                value=this.actorValue.value
+                                key=this.key
+                                label=this.localizedName
+                                modKey=this.modKey
+                                modValue=this.actorValue.mod
+                                mod=this.mod
+                            }}
+                        {{/each}}
+                    </section>
+                </div>
+            </section> <!-- end of characteristics -->
+        </section> <!-- end of skills and characteristics -->
+
+        <hr>
+
+        <section class="flexrow centered highlight-labels">
+            <div class="flexcol">
+                <label for="system.psi">{{ localize "fs4.character.fields.psi" }}</label>
+                <input name="system.psi" class="enhanced-number centered" type="text" value="{{system.psi}}" />
+            </div>
+            <div class="flexcol">
+                <label for="system.urge">{{ localize "fs4.character.fields.urge" }}</label>
+                <input name="system.urge" class="enhanced-number centered" type="text" value="{{system.urge}}" />
+            </div>
+            <div class="flexcol">
+                <label for="system.theurgy">{{ localize "fs4.character.fields.theurgy" }}</label>
+                <input name="system.theurgy" class="enhanced-number centered" type="text" value="{{system.theurgy}}" />
+            </div>
+            <div class="flexcol">
+                <label for="system.hubris">{{ localize "fs4.character.fields.hubris" }}</label>
+                <input name="system.hubris" class="enhanced-number centered" type="text" value="{{system.hubris}}" />
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="flexrow centered highlight-labels">
+            <div class="form-group flex1">
+                <label for="system.vitality.value">{{ localize "fs4.character.fields.vitality" }} ({{system.vitalityRating}})</label>
+                <input class="short enhanced-number" type="text" name="system.vitality.value" value="{{system.vitality.value}}" />
+            </div>
+
+            <div class="form-group flex3 flexrow">
+                <label class="flex2" for="system.revivals">{{ localize "fs4.character.fields.revivals" }}</label>
+                <input class="short enhanced-number" type="text" name="system.revivals" value="{{system.revivals}}" />
+                <span class="flexcol">
+                    <strong>{{ localize "fs4.fields.value" }}</strong>
+                    <span>{{system.revivalRating}}</span>
+                </span>
+                <span class="flexcol">
+                    <strong>{{ localize "fs4.fields.amount" }}</strong>
+                    <span>{{system.revivalAmount}}</span>
+                </span>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="flexrow centered highlight-labels">
+            <div class="flexcol">
+                <label for="system.bank.vp">
+                    {{ localize "fs4.character.fields.bank" }} ({{ system.bankCapacity }})
+                </label>
+                <div class="flexrow centered bank">
+                    <img class="action" id="empty-cache"
+                        data-action="emptyCache"
+                        src="icons/svg/cancel.svg"
+                        title="{{ localize "fs4.character.emptyCache" }}"
+                    />
+                    <input class="enhanced-number" type="text" name="system.bank.vp" value="{{system.bank.vp}}" title="{{ localize "fs4.character.fields.vp" }}" />
+                    <input class="enhanced-number" type="text" name="system.bank.wp" value="{{system.bank.wp}}" title="{{ localize "fs4.character.fields.wp" }}" />
+                </div>
+            </div>
+
+            <div class="form-group flex3 flexrow">
+                <label class="flex2" for="system.bank.surge">{{ localize "fs4.character.fields.surge" }}</label>
+                <input class="short enhanced-number" type="text" name="system.bank.surge" value="{{system.bank.surge}}" />
+                <span class="flexcol">
+                    <strong>{{ localize "fs4.fields.value" }}</strong>
+                    <span>{{system.surgeRating}}</span>
+                </span>
+                <span class="flexcol">
+                    <strong>{{ localize "fs4.fields.amount" }}</strong>
+                    <span>{{system.surgeAmount}}</span>
+                </span>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="flexcol maneuvers">
+            <h3>
+                {{ localize "fs4.character.fields.maneuvers" }}
+
+                <a class="item-control item-add"
+                    title="{{ localize "fs4.sheets.add" }}"
+                    data-action="addItem"
+                    data-item-type="maneuver"
+                >
+                    <i class="fas fa-plus"></i>
+                </a>
+            </h3>
+
+            {{> "fs4.maneuvers"
+                maneuvers=maneuvers
+            }}
+        </section>
+    </div>
+</section>

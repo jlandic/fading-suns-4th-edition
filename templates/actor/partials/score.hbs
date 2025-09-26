@@ -1,8 +1,9 @@
-<div class="form-group score">
+<div class="form-group score flexrow">
     {{#if dataRoll}}
-        <img class="rollable rollable-skill draggable"
+        <img class="rollable draggable"
             src="icons/svg/d20-highlight.svg"
-            data-roll="{{dataRoll}}"
+            data-skill="{{dataRoll}}"
+            data-action="roll"
             data-draggable-type="skill"
             title="{{ localize "fs4.dialog.rollSkill.buttons.roll" }}"
         />
@@ -14,7 +15,7 @@
     <input name="system.{{key}}" type="text" class="enhanced-number" value="{{value}}" />
 
     {{#if modKey}}
-        <input class="short" name="system.{{modKey}}" type="text" value="{{modValue}}"
+        <input name="system.{{modKey}}" type="text" value="{{modValue}}"
             placeholder="{{ localize "fs4.fields.mod" }}" />
         <span class="flex0">{{formatMod mod}}</span>
     {{/if}}

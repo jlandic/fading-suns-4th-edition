@@ -1,15 +1,23 @@
 <ol class="items-list">
     {{#each items as |item id|}}
-        <li class="item flexrow" data-item-id="{{item.id}}" data-item-type="{{item.type}}">
+        <li class="item flexrow">
             <div class="item-name flex3 {{#if item.equippable}}{{#unless item.equipped}}deactivated{{/unless}}{{/if}}">
                 <h4>
                     {{#if item.equippable}}
                         {{#if item.equipped}}
-                            <a class="item-control item-unequip activated" title="{{ localize "fs4.sheets.unequip" }}">
+                            <a class="item-control item-unequip activated"
+                                data-action="unequipItem"
+                                data-item-id="{{item.id}}"
+                                title="{{ localize "fs4.sheets.unequip" }}"
+                            >
                                 <i class="fas fa-hand" color="green"></i>
                             </a>
                         {{else}}
-                            <a class="item-control item-equip deactivated" title="{{ localize "fs4.sheets.equip" }}">
+                            <a class="item-control item-equip deactivated"
+                                data-action="equipItem"
+                                data-item-id="{{item.id}}"
+                                title="{{ localize "fs4.sheets.equip" }}"
+                            >
                                 <i class="fas fa-hand" color="gray"></i>
                             </a>
                         {{/if}}
@@ -31,11 +39,19 @@
 
             <div class="item-controls flex0">
                 <div class="flexrow flexnowrap">
-                    <a class="item-control item-edit" title="{{ localize "fs4.sheets.edit" }}">
+                    <a class="item-control item-edit"
+                        data-action="editItem"
+                        data-item-id="{{item.id}}"
+                        title="{{ localize "fs4.sheets.edit" }}"
+                    >
                         <i class="fas fa-edit"></i>
                     </a>
 
-                    <a class="item-control item-delete" title="{{ localize "fs4.sheets.delete" }}">
+                    <a class="item-control item-delete"
+                        data-action="removeItem"
+                        data-item-id="{{item.id}}"
+                        title="{{ localize "fs4.sheets.delete" }}"
+                    >
                         <i class="fas fa-trash"></i>
                     </a>
                 </div>

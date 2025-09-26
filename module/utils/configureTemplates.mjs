@@ -18,9 +18,6 @@ const HANDLEBARS_TEMPLATES = [
   // Item partials
   "systems/fs4/templates/item/partials/equipment-base.hbs",
 
-  // Actor
-  "systems/fs4/templates/actor/character.hbs",
-
   // Actor partials
   "systems/fs4/templates/actor/partials/score.hbs",
   "systems/fs4/templates/actor/partials/maneuvers.hbs",

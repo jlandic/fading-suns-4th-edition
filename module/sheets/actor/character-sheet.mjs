@@ -24,48 +24,95 @@ const LINKED_TYPES = [
   "curse",
 ];
 
-export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
+export default class CharacterSheetFS4 extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
+  static DEFAULT_OPTIONS = {
+    id: "character",
+    position: {
+      width: 580,
+      height: "auto",
+    },
+    tag: "form",
+    window: {
+      icon: "fas fa-user",
+      title: "fs4.sheets.CharacterSheetFS4",
+      resizable: true,
+      contentClasses: ["character"],
+    },
+    form: {
+      submitOnChange: true,
+    },
+    actions: {
+      showImage: CharacterSheetFS4.#showImage,
+      roll: CharacterSheetFS4.#roll,
+      rollManeuver: CharacterSheetFS4.#rollManeuver,
+      emptyCache: CharacterSheetFS4.#emptyCache,
+      rechargeShield: CharacterSheetFS4.#rechargeShield,
+      resetShieldBurnout: CharacterSheetFS4.#resetShieldBurnout,
+      toggleShieldDistortion: CharacterSheetFS4.#toggleShieldDistortion,
+      addItem: CharacterSheetFS4.#addItem,
+      removeItem: CharacterSheetFS4.#removeItem,
+      equipItem: CharacterSheetFS4.#equipItem,
+      unequipItem: CharacterSheetFS4.#unequipItem,
+      editItem: CharacterSheetFS4.#editItem,
+      editLinkedItem: CharacterSheetFS4.#editLinkedItem,
+    }
+  }
+
+  static PARTS = {
+    header: { template: 'systems/fs4/templates/actor/header.hbs' },
+    tabs: { template: 'templates/generic/tab-navigation.hbs' },
+    stats: { template: 'systems/fs4/templates/actor/stats.hbs', scrollable: ['.tab-content'] },
+    identity: { template: 'systems/fs4/templates/actor/identity.hbs', scrollable: ['.tab-content'] },
+    equipment: { template: 'systems/fs4/templates/actor/equipment.hbs', scrollable: ['.tab-content'] },
+    notes: { template: 'systems/fs4/templates/actor/notes.hbs', scrollable: ['.tab-content'] },
+  }
+
+  static TABS = {
+    primary: {
+      initial: "stats",
       tabs: [
         {
-          navSelector: ".sheet-tabs",
-          contentSelector: ".sheet-body",
-          initial: "stats",
+          id: "stats",
+          cssClass: "tab-stats",
+          label: "fs4.sheets.tabs.stats",
         },
-      ],
-      width: 580,
-      resizable: true,
-      classes: ["sheet", "character"],
-      dragDrop: [
         {
-          dropSelector: null,
-          dragSelector: ".draggable",
+          id: "identity",
+          cssClass: "tab-identity",
+          label: "fs4.sheets.tabs.identity",
         },
-      ],
-    });
+        {
+          id: "equipment",
+          cssClass: "tab-equipment",
+          label: "fs4.sheets.tabs.equipment",
+        },
+        {
+          id: "notes",
+          cssClass: "tab-notes",
+          label: "fs4.sheets.tabs.notes",
+        }
+      ]
+    }
   }
 
-  get template() {
-    return "systems/fs4/templates/actor/character.hbs";
-  }
+  /* OVERRIDES
+   */
 
-  async getData(options) {
-    const context = await super.getData(options);
-    const actor = context.actor;
-    const source = actor.toObject();
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+
     const skills = SKILLS.map((name) => ({
       key: `skills.${name}`,
       localizedName: game.i18n.localize(`fs4.skills.${name}`),
-      actorValue: actor.system.skills[name],
+      actorValue: this.document.system.skills[name],
       dataRoll: name,
     })).sort((a, b) => a.localizedName.localeCompare(b.localizedName));
 
-    this._prepareItems(context);
-    const linkedItems = await this._prepareLinkedItems(context);
+    this.#prepareItems(context);
+    const linkedItems = await this.#prepareLinkedItems(context);
     Object.assign(context, linkedItems);
-    this._prepareArmor(context);
-    this._prepareShield(context);
+    this.#prepareArmor(context);
+    this.#prepareShield(context);
 
     const resistanceMods = {
       body: context.armor?.res,
@@ -73,16 +120,17 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
       spirit: null,
     }
 
-    foundry.utils.mergeObject(context, {
-      source: source.system,
-      system: actor.system,
+    return {
+      ...context,
+      source: this.document,
+      system: this.document.system,
       user: game.user,
-      actorType: game.i18n.localize(`fs4.actorTypes.${this.actor.type}`),
+      actorType: game.i18n.localize(`fs4.actorTypes.${this.document.type}`),
 
-      description: await TextEditor.enrichHTML(actor.system.description, {
+      description: await TextEditor.enrichHTML(this.document.system.description, {
         async: true,
       }),
-      notes: await TextEditor.enrichHTML(actor.system.notes, {
+      notes: await TextEditor.enrichHTML(this.document.system.notes, {
         async: true,
       }),
 
@@ -91,7 +139,7 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
           const characteristics = CHARACTERISTIC_GROUPS[group].map((name) => ({
             key: `characteristics.${name}`,
             localizedName: game.i18n.localize(`fs4.characteristics.${name}`),
-            actorValue: actor.system.characteristics[name],
+            actorValue: this.document.system.characteristics[name],
           }));
 
           return {
@@ -103,75 +151,34 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
       ),
       firstSkillGroup: skills.slice(0, skills.length / 2),
       secondSkillGroup: skills.slice(skills.length / 2, skills.length),
-      resistance: Object.keys(actor.system.res).map((res) => ({
+      resistance: Object.keys(this.document.system.res).map((res) => ({
         key: `res.${res}.value`,
         modKey: `res.${res}.mod`,
         localizedName: game.i18n.localize(`fs4.character.fields.res.${res}`),
-        actorValue: actor.system.res[res],
+        actorValue: this.document.system.res[res],
         mod: resistanceMods[res],
       })),
-    });
-
-    return context;
+    };
   }
 
-  activateListeners(html) {
-    super.activateListeners(html);
+  _onRender(context, options) {
+    super._onRender(context, options);
 
-    html.on("focus", ".score input", (event) => {
-      event.preventDefault();
-      event.currentTarget.select();
+    this.element.querySelectorAll("input[type=number]").forEach((input) => {
+      input.addEventListener("focus", (event) => {
+        event.preventDefault();
+        event.currentTarget.select();
+      });
     });
-    html.on("focus", "input[type=number]", (event) => {
-      event.preventDefault();
-      event.currentTarget.select();
+    this.element.querySelectorAll("input.enhanced-number").forEach((input) => {
+      input.addEventListener("focus", (event) => {
+        event.preventDefault();
+        event.currentTarget.select();
+      });
     });
-    html.on("focus", "input.enhanced-number", (event) => {
-      event.preventDefault();
-      event.currentTarget.select();
+    this.element.querySelectorAll("input.shield").forEach((input) => {
+      input.addEventListener("blur", CharacterSheetFS4.#updateShield.bind(this));
     });
-    html.on("focus", "input.fake-label", (event) => {
-      event.preventDefault();
-      event.currentTarget.blur();
-    });
-
-    html.on("click", ".rollable-skill", this._onRoll.bind(this));
-    html.on("click", ".rollable-maneuver", this._onRollManeuver.bind(this));
-    html.on("click", "#empty-cache", this._emptyCache.bind(this));
-    html.on("click", "#recharge-shield", this._rechargeShield.bind(this));
-    html.on("click", "#reset-shield-burnout", this._resetShieldBurnout.bind(this));
-
-    html.on("click", ".item-add", async (event) => {
-      event.preventDefault();
-
-      const itemType = event.currentTarget.dataset.itemType;
-      await this.actor.createEmbeddedDocuments("Item", [
-        { name: game.i18n.localize("TYPES.Item.maneuver"), type: itemType },
-      ]);
-    });
-
-    html.on("click", ".item-edit", (event) => {
-      event.preventDefault();
-
-      const itemId = event.currentTarget.closest(".item").dataset.itemId;
-      this.actor.items.get(itemId).sheet.render(true);
-    });
-
-    html.on("click", ".linked-item", (event) => {
-      event.preventDefault();
-
-      const item = game.items.get(event.currentTarget.dataset.identifier);
-      if (item) {
-        item.sheet.render(true);
-      }
-    });
-
-    html.on("click", ".item-delete", this._removeItem.bind(this));
-    html.on("click", ".item-equip", this._equipItem.bind(this));
-    html.on("click", ".item-unequip", this._unequipItem.bind(this));
-
-    html.on("blur", "input.shield", this._updateShield.bind(this));
-    html.on("click", "#toggle-shield-distortion", this._toggleShieldDistortion.bind(this));
   }
 
   async _onDrop(event) {
@@ -211,6 +218,120 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
       })
     );
   }
+
+  /* ACTIONS
+   */
+
+  static #showImage(event, target) {
+    event.preventDefault();
+
+    const popout = new foundry.applications.apps.ImagePopout({
+      src: target.dataset.src,
+      uuid: target.dataset.uuid,
+      window: {
+        title: target.dataset.name,
+      }
+    });
+
+    popout.render(true);
+  }
+
+  static #roll(event, target) {
+    event.preventDefault();
+
+    const { skill } = target.dataset;
+    rollSkill(skill, this.document);
+  }
+
+  static #rollManeuver(event, target) {
+    event.preventDefault();
+
+    const { maneuverId } = target.dataset;
+    this.document.rollManeuver(maneuverId);
+  }
+
+  static #emptyCache(event) {
+    event.preventDefault();
+
+    this.actor.emptyCache();
+  }
+
+  static #updateShield(event) {
+    event.preventDefault();
+
+    this.actor.updateShieldState(event.currentTarget.name, event.currentTarget.value);
+  }
+
+  static #rechargeShield(event) {
+    event.preventDefault();
+
+    this.actor.rechargeShield();
+  }
+
+  static #resetShieldBurnout(event) {
+    event.preventDefault();
+
+    this.actor.resetShieldBurnout();
+  }
+
+  static #toggleShieldDistortion(event) {
+    event.preventDefault();
+
+    this.actor.toggleShieldDistortion();
+  }
+
+  static #equipItem(event, target) {
+    event.preventDefault();
+
+    const { itemId } = target.dataset;
+    this.actor.equipItem(itemId);
+  }
+
+  static #unequipItem(event, target) {
+    event.preventDefault();
+
+    const { itemId } = target.dataset;
+    this.actor.unequipItem(itemId);
+  }
+
+  static #removeItem(event, target) {
+    event.preventDefault();
+
+    const { itemId } = target.dataset;
+    this.actor.removeItem(itemId);
+  }
+
+  static async #addItem(event, target) {
+    event.preventDefault();
+
+    const { itemType } = target.dataset;
+    await this.actor.createEmbeddedDocuments("Item", [
+      { name: game.i18n.localize(`TYPES.Item.${itemType}`), type: itemType },
+    ]);
+  }
+
+  static #editItem(event, target) {
+    event.preventDefault();
+
+    const { itemId } = target.dataset;
+    const item = this.actor.items.get(itemId);
+    if (item) {
+      item.sheet.render(true);
+    }
+  }
+
+  static #editLinkedItem(event, target) {
+    event.preventDefault();
+
+    const { identifier } = target.dataset;
+    const item = game.items.get(identifier);
+    if (item) {
+      item.sheet.render(true);
+    }
+  }
+
+  /* CONTEXT PREPARATION
+   */
 
   static ITEM_PREPARATION = {
     maneuver: {
@@ -292,16 +413,16 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
     }
   };
 
-  _prepareItems(context) {
+  #prepareItems(context) {
     Object.keys(CharacterSheetFS4.ITEM_PREPARATION).forEach((type) => {
       context[CharacterSheetFS4.ITEM_PREPARATION[type].name] = [];
     });
 
-    for (let item of context.actor.items) {
+    for (let item of context.document.items) {
       if (CharacterSheetFS4.ITEM_PREPARATION[item.type]) {
         const { name, prepare } = CharacterSheetFS4.ITEM_PREPARATION[item.type];
         const preparedItem = prepare
-          ? prepare(context.actor, item)
+          ? prepare(context.document, item)
           : { ...item.toObject(), id: item._id };
 
         context[name].push(preparedItem);
@@ -319,10 +440,10 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
     });
   }
 
-  async _prepareLinkedItems(context) {
+  async #prepareLinkedItems(context) {
     const items = await Promise.all(
       LINKED_TYPES.map(async (type) => {
-        const item = await fromUuid(context.actor.system[type]);
+        const item = await fromUuid(context.document.system[type]);
         return item ? [type, { id: item.id, name: item.name }] : null;
       })
     );
@@ -330,11 +451,11 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
     return Object.fromEntries(items.filter(Boolean));
   }
 
-  _prepareArmor(context) {
-    const equipped = context.actor.items.filter(
+  #prepareArmor(context) {
+    const equipped = context.document.items.filter(
       (item) =>
         item.type === "armor" &&
-        context.actor.getFlag("fs4", `equipped.${item.id}`)
+        context.document.getFlag("fs4", `equipped.${item.id}`)
     );
     context.armorTypes = ARMOR_TYPES.map((type) => ({
       type,
@@ -346,11 +467,11 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
     };
   }
 
-  _prepareShield(context) {
-    const equipped = context.actor.items.find(
+  #prepareShield(context) {
+    const equipped = context.document.items.find(
       (item) =>
         item.type === "shield" &&
-        context.actor.getFlag("fs4", `equipped.${item.id}`)
+        context.document.getFlag("fs4", `equipped.${item.id}`)
     );
 
     if (equipped) {
@@ -361,77 +482,5 @@ export default class CharacterSheetFS4 extends foundry.appv1.sheets.ActorSheet {
         canDistort: equipped.system.canDistort(),
       };
     }
-  }
-
-  _toggleArmorType(event) {
-    event.preventDefault();
-
-    const type = event.currentTarget.dataset.type;
-    this.actor.toggleArmorType(type);
-  }
-
-  _onRoll(event) {
-    event.preventDefault();
-
-    const skill = event.currentTarget.dataset.roll;
-    rollSkill(skill, this.actor);
-  }
-
-  _onRollManeuver(event) {
-    event.preventDefault();
-
-    const maneuverId = event.currentTarget.dataset.maneuverId;
-    this.actor.rollManeuver(maneuverId);
-  }
-
-  _emptyCache(event) {
-    event.preventDefault();
-
-    this.actor.emptyCache();
-  }
-
-  _updateShield(event) {
-    event.preventDefault();
-
-    this.actor.updateShieldState(event.currentTarget.name, event.currentTarget.value);
-  }
-
-  _rechargeShield(event) {
-    event.preventDefault();
-
-    this.actor.rechargeShield();
-  }
-
-  _resetShieldBurnout(event) {
-    event.preventDefault();
-
-    this.actor.resetShieldBurnout();
-  }
-
-  _toggleShieldDistortion(event) {
-    event.preventDefault();
-
-    this.actor.toggleShieldDistortion();
-  }
-
-  _equipItem(event) {
-    event.preventDefault();
-
-    const { itemId } = event.currentTarget.closest(".item").dataset;
-    this.actor.equipItem(itemId);
-  }
-
-  _unequipItem(event) {
-    event.preventDefault();
-
-    const { itemId } = event.currentTarget.closest(".item").dataset;
-    this.actor.unequipItem(itemId);
-  }
-
-  _removeItem(event) {
-    event.preventDefault();
-
-    const { itemId } = event.currentTarget.closest(".item").dataset;
-    this.actor.removeItem(itemId);
   }
 }

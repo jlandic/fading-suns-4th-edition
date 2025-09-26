@@ -1,0 +1,84 @@
+
+<section class="tab {{tabs.identity.cssClass}}" data-group="{{tabs.identity.group}}" data-tab="identity">
+    <div class="tab-content">
+        <section class="flexrow align-top">
+            <section class="flexcol">
+                <h2 class="flex0">{{ localize "fs4.character.fields.capabilities" }}</h2>
+                <ol class="items-list flex1">
+                    {{#each capabilities as |capability id|}}
+                        <li class="item flexrow" data-item-id="{{capability.id}}">
+                            <div class="item-name">
+                                <h4>{{capability.name}}</h4>
+                            </div>
+
+                            <div class="item-controls flex0">
+                                <div class="flexrow flexnowrap">
+                                    <a class="item-control item-edit"
+                                        data-action="editItem"
+                                        data-item-id="{{capability.id}}"
+                                        title="{{ localize "fs4.sheets.edit" }}"
+                                    >
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <a class="item-control item-delete"
+                                        data-action="removeItem"
+                                        data-item-id="{{capability.id}}"
+                                        title="{{ localize "fs4.sheets.delete" }}"
+                                    >
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    {{/each}}
+                </ol>
+            </section>
+
+            <section class="flexcol">
+                <h2 class="flex0">{{ localize "fs4.character.fields.perks" }} </h2>
+                <ol class="items-list flex1">
+                    {{#each perks as |perk id|}}
+                        <li class="item flexrow" data-item-id="{{perk.id}}">
+                            <span class="item-name" data-tooltip="{{{perk.system.benefice}}}">
+                                <h4>{{perk.name}}</h4>
+                            </span>
+
+                            <div class="item-controls flex0">
+                                <div class="flexrow flexnowrap">
+                                    <a class="item-control item-edit"
+                                        data-action="editItem"
+                                        data-item-id="{{perk.id}}"
+                                        title="{{ localize "fs4.sheets.edit" }}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <a class="item-control item-delete"
+                                        data-action="removeItem"
+                                        data-item-id="{{perk.id}}"
+                                        title="{{ localize "fs4.sheets.delete" }}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    {{/each}}
+                </ol>
+            </section>
+        </section>
+
+        <section class="flexcol">
+            <h2>{{ localize "fs4.fields.description" }}</h2>
+            <div class="form-group">
+                <prose-mirror
+                    class="large"
+                    name="system.description"
+                    value="{{description}}"
+                    toggled
+                >
+                    {{{description}}}
+                </prose-mirror>
+            </div>
+        </section>
+    </div>
+</section>
