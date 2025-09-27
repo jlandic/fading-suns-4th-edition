@@ -57,7 +57,7 @@ export default class SystemDataModel extends foundry.abstract.TypeDataModel {
       }
     }
 
-    const Base = class extends this {};
+    const Base = class extends this { };
     Object.defineProperty(Base, "_schemaTemplates", {
       value: Object.seal([...this._schemaTemplates, ...templates]),
       writable: false,
@@ -86,15 +86,17 @@ export default class SystemDataModel extends foundry.abstract.TypeDataModel {
   }
 }
 
-export class ActorDataModel extends SystemDataModel {}
-export class ItemDataModel extends SystemDataModel {}
+export class ActorDataModel extends SystemDataModel { }
+export class ItemDataModel extends SystemDataModel { }
 
 const { StringField, HTMLField } = foundry.data.fields;
 
 export class SimpleItemData extends ItemDataModel {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
-      id: new StringField(),
+      id: new StringField({
+        initial: crypto.randomUUID(),
+      }),
       description: new HTMLField(),
     });
   }
