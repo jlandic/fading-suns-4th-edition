@@ -78,9 +78,13 @@
 
                 <div class="flexrow">
                     <div class="form-fields">
-                        <label for="system.rank">{{ localize "fs4.character.fields.rank" }}</label>
-                        <input name="system.rank" type="text" value="{{system.rank}}"
-                            placeholder="{{ localize "fs4.character.fields.rank" }}" />
+                        <label for="system.affliction">{{ localize "fs4.character.fields.affliction" }}</label>
+                        {{> "fs4.linked-item"
+                            name=affliction.name
+                            field="system.affliction"
+                            identifier=affliction.id
+                            i18nKey="fs4.character.fields.affliction"
+                        }}
                     </div>
 
                     <div class="form-fields">

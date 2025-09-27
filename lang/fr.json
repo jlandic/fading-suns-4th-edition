@@ -258,6 +258,7 @@
     "character": {
       "fields": {
         "skill": "Compétence",
+        "affliction": "Affliction",
         "characteristic": "Caractéristique",
         "characteristics": "Caractéristiques",
         "pv": "PV",

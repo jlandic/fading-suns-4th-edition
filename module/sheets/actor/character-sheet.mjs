@@ -22,6 +22,7 @@ const LINKED_TYPES = [
   "species",
   "blessing",
   "curse",
+  "affliction",
 ];
 
 export default class CharacterSheetFS4 extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {

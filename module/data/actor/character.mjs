@@ -37,6 +37,7 @@ export default class CharacterData extends CreatureTemplate {
       }),
       faction: new StringField(),
       blessing: new StringField(),
+      affliction: new StringField(),
       curse: new StringField(),
       calling: new StringField(),
       // Characteristics
