@@ -36,9 +36,12 @@ export default class ShieldData extends EquipmentData {
       handheld: new BooleanField({ initial: false }),
       // handheld
       res: new NumberField({
-        ...defaultNumberFieldOptions(1),
+        ...defaultNumberFieldOptions(0),
       }),
       damage: new NumberField({
+        ...defaultNumberFieldOptions(0),
+      }),
+      for: new NumberField({
         ...defaultNumberFieldOptions(0),
       }),
       anti: new ArrayField(

@@ -54,6 +54,9 @@ export default class ActorFS4 extends Actor {
     );
   }
 
+  async clearReference(field) {
+    await this.update({ [field]: "" });
+  }
 
   rollSkill(skill) {
     rollSkill(skill, this);

@@ -317,7 +317,8 @@
         "damage": "Dég.",
         "thresholds": "Seuils",
         "features": "Particularités",
-        "handheld": "Portatif"
+        "handheld": "Portatif",
+        "for": "Force requise"
       },
       "recharge": "Recharger",
       "resetBurnout": "Réinitialiser épuisement",

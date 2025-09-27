@@ -1,8 +1,4 @@
-<form class="{{cssClass}} drop" autocomplete="off">
-    {{> "fs4.sheet-header" document=item documentType=itemType }}
-
-    {{> "fs4.equipment-base" document=item }}
-
+<div class="scrollable">
     <div class="form-group">
         <section class="flexrow centered highlight-labels">
             <div class="flexcol centered center-items">
@@ -24,12 +20,17 @@
 
             <div class="flexcol">
                 <label for="system.res">{{ localize "fs4.shield.fields.res" }}</label>
-                <input name="system.res" type="number" value="{{system.res}}" {{#unless system.handheld}}disabled readonly{{/unless}}/>
+                <input name="system.res" type="number" value="{{#if system.handheld}}{{system.res}}{{/if}}" {{#unless system.handheld}}disabled readonly{{/unless}}/>
             </div>
 
             <div class="flexcol">
                 <label for="system.damage">{{ localize "fs4.shield.fields.damage" }}</label>
-                <input name="system.damage" type="number" value="{{system.damage}}" {{#unless system.handheld}}disabled readonly{{/unless}}/>
+                <input name="system.damage" type="number" value="{{#if system.handheld}}{{system.damage}}{{/if}}" {{#unless system.handheld}}disabled readonly{{/unless}}/>
+            </div>
+
+            <div class="flexcol">
+                <label for="system.for">{{ localize "fs4.shield.fields.for" }}</label>
+                <input name="system.for" type="number" value="{{#if system.handheld}}{{system.for}}{{/if}}" {{#unless system.handheld}}disabled readonly{{/unless}}/>
             </div>
         </section>
     </div>
@@ -70,6 +71,7 @@
                     <span
                         class="eshield-type {{#if this.checked}}active{{else}}inactive{{/if}}"
                         data-type="{{this.type}}"
+                        data-action="toggleCompatibleType"
                         title="{{this.richName}}"
                     >
                         {{this.name}}
@@ -86,6 +88,7 @@
                 <span
                     class="armor-type {{#if this.checked}}active{{else}}inactive{{/if}}"
                     data-type="{{this.type}}"
+                    data-action="toggleArmorType"
                     title="{{this.richName}}"
                 >
                     {{this.name}}
@@ -102,13 +105,6 @@
         </section>
     </div>
 
-     <section class="flexcol"></section>
-        <h2>{{ localize "fs4.fields.description" }}</h2>
-        {{editor
-            description
-            engine="prosemirror"
-            target="system.description"
-            button=true
-        }}
-    </section>
+    {{log system.description}}
+    {{> "fs4.description" description=description }}
 </form>

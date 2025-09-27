@@ -12,7 +12,7 @@ import { preloadTemplates } from "./module/utils/configureTemplates.mjs";
 import CharacterSheetFS4 from "./module/sheets/actor/character-sheet.mjs";
 import ManeuverSheetFS4 from "./module/sheets/item/maneuver-sheet.mjs";
 import SimpleItemSheetFS4 from "./module/sheets/item/simple-item-sheet.mjs";
-import SimpleItemWithTypeSheetFS4 from "./module/sheets/item/simple-item-with-type.mjs";
+import SimpleItemWithTypeSheetFS4 from "./module/sheets/item/simple-item-with-type-sheet.mjs";
 import ArmorSheetFS4 from "./module/sheets/item/armor-sheet.mjs";
 import WeaponSheetFS4 from "./module/sheets/item/weapon-sheet.mjs";
 import EquipmentSheetFS4 from "./module/sheets/item/equipment-sheet.mjs";

@@ -1,6 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off">
-    {{> "fs4.sheet-header" document=item documentType=itemType }}
-
+<div class="scrollable">
     <div class="form-group">
         <div class="form-fields">
             <select name="system.sourceType">
@@ -25,10 +23,9 @@
     <h2>{{ localize "fs4.perk.fields.preconditions" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            {{editor
-                preconditions
-                engine="prosemirror"
-                editable=false
+            {{> "fs4.editor"
+                value=preconditions
+                name="system.preconditions"
             }}
         </div>
     </div>
@@ -56,29 +53,17 @@
         </div>
     </div>
 
-    <h2>{{ localize "fs4.fields.description" }}</h2>
-    <div class="form-group">
-        <div class="form-fields">
-            {{editor
-                description
-                engine="prosemirror"
-                target="system.description"
-                button=true
-            }}
-        </div>
-    </div>
+    {{> "fs4.description" description=description }}
 
     <hr />
 
     <h2>{{ localize "fs4.perk.fields.benefice" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            {{editor
-                benefice
-                engine="prosemirror"
-                target="system.benefice"
-                button=true
+            {{> "fs4.editor"
+                value=benefice
+                name="system.benefice"
             }}
         </div>
     </div>
-</form>
+</div>

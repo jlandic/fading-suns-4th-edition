@@ -3,21 +3,24 @@ import { SIZES } from "../../registry/size.mjs";
 import EquipmentSheetFS4 from "./equipment-sheet.mjs";
 
 export default class ShieldSheetFS4 extends EquipmentSheetFS4 {
+  static DEFAULT_OPTIONS = foundry.utils.mergeObject(
+    super.DEFAULT_OPTIONS,
+    {
+      actions: {
+        toggleCompatibleType: ShieldSheetFS4.#toggleCompatibleType,
+        toggleArmorType: ShieldSheetFS4.#toggleArmorType,
+      }
+    }
+  );
+
   static get referenceCollections() {
     return {
       shieldFeature: "features",
     };
   }
 
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      height: 410,
-    });
-  }
-
-  async getData(options) {
-    const context = await super.getData(options);
-    const item = context.item;
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
 
     foundry.utils.mergeObject(context, {
       sizes: SIZES.map((size) => ({
@@ -29,30 +32,23 @@ export default class ShieldSheetFS4 extends EquipmentSheetFS4 {
         name: game.i18n.localize(`fs4.eshieldTypes.short.${type}`),
         richName: game.i18n.localize(`fs4.eshieldTypes.${type}`),
         type,
-        checked: item.system.compatibility.includes(type),
+        checked: this.item.system.compatibility.includes(type),
       })),
       armorTypes: ARMOR_TYPES.map((type) => ({
         name: game.i18n.localize(`fs4.armorTypes.short.${type}`),
         richName: game.i18n.localize(`fs4.armorTypes.${type}`),
         type,
-        checked: item.system.anti.includes(type),
+        checked: this.item.system.anti.includes(type),
       })),
     });
 
     return context;
   }
 
-  activateListeners(html) {
-    super.activateListeners(html);
-
-    html.on("click", ".eshield-type", this._toggleCompatibleType.bind(this));
-    html.on("click", ".armor-type", this._toggleArmorType.bind(this));
-  }
-
-  async _toggleCompatibleType(event) {
+  static async #toggleCompatibleType(event, target) {
     event.preventDefault();
 
-    const type = event.currentTarget.dataset.type;
+    const { type } = target.dataset;
     const compatibility = this.item.system.compatibility;
     const index = compatibility.indexOf(type);
 
@@ -65,10 +61,10 @@ export default class ShieldSheetFS4 extends EquipmentSheetFS4 {
     await this.item.update({ system: { compatibility } });
   }
 
-  async _toggleArmorType(event) {
+  static async #toggleArmorType(event, target) {
     event.preventDefault();
 
-    const type = event.currentTarget.dataset.type;
+    const { type } = target.dataset;
     const anti = this.item.system.anti;
     const index = anti.indexOf(type);
 

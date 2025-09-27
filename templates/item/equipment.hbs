@@ -1,15 +1,3 @@
-<form class="{{cssClass}} drop" autocomplete="off">
-    {{> "fs4.sheet-header" document=item documentType=itemType }}
-
-    {{> "fs4.equipment-base" document=item }}
-
-    <section class="flexcol"></section>
-        <h2>{{ localize "fs4.fields.description" }}</h2>
-        {{editor
-            description
-            engine="prosemirror"
-            target="system.description"
-            button=true
-        }}
-    </section>
+<div class="scrollable">
+    {{> "fs4.description" description=description}}
 </form>

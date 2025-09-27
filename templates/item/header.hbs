@@ -1,7 +1,7 @@
 <header class="sheet-header">
     <div class="header-fields">
         <aside class="image-container">
-            <img src="{{document.img}}" class="document-img" data-edit="img" data-action="editImage"/>
+            <img src="{{document.img}}" class="document-img item-img" data-edit="img" data-action="editImage"/>
             <a class="hover-img" data-action="showImage" data-src="{{document.img}}" data-uuid="{{document.id}}" data-name="{{document.name}}">
                 <i class="fa-solid fa-image fa-fw"></i>
             </a>
@@ -12,8 +12,10 @@
                 <input name="name" type="text" value="{{document.name}}" placeholder="Name" />
             </h1>
 
-            {{#if documentType}}
-                <h2 class="document-type">{{documentType}}</h2>
+            <h2 class="document-type">{{localize (concat "TYPES.Item." document.type)}}</h2>
+
+            {{#if isEquipment}}
+                {{> "fs4.equipment-base" document=document }}
             {{/if}}
         </div>
     </div>

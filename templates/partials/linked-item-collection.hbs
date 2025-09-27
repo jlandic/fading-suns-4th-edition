@@ -1,8 +1,8 @@
-<ol class="items-list collection" data-collection-name="{{collectionName}}">
+<ol class="items-list collection">
     {{#each collection}}
-        <li class="item flexrow" data-identifier="{{this.identifier}}">
+        <li class="item flexrow">
             <div class="item-name">
-                <h4>{{this.name}}</h4>
+                <h4 data-action="editItem" data-item-id="{{this.identifier}}">{{this.name}}</h4>
             </div>
 
             {{#if ../withDescription}}
@@ -24,6 +24,7 @@
                     <a class="item-control item-delete"
                         title="{{ localize "fs4.sheets.delete" }}"
                         data-action="deleteItem"
+                        data-collection="{{../collectionName}}"
                         data-item-id="{{this.identifier}}"
                     >
                         <i class="fas fa-trash"></i>

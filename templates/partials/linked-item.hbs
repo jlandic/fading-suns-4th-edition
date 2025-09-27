@@ -3,6 +3,14 @@
         <input type="text" value="{{name}}"
             {{#if i18nKey }}placeholder="{{ localize i18nKey }}"{{/if}}
             readonly
-        />
+        >
+        {{#if identifier}}
+            <a class="item-control item-delete"
+                data-action="clearLinkedItem"
+                data-field="{{field}}"
+            >
+                <i class="fas fa-xmark"></i>
+            </a>
+        {{/if}}
     </div>
 </div>

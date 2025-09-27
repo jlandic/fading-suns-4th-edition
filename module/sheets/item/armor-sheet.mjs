@@ -2,12 +2,6 @@ import { ARMOR_TYPES, ESHIELD_TYPES } from "../../registry/armorTypes.mjs";
 import EquipmentSheetFS4 from "./equipment-sheet.mjs";
 
 export default class ArmorSheetFS4 extends EquipmentSheetFS4 {
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      height: 410,
-    });
-  }
-
   static get referenceCollections() {
     return {
       armorFeature: "features",
@@ -16,13 +10,22 @@ export default class ArmorSheetFS4 extends EquipmentSheetFS4 {
 
   static get references() {
     return {
+      ...super.references,
       capability: "capability",
     };
   }
 
-  async getData(options) {
-    const context = await super.getData(options);
-    const item = context.item;
+  async _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+
+    options.actions = {
+      ...options.actions,
+      toggleArmorType: ArmorSheetFS4.#toggleArmorType,
+    };
+  }
+
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
 
     foundry.utils.mergeObject(context, {
       eshieldTypes: ESHIELD_TYPES.map((type) => ({
@@ -34,23 +37,17 @@ export default class ArmorSheetFS4 extends EquipmentSheetFS4 {
         name: game.i18n.localize(`fs4.armorTypes.short.${type}`),
         richName: game.i18n.localize(`fs4.armorTypes.${type}`),
         type,
-        checked: item.system.anti.includes(type),
+        checked: this.item.system.anti.includes(type),
       })),
     });
 
     return context;
   }
 
-  activateListeners(html) {
-    super.activateListeners(html);
-
-    html.on("click", ".armor-type", this._toggleArmorType.bind(this));
-  }
-
-  async _toggleArmorType(event) {
+  static async #toggleArmorType(event, target) {
     event.preventDefault();
 
-    const type = event.currentTarget.dataset.type;
+    const type = target.dataset.type;
     const anti = this.item.system.anti;
     const index = anti.indexOf(type);
 

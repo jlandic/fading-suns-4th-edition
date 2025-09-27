@@ -1,6 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off">
-    {{> "fs4.sheet-header" document=item documentType=itemType }}
-
+<div class="scrollable">
     <div class="form-group">
         <div class="form-fields">
             <select name="system.skill">
@@ -48,11 +46,9 @@
     <h2>{{ localize "fs4.maneuver.fields.time" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            {{editor
-                time
-                engine="prosemirror"
-                target="system.time"
-                button=true
+            {{> "fs4.editor"
+                value=time
+                name="system.time"
             }}
         </div>
     </div>
@@ -60,11 +56,9 @@
     <h2>{{ localize "fs4.maneuver.fields.capability" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            {{editor
-                capability
-                engine="prosemirror"
-                target="system.capability"
-                button=true
+            {{> "fs4.editor"
+                value=capability
+                name="system.capability"
             }}
         </div>
     </div>
@@ -72,11 +66,9 @@
     <h2>{{ localize "fs4.maneuver.fields.resistance" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            {{editor
-                resistance
-                engine="prosemirror"
-                target="system.resistance"
-                button=true
+            {{> "fs4.editor"
+                value=resistance
+                name="system.resistance"
             }}
         </div>
     </div>
@@ -84,24 +76,12 @@
     <h2>{{ localize "fs4.maneuver.fields.impact" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            {{editor
-                impact
-                engine="prosemirror"
-                target="system.impact"
-                button=true
+            {{> "fs4.editor"
+                value=impact
+                name="system.impact"
             }}
         </div>
     </div>
 
-    <h2>{{ localize "fs4.fields.description" }}</h2>
-    <div class="form-group">
-        <div class="form-fields">
-            {{editor
-                description
-                engine="prosemirror"
-                target="system.description"
-                button=true
-            }}
-        </div>
-    </div>
-</form>
+    {{> "fs4.description" description=description }}
+</div>

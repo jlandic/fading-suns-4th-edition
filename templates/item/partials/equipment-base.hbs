@@ -13,6 +13,11 @@
     </div>
     <div class="flexcol">
         <label for="system.techCompulsion">{{ localize "fs4.equipment.fields.techCompulsion" }}</label>
-        {{> "fs4.linked-item" name=techCompulsion.name identifier=techCompulsion.identifier i18nKey="fs4.equipment.noTechCompulsion" }}
+        {{> "fs4.linked-item"
+            name=techCompulsion.name
+            field="system.techCompulsion"
+            identifier=techCompulsion.identifier
+            i18nKey="fs4.equipment.noTechCompulsion"
+        }}
     </div>
 </section>

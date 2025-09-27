@@ -1,6 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off">
-    {{> "fs4.sheet-header" document=item documentType=itemType }}
-
+<div class="scrollable">
     <div class="span">
         <em>{{ localize "TYPES.Item.class" }} :</em>
         {{#if system.class}}
@@ -10,16 +8,7 @@
         {{/if}}
     </div>
 
-    <div class="form group">
-        <div class="form-fields">
-            {{editor
-                description
-                engine="prosemirror"
-                target="system.description"
-                button=true
-            }}
-        </div>
-    </div>
+    {{> "fs4.description" description=description}}
 
     <h2>{{ localize "fs4.character.fields.characteristics" }}</h2>
     <div class="form-group">
@@ -57,11 +46,9 @@
     <h2>{{ localize "fs4.character.fields.perk" }}</h2>
     <div class="form group">
         <div class="form-fields">
-            {{editor
-                perk
-                engine="prosemirror"
-                target="system.perk"
-                button=true
+            {{> "fs4.editor"
+                name="system.perk"
+                value=perk
             }}
         </div>
     </div>
@@ -69,11 +56,9 @@
     <h2>{{ localize "fs4.character.fields.equipment" }}</h2>
     <div class="form group">
         <div class="form-fields">
-            {{editor
-                equipment
-                engine="prosemirror"
-                target="system.equipment"
-                button=true
+            {{> "fs4.editor"
+                name="system.equipment"
+                value=equipment
             }}
         </div>
     </div>
@@ -81,11 +66,9 @@
     <h2>{{ localize "fs4.faction.fields.blessing" }}</h2>
     <div class="form group">
         <div class="form-fields">
-            {{editor
-                blessing
-                engine="prosemirror"
-                target="system.blessing"
-                button=true
+            {{> "fs4.editor"
+                name="system.blessing"
+                value=blessing
             }}
         </div>
     </div>
@@ -93,12 +76,10 @@
     <h2>{{ localize "fs4.faction.fields.curse" }}</h2>
     <div class="form group">
         <div class="form-fields">
-            {{editor
-                curse
-                engine="prosemirror"
-                target="system.curse"
-                button=true
+            {{> "fs4.editor"
+                name="system.curse"
+                value=curse
             }}
         </div>
     </div>
-</form>
+</div>

@@ -67,18 +67,6 @@
             </section>
         </section>
 
-        <section class="flexcol">
-            <h2>{{ localize "fs4.fields.description" }}</h2>
-            <div class="form-group">
-                <prose-mirror
-                    class="large"
-                    name="system.description"
-                    value="{{description}}"
-                    toggled
-                >
-                    {{{description}}}
-                </prose-mirror>
-            </div>
-        </section>
+        {{> "fs4.description" description=description }}
     </div>
 </section>

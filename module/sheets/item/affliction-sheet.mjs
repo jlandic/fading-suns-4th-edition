@@ -1,16 +1,15 @@
-import ItemSheetFS4 from "../item-sheet.mjs";
+import ItemSheetFS4 from "./item-sheet.mjs";
 
 export default class AfflictionSheetFS4 extends ItemSheetFS4 {
-  async getData(options) {
-    const context = await super.getData(options);
-    const item = context.item;
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
 
     foundry.utils.mergeObject(context, {
-      effects: await TextEditor.enrichHTML(item.system.effects, {
+      effects: await TextEditor.enrichHTML(this.item.system.effects, {
         async: true,
       }),
       preconditions: await TextEditor.enrichHTML(
-        item.system.preconditions.map((condition) => {
+        this.item.system.preconditions.map((condition) => {
           if (condition.special) {
             return condition.text;
           } else {

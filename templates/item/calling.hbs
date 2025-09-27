@@ -1,6 +1,4 @@
-<form class="{{cssClass}} drop" autocomplete="off">
-    {{> "fs4.sheet-header" document=item documentType=itemType }}
-
+<div class="scrollable">
     <section class="flexrow">
         <label for="system.open">{{ localize "fs4.calling.fields.open" }}</label>
         <input name="system.open" type="checkbox" {{checked system.open}} />
@@ -11,22 +9,12 @@
         <label for="system.class">{{ localize "fs4.calling.fields.class" }}</label>
         {{> "fs4.linked-item"
             name=class.name
+            field="system.class"
             identifier=class.identifier
             i18nKey="fs4.calling.fields.class"
         }}
     </section>
     {{/if}}
-
-    <div class="form-group">
-        <div class="form-fields">
-            {{editor
-                description
-                engine="prosemirror"
-                target="system.description"
-                button=true
-            }}
-        </div>
-    </div>
 
     <h2>{{ localize "fs4.calling.fields.characteristics" }}</h2>
     <div class="form-group">
@@ -72,11 +60,9 @@
     <h2>{{ localize "fs4.calling.fields.perk" }}</h2>
     <div class="form group">
         <div class="form-fields">
-            {{editor
-                perk
-                engine="prosemirror"
-                target="system.perk"
-                button=true
+            {{> "fs4.editor"
+                name="system.perk"
+                value=perk
             }}
         </div>
     </div>
@@ -91,11 +77,9 @@
     <h2>{{ localize "fs4.calling.fields.equipment" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            {{editor
-                equipment
-                engine="prosemirror"
-                target="system.equipment"
-                button=true
+            {{> "fs4.editor"
+                name="system.equipment"
+                value=equipment
             }}
         </div>
     </div>
@@ -103,12 +87,10 @@
     <h2>{{ localize "fs4.calling.fields.patrons" }}</h2>
     <div class="form group">
         <div class="form-fields">
-            {{editor
-                patrons
-                engine="prosemirror"
-                target="system.patrons"
-                button=true
+            {{> "fs4.editor"
+                name="system.patrons"
+                value=patrons
             }}
         </div>
     </div>
-</form>
+</div>

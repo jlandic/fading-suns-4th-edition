@@ -1,4 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off">
+<div class="scrollable">
     {{> "fs4.sheet-header" document=item documentType=itemType }}
 
     <div class="form-group">
@@ -17,12 +17,10 @@
 
     <div class="form group">
         <div class="form-fields">
-            {{editor
-                description
-                engine="prosemirror"
-                target="system.description"
-                button=true
+            {{> "fs4.editor"
+                value=description
+                name="system.description"
             }}
         </div>
     </div>
-</form>
+</div>

@@ -1,38 +1,31 @@
-import ItemSheetFS4 from "../item-sheet.mjs";
+import ItemSheetFS4 from "./item-sheet.mjs";
 
 export default class ClassSheetFS4 extends ItemSheetFS4 {
-  async getData(options) {
-    const context = await super.getData(options);
-    const item = context.item;
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
 
-    let perkText = item.system.perks
+    let perkText = this.item.system.perks
       .map((perk) => `<li>@UUID[Item.${perk.id}]</li>`)
       .join("");
     if (perkText === "") {
       perkText = `<li>${game.i18n.localize("fs4.perk.seeWithGm")}</li>`;
     }
-    const factionText = item.system.factions
+    const factionText = this.item.system.factions
       .map((faction) => `<li>@UUID[Item.${faction.id}]</li>`)
       .join("");
-    const callingText = item.system.callings
+    const callingText = this.item.system.callings
       .map((calling) => `<li>@UUID[Item.${calling.id}]</li>`)
       .join("");
 
     foundry.utils.mergeObject(context, {
-      description: await TextEditor.enrichHTML(item.system.description, {
+      perk: await TextEditor.enrichHTML(this.item.system.perk, {
         async: true,
       }),
-      capabilities: await TextEditor.enrichHTML(item.system.capabilities, {
-        async: true,
-      }),
-      perk: await TextEditor.enrichHTML(item.system.perk, {
-        async: true,
-      }),
-      equipment: await TextEditor.enrichHTML(item.system.equipment, {
+      equipment: await TextEditor.enrichHTML(this.item.system.equipment, {
         async: true,
       }),
 
-      characteristics: item.system.characteristics.map((characteristicBundle) =>
+      characteristics: this.item.system.characteristics.map((characteristicBundle) =>
         characteristicBundle
           .map(({ name: key, value }) => {
             const name = game.i18n.localize(`fs4.characteristics.${key}`);
@@ -40,7 +33,7 @@ export default class ClassSheetFS4 extends ItemSheetFS4 {
           })
           .join(game.i18n.localize("fs4.base.orSeparator"))
       ),
-      skills: item.system.skills.map((skillBundle) =>
+      skills: this.item.system.skills.map((skillBundle) =>
         skillBundle
           .map(({ name: key, value }) => {
             const name = game.i18n.localize(`fs4.skills.${key}`);
@@ -48,8 +41,8 @@ export default class ClassSheetFS4 extends ItemSheetFS4 {
           })
           .join(game.i18n.localize("fs4.base.orSeparator"))
       ),
-      specialCharacteristics: item.system.characteristics[0].length === 0,
-      specialSkills: item.system.skills[0].length === 0,
+      specialCharacteristics: this.item.system.characteristics[0].length === 0,
+      specialSkills: this.item.system.skills[0].length === 0,
 
       perks: await TextEditor.enrichHTML(`<ul>${perkText}</ul>`, {
         async: true,

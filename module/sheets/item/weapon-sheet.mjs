@@ -3,12 +3,6 @@ import { SIZES } from "../../registry/size.mjs";
 import EquipmentSheetFS4 from "./equipment-sheet.mjs";
 
 export default class WeaponSheetFS4 extends EquipmentSheetFS4 {
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      height: 410,
-    });
-  }
-
   static get referenceCollections() {
     return {
       weaponFeature: "features",
@@ -21,16 +15,15 @@ export default class WeaponSheetFS4 extends EquipmentSheetFS4 {
     };
   }
 
-  async getData(options) {
-    const context = await super.getData(options);
-    const item = context.item;
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
 
     foundry.utils.mergeObject(context, {
       armorTypes: ARMOR_TYPES.map((type) => ({
         name: game.i18n.localize(`fs4.armorTypes.short.${type}`),
         richName: game.i18n.localize(`fs4.armorTypes.${type}`),
         type,
-        checked: item.system.anti.includes(type),
+        checked: this.item.system.anti.includes(type),
       })),
       sizes: SIZES.map((size) => ({
         name: game.i18n.localize(`fs4.size.short.${size}`),

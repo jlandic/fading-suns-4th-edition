@@ -55,16 +55,17 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
       unequipItem: CharacterSheetFS4.#unequipItem,
       editItem: CharacterSheetFS4.#editItem,
       editLinkedItem: CharacterSheetFS4.#editLinkedItem,
+      clearLinkedItem: CharacterSheetFS4.#clearLinkedItem,
     }
   }
 
   static PARTS = {
-    header: { template: 'systems/fs4/templates/actor/header.hbs' },
-    tabs: { template: 'templates/generic/tab-navigation.hbs' },
-    stats: { template: 'systems/fs4/templates/actor/stats.hbs', scrollable: ['.tab-content'] },
-    identity: { template: 'systems/fs4/templates/actor/identity.hbs', scrollable: ['.tab-content'] },
-    equipment: { template: 'systems/fs4/templates/actor/equipment.hbs', scrollable: ['.tab-content'] },
-    notes: { template: 'systems/fs4/templates/actor/notes.hbs', scrollable: ['.tab-content'] },
+    header: { template: "systems/fs4/templates/actor/header.hbs" },
+    tabs: { template: "templates/generic/tab-navigation.hbs" },
+    stats: { template: "systems/fs4/templates/actor/stats.hbs", scrollable: [".tab-content"] },
+    identity: { template: "systems/fs4/templates/actor/identity.hbs", scrollable: [".tab-content"] },
+    equipment: { template: "systems/fs4/templates/actor/equipment.hbs", scrollable: [".tab-content"] },
+    notes: { template: "systems/fs4/templates/actor/notes.hbs", scrollable: [".tab-content"] },
   }
 
   static TABS = {
@@ -328,6 +329,13 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
     if (item) {
       item.sheet.render(true);
     }
+  }
+
+  static async #clearLinkedItem(event, target) {
+    event.preventDefault();
+
+    const field = target.dataset.field;
+    await this.actor.clearReference(field);
   }
 
   /* CONTEXT PREPARATION

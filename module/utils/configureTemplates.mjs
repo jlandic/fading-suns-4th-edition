@@ -17,6 +17,7 @@ const HANDLEBARS_TEMPLATES = [
 
   // Item partials
   "systems/fs4/templates/item/partials/equipment-base.hbs",
+  "systems/fs4/templates/item/partials/description.hbs",
 
   // Actor partials
   "systems/fs4/templates/actor/partials/score.hbs",
@@ -25,9 +26,9 @@ const HANDLEBARS_TEMPLATES = [
   "systems/fs4/templates/actor/partials/equipments.hbs",
 
   // Shared Partials
-  "systems/fs4/templates/partials/sheet-header.hbs",
   "systems/fs4/templates/partials/linked-item.hbs",
   "systems/fs4/templates/partials/linked-item-collection.hbs",
+  "systems/fs4/templates/partials/editor.hbs",
 ];
 
 export async function preloadTemplates() {

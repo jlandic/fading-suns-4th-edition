@@ -1,16 +1,5 @@
-<form class="{{cssClass}}" autocomplete="off">
-    {{> "fs4.sheet-header" document=item documentType=itemType }}
-
-    <div class="form group">
-        <div class="form-fields">
-            {{editor
-                description
-                engine="prosemirror"
-                target="system.description"
-                button=true
-            }}
-        </div>
-    </div>
+<div class="scrollable">
+    {{> "fs4.description" description=description }}
 
     <h2>{{ localize "fs4.character.fields.characteristics" }}</h2>
     <div class="form-group">
@@ -56,11 +45,9 @@
     <h2>{{ localize "fs4.character.fields.perk" }}</h2>
     <div class="form group">
         <div class="form-fields">
-            {{editor
-                perk
-                engine="prosemirror"
-                target="system.perk"
-                button=true
+            {{> "fs4.editor"
+                name="system.perk"
+                value=perk
             }}
         </div>
     </div>
@@ -68,10 +55,9 @@
     <h2>{{ localize "fs4.class.fields.perks" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            {{editor
-                perks
-                engine="prosemirror"
-                editable=false
+            {{> "fs4.editor"
+                name="system.perks"
+                value=perks
             }}
         </div>
     </div>
@@ -79,10 +65,9 @@
     <h2>{{ localize "fs4.class.fields.factions" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            {{editor
-                factions
-                engine="prosemirror"
-                editable=false
+            {{> "fs4.editor"
+                name="system.factions"
+                value=factions
             }}
         </div>
     </div>
@@ -90,11 +75,10 @@
     <h2>{{ localize "fs4.class.fields.callings" }}</h2>
     <div class="form-group">
         <div class="form-fields">
-            {{editor
-                callings
-                engine="prosemirror"
-                editable=false
+            {{> "fs4.editor"
+                name="system.callings"
+                value=callings
             }}
         </div>
     </div>
-</form>
+</div>

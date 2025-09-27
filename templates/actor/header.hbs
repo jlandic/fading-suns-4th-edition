@@ -13,91 +13,97 @@
             </h1>
 
             <section class="flexcol">
-            <div class="flexrow">
-                <div class="form-fields">
-                    <label for="system.level">{{ localize "fs4.character.fields.level" }}</label>
-                    <input name="system.level" type="number" value="{{system.level}}"
-                        placeholder="{{ localize "fs4.character.fields.level" }}" />
-                </div>
-
-                <div class="form-fields">
-                    <label for="system.species">{{ localize "fs4.character.fields.species" }}</label>
-                    {{> "fs4.linked-item"
-                        name=species.name
-                        identifier=species.id
-                        i18nKey="fs4.character.fields.species"
-                    }}
-                </div>
-
-                <section class="flexrow">
+                <div class="flexrow">
                     <div class="form-fields">
-                        <label for="system.size">{{ localize "fs4.species.fields.size" }}</label>
-                        <input name="system.size" type="number" value="{{system.size}}"
-                            placeholder="{{ localize "fs4.species.fields.size" }}" />
+                        <label for="system.level">{{ localize "fs4.character.fields.level" }}</label>
+                        <input name="system.level" type="number" value="{{system.level}}"
+                            placeholder="{{ localize "fs4.character.fields.level" }}" />
                     </div>
+
                     <div class="form-fields">
-                        <label for="system.speed" title="{{ localize "fs4.species.fields.speedHint" }}">{{ localize "fs4.species.fields.speed" }}</label>
-                        <input name="system.speed" type="text" value="{{system.speed}}"
-                            placeholder="{{ localize "fs4.species.fields.speed" }}" />
+                        <label for="system.species">{{ localize "fs4.character.fields.species" }}</label>
+                        {{> "fs4.linked-item"
+                            name=species.name
+                            field="system.species"
+                            identifier=species.id
+                            i18nKey="fs4.character.fields.species"
+                        }}
                     </div>
-                </section>
-            </div>
 
-            <div class="flexrow">
-                <div class="form-fields">
-                    <label for="system.class">{{ localize "fs4.character.fields.class" }}</label>
-                    {{> "fs4.linked-item"
-                        name=class.name
-                        identifier=class.id
-                        i18nKey="fs4.character.fields.class"
-                    }}
+                    <section class="flexrow">
+                        <div class="form-fields">
+                            <label for="system.size">{{ localize "fs4.species.fields.size" }}</label>
+                            <input name="system.size" type="number" value="{{system.size}}"
+                                placeholder="{{ localize "fs4.species.fields.size" }}" />
+                        </div>
+                        <div class="form-fields">
+                            <label for="system.speed" title="{{ localize "fs4.species.fields.speedHint" }}">{{ localize "fs4.species.fields.speed" }}</label>
+                            <input name="system.speed" type="text" value="{{system.speed}}"
+                                placeholder="{{ localize "fs4.species.fields.speed" }}" />
+                        </div>
+                    </section>
                 </div>
 
-                <div class="form-fields">
-                    <label for="system.faction">{{ localize "fs4.character.fields.faction" }}</label>
-                    {{> "fs4.linked-item"
-                        name=faction.name
-                        identifier=faction.id
-                        i18nKey="fs4.character.fields.faction"
-                    }}
+                <div class="flexrow">
+                    <div class="form-fields">
+                        <label for="system.class">{{ localize "fs4.character.fields.class" }}</label>
+                        {{> "fs4.linked-item"
+                            name=class.name
+                            field="system.class"
+                            identifier=class.id
+                            i18nKey="fs4.character.fields.class"
+                        }}
+                    </div>
+
+                    <div class="form-fields">
+                        <label for="system.faction">{{ localize "fs4.character.fields.faction" }}</label>
+                        {{> "fs4.linked-item"
+                            name=faction.name
+                            field="system.faction"
+                            identifier=faction.id
+                            i18nKey="fs4.character.fields.faction"
+                        }}
+                    </div>
+
+                    <div class="form-fields">
+                        <label for="system.calling">{{ localize "fs4.character.fields.calling" }}</label>
+                        {{> "fs4.linked-item"
+                            name=calling.name
+                            field="system.calling"
+                            identifier=calling.id
+                            i18nKey="fs4.character.fields.calling"
+                        }}
+                    </div>
                 </div>
 
-                <div class="form-fields">
-                    <label for="system.calling">{{ localize "fs4.character.fields.calling" }}</label>
-                    {{> "fs4.linked-item"
-                        name=calling.name
-                        identifier=calling.id
-                        i18nKey="fs4.character.fields.calling"
-                    }}
-                </div>
-            </div>
+                <div class="flexrow">
+                    <div class="form-fields">
+                        <label for="system.rank">{{ localize "fs4.character.fields.rank" }}</label>
+                        <input name="system.rank" type="text" value="{{system.rank}}"
+                            placeholder="{{ localize "fs4.character.fields.rank" }}" />
+                    </div>
 
-            <div class="flexrow">
-                <div class="form-fields">
-                    <label for="system.rank">{{ localize "fs4.character.fields.rank" }}</label>
-                    <input name="system.rank" type="text" value="{{system.rank}}"
-                        placeholder="{{ localize "fs4.character.fields.rank" }}" />
-                </div>
+                    <div class="form-fields">
+                        <label for="system.blessing">{{ localize "fs4.character.fields.blessing" }}</label>
+                        {{> "fs4.linked-item"
+                            name=blessing.name
+                            field="system.blessing"
+                            identifier=blessing.id
+                            i18nKey="fs4.character.fields.blessing"
+                        }}
+                    </div>
 
-                <div class="form-fields">
-                    <label for="system.blessing">{{ localize "fs4.character.fields.blessing" }}</label>
-                    {{> "fs4.linked-item"
-                        name=blessing.name
-                        identifier=blessing.id
-                        i18nKey="fs4.character.fields.blessing"
-                    }}
+                    <div class="form-fields">
+                        <label for="system.curse">{{ localize "fs4.character.fields.curse" }}</label>
+                        {{> "fs4.linked-item"
+                            name=curse.name
+                            field="system.curse"
+                            identifier=curse.id
+                            i18nKey="fs4.character.fields.curse"
+                        }}
+                    </div>
                 </div>
-
-                <div class="form-fields">
-                    <label for="system.curse">{{ localize "fs4.character.fields.curse" }}</label>
-                    {{> "fs4.linked-item"
-                        name=curse.name
-                        identifier=curse.id
-                        i18nKey="fs4.character.fields.curse"
-                    }}
-                </div>
-            </div>
-        </section>
+            </section>
         </div>
     </div>
 </header>

@@ -1,31 +1,27 @@
-import ItemSheetFS4 from "../item-sheet.mjs";
+import ItemSheetFS4 from "./item-sheet.mjs";
 
 export default class FactionSheetFS4 extends ItemSheetFS4 {
-  async getData(options) {
-    const context = await super.getData(options);
-    const item = context.item;
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
 
     foundry.utils.mergeObject(context, {
-      description: await TextEditor.enrichHTML(item.system.description, {
+      capabilities: await TextEditor.enrichHTML(this.item.system.capabilities, {
         async: true,
       }),
-      capabilities: await TextEditor.enrichHTML(item.system.capabilities, {
+      perk: await TextEditor.enrichHTML(this.item.system.perk, {
         async: true,
       }),
-      perk: await TextEditor.enrichHTML(item.system.perk, {
+      equipment: await TextEditor.enrichHTML(this.item.system.equipment, {
         async: true,
       }),
-      equipment: await TextEditor.enrichHTML(item.system.equipment, {
+      blessing: await TextEditor.enrichHTML(this.item.system.blessing, {
         async: true,
       }),
-      blessing: await TextEditor.enrichHTML(item.system.blessing, {
-        async: true,
-      }),
-      curse: await TextEditor.enrichHTML(item.system.curse, {
+      curse: await TextEditor.enrichHTML(this.item.system.curse, {
         async: true,
       }),
 
-      characteristics: item.system.characteristics.map((characteristicBundle) =>
+      characteristics: this.item.system.characteristics.map((characteristicBundle) =>
         characteristicBundle
           .map(({ name: key, value }) => {
             const name = game.i18n.localize(`fs4.characteristics.${key}`);
@@ -33,7 +29,7 @@ export default class FactionSheetFS4 extends ItemSheetFS4 {
           })
           .join(game.i18n.localize("fs4.base.orSeparator"))
       ),
-      skills: item.system.skills.map((skillBundle) =>
+      skills: this.item.system.skills.map((skillBundle) =>
         skillBundle
           .map(({ name: key, value }) => {
             const name = game.i18n.localize(`fs4.skills.${key}`);
