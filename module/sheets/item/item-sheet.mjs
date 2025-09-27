@@ -79,6 +79,7 @@ export default class ItemSheetFS4 extends foundry.applications.api.HandlebarsApp
       source: this.document,
       system: this.document.system,
       user: game.user,
+      isGm: game.user.isGM,
       itemType: game.i18n.localize(`TYPES.Item.${this.document.type}`),
       description: await TextEditor.enrichHTML(this.document.system.description, {
         async: true,
@@ -94,7 +95,7 @@ export default class ItemSheetFS4 extends foundry.applications.api.HandlebarsApp
   _onRender(context, options) {
     super._onRender(context, options);
 
-    new DragDrop.implementation({
+    new foundry.applications.ux.DragDrop.implementation({
       callbacks: {
         drop: this._onDrop.bind(this)
       }

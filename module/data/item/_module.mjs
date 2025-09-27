@@ -17,6 +17,7 @@ import StateData from "./state.mjs";
 import TechCompulsionData from "./techCompulsion.mjs";
 import WeaponData from "./weapon.mjs";
 import WeaponFeatureData from "./weaponFeature.mjs";
+import PowerData from "./power.mjs";
 
 export {
   FactionData,
@@ -38,6 +39,7 @@ export {
   EquipmentData,
   ShieldData,
   ShieldFeatureData,
+  PowerData,
 };
 
 export const config = {
@@ -60,4 +62,5 @@ export const config = {
   equipment: EquipmentData,
   shield: ShieldData,
   shieldFeature: ShieldFeatureData,
+  power: PowerData,
 };

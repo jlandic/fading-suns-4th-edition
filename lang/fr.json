@@ -22,7 +22,8 @@
       "state": "État",
       "weaponFeature": "Particularité d'arme",
       "armorFeature": "Particularité d'armure",
-      "shieldFeature": "Particularité de bouclier"
+      "shieldFeature": "Particularité de bouclier",
+      "power": "Pouvoir"
     }
   },
   "fs4": {
@@ -43,6 +44,7 @@
       "ShieldSheetFS4": "Fiche de bouclier",
       "AfflictionSheetFS4": "Fiche d'affliction",
       "StateSheetFS4": "Fiche d'état",
+      "PowerSheetFS4": "Fiche de pouvoir",
       "tabs": {
         "stats": "Stats",
         "identity": "Identité",
@@ -255,6 +257,31 @@
       "rollSkill": "Jet de compétence",
       "importManeuvers": "Importer manœuvres"
     },
+    "power": {
+      "fields": {
+        "path": "Voie",
+        "cost": "Coût",
+        "school": "École",
+        "components": "Composantes",
+        "level": "Niveau",
+        "preconditions": "Prérequis",
+        "elementary": {
+          "theurgy": "Charisme",
+          "psi": "Élementaire"
+        }
+      },
+      "schools": {
+        "theurgy": "Théurgie",
+        "psi": "Psi"
+      },
+      "components": {
+        "liturgy": "Liturgie",
+        "gestures": "Gestes",
+        "prayer": "Prière",
+        "required": "Requis",
+        "nonRequired": "Non-requis"
+      }
+    },
     "character": {
       "fields": {
         "skill": "Compétence",
@@ -298,7 +325,8 @@
           "mind": "Mental",
           "spirit": "Esprit"
         },
-        "maneuvers": "Manœuvres"
+        "maneuvers": "Manœuvres",
+        "powers": "Pouvoirs"
       },
       "emptyCache": "Vider le cache"
     },

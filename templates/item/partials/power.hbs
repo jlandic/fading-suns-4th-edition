@@ -1,0 +1,25 @@
+<section class="power-requirements">
+    <h2>{{localize "fs4.power.fields.preconditions"}}</h2>
+
+    {{#if system.canRequireComponents}}
+        <div class="form-group">
+            <div class="flexrow">
+                {{#each componentOptions}}
+                    <span
+                        class="power-component {{#if this.selected}}active{{else}}inactive{{/if}}"
+                        data-type="{{this.value}}"
+                        data-action="toggleComponent"
+                        title={{#if this.selected}}{{localize "fs4.power.components.required"}}{{else}}{{localize "fs4.power.components.nonRequired"}}{{/if}}
+                    >
+                        {{this.name}}
+                    </span>
+                {{/each}}
+            </div>
+        </div>
+    {{/if}}
+
+    {{> "fs4.editor"
+        value=preconditions
+        name="system.preconditions"
+    }}
+</section>

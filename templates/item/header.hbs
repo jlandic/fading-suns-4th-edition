@@ -12,7 +12,17 @@
                 <input name="name" type="text" value="{{document.name}}" placeholder="Name" />
             </h1>
 
-            <h2 class="document-type">{{localize (concat "TYPES.Item." document.type)}}</h2>
+            <section class="document-information flexrow centered">
+                <h2 class="document-type">
+                    {{localize (concat "TYPES.Item." document.type)}}
+                </h2>
+
+                {{#if isGm}}
+                    <section class="identifier-edition">
+                        <input type="text" name="system.id" value="{{system.id}}" placeholder="ID">
+                    </section>
+                {{/if}}
+            </section>
 
             {{#if isEquipment}}
                 {{> "fs4.equipment-base" document=document }}

@@ -20,6 +20,7 @@ import AfflictionSheetFS4 from "./module/sheets/item/affliction-sheet.mjs";
 import ShieldSheetFS4 from "./module/sheets/item/shield-sheet.mjs";
 import { importManeuvers } from "./module/scripts/importManeuvers.mjs";
 import { hotbarDrop } from "./module/hooks/init.mjs";
+import PowerSheetFS4 from "./module/sheets/item/power-sheet.mjs";
 
 const {
   DocumentSheetConfig,
@@ -130,6 +131,11 @@ Hooks.once("init", () => {
     label: "fs4.sheets.AfflictionSheetFS4",
     makeDefault: true,
     types: ["affliction"],
+  });
+  DocumentSheetConfig.registerSheet(Item, "fs4", PowerSheetFS4, {
+    label: "fs4.sheets.PowerSheetFS4",
+    makeDefault: true,
+    types: ["power"],
   });
 
   preloadTemplates();

@@ -14,6 +14,7 @@ const DROPABLE_TYPES = [
   "armor",
   "shield",
   "equipment",
+  "power",
 ];
 const LINKED_TYPES = [
   "class",
@@ -27,7 +28,6 @@ const LINKED_TYPES = [
 
 export default class CharacterSheetFS4 extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
   static DEFAULT_OPTIONS = {
-    id: "character",
     position: {
       width: 580,
       height: "auto",
@@ -46,6 +46,7 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
       showImage: CharacterSheetFS4.#showImage,
       roll: CharacterSheetFS4.#roll,
       rollManeuver: CharacterSheetFS4.#rollManeuver,
+      rollPower: CharacterSheetFS4.#rollPower,
       emptyCache: CharacterSheetFS4.#emptyCache,
       rechargeShield: CharacterSheetFS4.#rechargeShield,
       resetShieldBurnout: CharacterSheetFS4.#resetShieldBurnout,
@@ -252,6 +253,13 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
     this.document.rollManeuver(itemId);
   }
 
+  static #rollPower(event, target) {
+    event.preventDefault();
+
+    const { itemId } = target.dataset;
+    this.document.rollPower(itemId);
+  }
+
   static #emptyCache(event) {
     event.preventDefault();
 
@@ -359,6 +367,25 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
           item.system.skill,
           item.system.characteristic,
           item.system.addWeaponToRoll,
+        ),
+        validStats: item.system.skill && item.system.characteristic,
+      }),
+    },
+    power: {
+      name: "powers",
+      sort: (a, b) => {
+        if (a.system.skill === b.system.skill) {
+          return a.name.localeCompare(b.name);
+        }
+
+        return a.system.skill.localeCompare(b.system.skill);
+      },
+      prepare: (actor, item) => ({
+        ...item,
+        id: item.id,
+        goal: actor.calculateGoal(
+          item.system.skill,
+          item.system.characteristic
         ),
         validStats: item.system.skill && item.system.characteristic,
       }),

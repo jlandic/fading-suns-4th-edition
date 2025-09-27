@@ -1,6 +1,6 @@
 import { CHARACTERISTICS } from "../registry/characteristics.mjs";
 import { SKILLS } from "../registry/skills.mjs";
-import { findReferenceItem } from "../utils/dataAccess.mjs";
+import { findItem, findReferenceItem } from "../utils/dataAccess.mjs";
 
 const { getProperty } = foundry.utils;
 
@@ -105,10 +105,10 @@ export const roll = async (actor, characteristic, skill, itemId = null) => {
 
   if (itemId) {
     const item = actor.items.get(itemId);
-    const referenceId = item._source._stats.compendiumSource?.split(".")?.slice(-1)[0] ?? null;
+    const referenceItem = findItem(item.system.id);
 
-    if (referenceId) {
-      message += `<strong>@UUID[Item.${referenceId}]{${item.name}}</strong>`;
+    if (referenceItem) {
+      message += `<strong>@UUID[${referenceItem.uuid}]{${item.name}}</strong>`;
     } else {
       message += `<strong>${item.name}</strong>`;
     }

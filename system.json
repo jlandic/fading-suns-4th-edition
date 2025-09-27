@@ -69,7 +69,8 @@
       "state": {},
       "weaponFeature": {},
       "armorFeature": {},
-      "shieldFeature": {}
+      "shieldFeature": {},
+      "power": {}
     }
   },
   "migrateWorld": "module/scripts/migrations.mjs"

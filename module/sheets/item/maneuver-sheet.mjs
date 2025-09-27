@@ -4,6 +4,10 @@ import { MANEUVER_TYPES } from "../../registry/maneuverTypes.mjs";
 import { SKILLS } from "../../registry/skills.mjs";
 import ItemSheetFS4 from "./item-sheet.mjs";
 
+const {
+  TextEditor
+} = foundry.applications.ux;
+
 export default class ManeuverSheetFS4 extends ItemSheetFS4 {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);

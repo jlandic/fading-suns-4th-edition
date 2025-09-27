@@ -3,10 +3,10 @@
         <li class="item flexrow">
             <img class="rollable draggable"
                 data-item-id="{{maneuver.id}}"
-                data-action="rollManeuver"
-                data-draggable-type="maneuver"
+                data-action="{{../action}}"
+                data-draggable-type="{{../itemType}}"
                 src="icons/svg/d20-highlight.svg"
-                title="{{ localize "fs4.sheets.rollManeuver" }}"
+                title="{{ localize (concat "fs4.sheets." action) }}"
             />
             <div class="item-name">
                 <h4 class="item-control item-edit" data-action="editItem" data-item-id="{{maneuver.id}}">{{maneuver.name}}</h4>

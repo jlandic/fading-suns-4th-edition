@@ -67,6 +67,11 @@ export default class ActorFS4 extends Actor {
     roll(this, maneuver.system.characteristic, maneuver.system.skill, maneuverId);
   }
 
+  rollPower(powerId) {
+    const power = this.items.get(powerId);
+    roll(this, power.system.characteristic, power.system.skill, powerId);
+  }
+
   removeItem(itemId) {
     if (!this.items.has(itemId)) return;
 

@@ -1,6 +1,6 @@
 <div class="scrollable">
     <div class="form-group">
-        <div class="form-fields">
+        <div class="flexrow">
             <select name="system.skill">
                 {{selectOptions
                     skills
@@ -22,7 +22,7 @@
     </div>
 
     <div class="form-group">
-        <div class="form-fields">
+        <div class="flexrow">
             <select name="system.type">
                 {{selectOptions
                     typeOptions
@@ -32,16 +32,48 @@
                 }}
             </select>
 
-            <select name="system.addWeaponToRoll">
-                {{selectOptions
-                    addToRollOptions
-                    selected=system.addWeaponToRoll
-                    valueAttr="value"
-                    labelAttr="name"
-                }}
-            </select>
+            {{#if includePowerFields}}
+                <div class="flexrow centered center-items highlight-labels select-like-padding">
+                    <label for="system.elementary">
+                        {{ localize elementaryI18nKey }}?
+                    </label>
+                    <input type="checkbox" name="system.elementary" {{checked system.elementary}} />
+                </div>
+            {{else}}
+                <select name="system.addWeaponToRoll">
+                    {{selectOptions
+                        addToRollOptions
+                        selected=system.addWeaponToRoll
+                        valueAttr="value"
+                        labelAttr="name"
+                    }}
+                </select>
+            {{/if}}
         </div>
     </div>
+
+    {{#if includePowerFields}}
+        <div class="form-group">
+            <div class="flexrow">
+                <select name="system.school">
+                    {{selectOptions
+                        schoolOptions
+                        selected=system.school
+                        valueAttr="value"
+                        labelAttr="name"
+                    }}
+                </select>
+
+                <input type="text" class="short enhanced-number" name="system.level" value="{{system.level}}" placeholder="{{ localize "fs4.power.fields.level" }}" />
+                <input type="text" name="system.cost" value="{{system.cost}}" placeholder="{{ localize "fs4.power.fields.cost" }}" />
+                <input type="text" name="system.path" value="{{system.path}}" placeholder="{{ localize "fs4.power.fields.path" }}" />
+            </div>
+        </div>
+    {{/if}}
+
+    {{#if includePowerFields}}
+        {{> "fs4.power" }}
+    {{/if}}
 
     <h2>{{ localize "fs4.maneuver.fields.time" }}</h2>
     <div class="form-group">
