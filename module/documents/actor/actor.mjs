@@ -37,14 +37,13 @@ export default class ActorFS4 extends Actor {
 
   calculateGoal(skill, characteristic, addWeaponToRoll = "no") {
     if (addWeaponToRoll !== "no") {
-      const weaponId = this.getFlag("fs4", `activeWeapon.${addWeaponToRoll}`);
-      const weapon = this.items.get(weaponId);
+      const modifier = this.equippedWeaponModifier(addWeaponToRoll);
 
-      if (weapon) {
+      if (modifier) {
         return (
           this.system.skills[skill] +
           this.system.characteristics[characteristic] +
-          weapon.system.adjustedGoalModifier
+          modifier
         );
       }
     }

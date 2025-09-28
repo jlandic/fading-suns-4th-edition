@@ -95,7 +95,7 @@ export class SimpleItemData extends ItemDataModel {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
       id: new StringField({
-        initial: crypto.randomUUID(),
+        initial: () => crypto.randomUUID(),
       }),
       description: new HTMLField(),
     });
