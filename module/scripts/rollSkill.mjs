@@ -1,6 +1,6 @@
 import { CHARACTERISTICS } from "../registry/characteristics.mjs";
 import { SKILLS } from "../registry/skills.mjs";
-import { findItem, findReferenceItem } from "../utils/dataAccess.mjs";
+import { findItem } from "../utils/dataAccess.mjs";
 
 const { getProperty } = foundry.utils;
 
