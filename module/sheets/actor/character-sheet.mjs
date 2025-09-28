@@ -411,6 +411,7 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
       prepare: (actor, weapon) => ({
         ...weapon,
         ...weapon.system,
+        adjustedGoalModifier: weapon.system.adjustedGoalModifier,
         id: weapon.id,
         rangeText: weapon.system.rangeText,
         features: weapon.system.features

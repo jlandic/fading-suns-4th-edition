@@ -45,6 +45,8 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels = dataModels.item.config;
   CONFIG.Item.documentClass = documents.ItemProxyFS4;
 
+  CONFIG.specialStatusEffects.DEFEATED = "dying";
+
   Actors.registerSheet("fs4", CharacterSheetFS4, {
     types: ["character"],
     label: "fs4.sheets.CharacterSheetFS4",

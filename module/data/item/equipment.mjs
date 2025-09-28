@@ -50,7 +50,7 @@ export default class EquipmentData extends SimpleItemData {
   }
 
   get rollModifier() {
-    if (!this.quality === "premium") return 0;
+    if (this.quality !== "premium") return 0;
 
     return 1;
   }

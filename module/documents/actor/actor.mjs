@@ -54,6 +54,13 @@ export default class ActorFS4 extends Actor {
     );
   }
 
+  equippedWeaponModifier(type) {
+    const weaponId = this.getFlag("fs4", `activeWeapon.${type}`);
+    const weapon = this.items.get(weaponId);
+
+    return weapon ? weapon.system.adjustedGoalModifier : 0;
+  }
+
   async clearReference(field) {
     await this.update({ [field]: "" });
   }

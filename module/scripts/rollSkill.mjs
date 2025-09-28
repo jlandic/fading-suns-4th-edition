@@ -95,8 +95,17 @@ export const roll = async (actor, characteristic, skill, itemId = null) => {
   }
   let rollResult = roll.total;
   let target = characteristicValue + skillValue;
+  let modifier = 0;
+
+  if (itemId) {
+    const item = actor.items.get(itemId);
+    if (item.system.addWeaponToRoll) {
+      modifier = actor.equippedWeaponModifier(item.system.addWeaponToRoll);
+    }
+  }
 
   let pv = rollResult;
+  target += modifier;
   if (rollResult > target) {
     pv = 0;
   }
@@ -122,12 +131,26 @@ export const roll = async (actor, characteristic, skill, itemId = null) => {
       +
       <strong>
         ${game.i18n.localize(`fs4.skills.${skill}`)}
-      </strong> (${skillValue})
-    </p>
+      </strong> (${skillValue})`;
+
+  if (modifier > 0) {
+    message += ` + ${modifier}`;
+  } else if (modifier < 0) {
+    message += ` - ${-modifier}`;
+  }
+
+  message += `</p>
     <p><strong>${game.i18n.localize(
     "fs4.rules.target"
-  )}</strong>: ${characteristicValue} + ${skillValue} = ${target}</p>
+  )}</strong>: ${characteristicValue} + ${skillValue}`;
 
+  if (modifier > 0) {
+    message += ` + ${modifier}`;
+  } else if (modifier < 0) {
+    message += ` - ${-modifier}`;
+  }
+
+  message += ` = ${target}</p>
     <p><strong>${game.i18n.localize(
     "fs4.dialog.rollSkill.result"
   )}</strong>: ${rollResult}</p>
