@@ -241,15 +241,28 @@ img.action.active {
 }
 
 ol.items-list {
-  padding-left: 0.5em;
+  padding-left: 0.5rem;
 
   li.item {
-    h4 {
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.2em 0;
+
+    h6 {
       margin: 0;
     }
 
-    h4.item-edit {
+    h6.item-edit {
       cursor: pointer;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+      border: none;
+      border-radius: 0.4rem;
+      background-color: var(--tertiary);
+      flex: 0;
+      margin-right: 1em;
     }
   }
 }

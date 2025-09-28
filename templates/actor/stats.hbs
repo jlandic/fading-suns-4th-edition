@@ -160,17 +160,19 @@
 
         <hr>
 
+        <section class="flexcol states">
+            <h3>
+                {{ localize "fs4.character.fields.states" }}
+            </h3>
+
+            {{> "fs4.states" states=states}}
+        </section>
+
+        <hr>
+
         <section class="flexcol maneuvers">
             <h3>
                 {{ localize "fs4.character.fields.maneuvers" }}
-
-                <a class="item-control item-add"
-                    title="{{ localize "fs4.sheets.add" }}"
-                    data-action="addItem"
-                    data-item-type="maneuver"
-                >
-                    <i class="fas fa-plus"></i>
-                </a>
             </h3>
 
             {{> "fs4.maneuvers"
@@ -183,14 +185,6 @@
         <section class="flexcol powers">
             <h3>
                 {{ localize "fs4.character.fields.powers" }}
-
-                <a class="item-control item-add"
-                    title="{{ localize "fs4.sheets.add" }}"
-                    data-action="addPower"
-                    data-item-type="power"
-                >
-                    <i class="fas fa-plus"></i>
-                </a>
             </h3>
 
             {{> "fs4.maneuvers"

@@ -15,6 +15,7 @@ const DROPABLE_TYPES = [
   "shield",
   "equipment",
   "power",
+  "state",
 ];
 const LINKED_TYPES = [
   "class",
@@ -51,13 +52,13 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
       rechargeShield: CharacterSheetFS4.#rechargeShield,
       resetShieldBurnout: CharacterSheetFS4.#resetShieldBurnout,
       toggleShieldDistortion: CharacterSheetFS4.#toggleShieldDistortion,
-      addItem: CharacterSheetFS4.#addItem,
       removeItem: CharacterSheetFS4.#removeItem,
       equipItem: CharacterSheetFS4.#equipItem,
       unequipItem: CharacterSheetFS4.#unequipItem,
       editItem: CharacterSheetFS4.#editItem,
       editLinkedItem: CharacterSheetFS4.#editLinkedItem,
       clearLinkedItem: CharacterSheetFS4.#clearLinkedItem,
+      removeState: CharacterSheetFS4.#removeState,
     }
   }
 
@@ -187,6 +188,7 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
   async _onDrop(event) {
     const data = TextEditor.getDragEventData(event);
     const item = await fromUuid(data.uuid);
+
     if (DROPABLE_TYPES.includes(item.type)) {
       const itemPromises = await this.actor.createEmbeddedDocuments("Item", [
         item.toObject(),
@@ -195,6 +197,9 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
 
       if (item.type === "weapon") {
         await this.actor.onAddWeapon(items[0]);
+      }
+      if (item.type === "state") {
+        await this.actor.applyState(items[0]);
       }
     } else if (LINKED_TYPES.includes(item.type)) {
       await this.actor.update({ [`system.${item.type}`]: data.uuid });
@@ -311,13 +316,11 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
     this.actor.removeItem(itemId);
   }
 
-  static async #addItem(event, target) {
+  static #removeState(event, target) {
     event.preventDefault();
 
-    const { itemType } = target.dataset;
-    await this.actor.createEmbeddedDocuments("Item", [
-      { name: game.i18n.localize(`TYPES.Item.${itemType}`), type: itemType },
-    ]);
+    const { itemId } = target.dataset;
+    this.actor.removeState(itemId);
   }
 
   static #editItem(event, target) {
@@ -389,6 +392,10 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
         ),
         validStats: item.system.skill && item.system.characteristic,
       }),
+    },
+    state: {
+      name: "states",
+      sort: true,
     },
     perk: {
       name: "perks",

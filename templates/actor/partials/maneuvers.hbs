@@ -5,11 +5,11 @@
                 data-item-id="{{maneuver.id}}"
                 data-action="{{../action}}"
                 data-draggable-type="{{../itemType}}"
-                src="icons/svg/d20-highlight.svg"
+                src="{{maneuver.img}}"
                 title="{{ localize (concat "fs4.sheets." action) }}"
             />
             <div class="item-name">
-                <h4 class="item-control item-edit" data-action="editItem" data-item-id="{{maneuver.id}}">{{maneuver.name}}</h4>
+                <h6 class="item-control item-edit" data-action="editItem" data-item-id="{{maneuver.id}}">{{maneuver.name}}</h6>
             </div>
 
             <div>

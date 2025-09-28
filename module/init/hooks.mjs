@@ -30,6 +30,7 @@ export const hotbarDrop = async (_hotbar, data, slot) => {
       name,
       command,
       folder: folder.id,
+      img: item?.img,
     })) ??
     null;
 

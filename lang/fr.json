@@ -326,7 +326,8 @@
           "spirit": "Esprit"
         },
         "maneuvers": "Manœuvres",
-        "powers": "Pouvoirs"
+        "powers": "Pouvoirs",
+        "states": "États"
       },
       "emptyCache": "Vider le cache"
     },

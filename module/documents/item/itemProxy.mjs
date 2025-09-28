@@ -1,8 +1,10 @@
 import ItemFS4 from "./item.mjs";
 import ShieldFS4 from "./shield.mjs";
+import StateFS4 from "./state.mjs";
 
 const itemMapping = {
   shield: ShieldFS4,
+  state: StateFS4,
 }
 
 export const ItemProxyFS4 = new Proxy(function () { }, {

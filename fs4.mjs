@@ -6,9 +6,9 @@ import CapabilitySheetFS4 from "./module/sheets/item/capability-sheet.mjs";
 import CallingSheetFS4 from "./module/sheets/item/calling-sheet.mjs";
 import ClassSheetFS4 from "./module/sheets/item/class-sheet.mjs";
 import FactionSheetFS4 from "./module/sheets/item/faction-sheet.mjs";
-import { registerHandlebarsHelpers } from "./module/utils/handlebarHelpers.mjs";
+import { registerHandlebarsHelpers } from "./module/init/handlebarHelpers.mjs";
 import SpeciesSheetFS4 from "./module/sheets/item/species-sheet.mjs";
-import { preloadTemplates } from "./module/utils/configureTemplates.mjs";
+import { preloadTemplates } from "./module/init/configureTemplates.mjs";
 import CharacterSheetFS4 from "./module/sheets/actor/character-sheet.mjs";
 import ManeuverSheetFS4 from "./module/sheets/item/maneuver-sheet.mjs";
 import SimpleItemSheetFS4 from "./module/sheets/item/simple-item-sheet.mjs";
@@ -19,8 +19,9 @@ import EquipmentSheetFS4 from "./module/sheets/item/equipment-sheet.mjs";
 import AfflictionSheetFS4 from "./module/sheets/item/affliction-sheet.mjs";
 import ShieldSheetFS4 from "./module/sheets/item/shield-sheet.mjs";
 import { importManeuvers } from "./module/scripts/importManeuvers.mjs";
-import { hotbarDrop } from "./module/hooks/init.mjs";
+import { hotbarDrop } from "./module/init/hooks.mjs";
 import PowerSheetFS4 from "./module/sheets/item/power-sheet.mjs";
+import createStatusEffects from "./module/init/createStatusEffects.mjs";
 
 const {
   DocumentSheetConfig,
@@ -145,6 +146,8 @@ Hooks.once("init", () => {
 });
 
 Hooks.once("ready", async () => {
+  createStatusEffects();
+
   window.fs4.scripts.rollSkill = rollSkill;
   window.fs4.scripts.importManeuvers = importManeuvers;
 

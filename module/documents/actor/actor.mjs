@@ -75,8 +75,10 @@ export default class ActorFS4 extends Actor {
   removeItem(itemId) {
     if (!this.items.has(itemId)) return;
 
-    this.items.get(itemId).delete();
+    const deleted = this.items.get(itemId).delete();
     this.unsetFlag("fs4", `equipped.${itemId}`);
+
+    return deleted;
   }
 
   equipItem(itemId) {
@@ -127,6 +129,17 @@ export default class ActorFS4 extends Actor {
 
   toggleShieldDistortion() {
     this._shield()?.toggleDistortion();
+  }
+
+  async applyState(state) {
+    await this.createEmbeddedDocuments("ActiveEffect", [
+      state.toEffectData(),
+    ]);
+  }
+
+  async removeState(stateId) {
+    this.removeItem(stateId);
+    await this.effects.find(e => e.origin.endsWith(stateId)).delete();
   }
 
   _shield() {
