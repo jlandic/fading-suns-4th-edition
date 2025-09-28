@@ -506,7 +506,7 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
     }));
 
     context.armor = {
-      res: equipped.reduce((acc, item) => acc + item.system.res || 0, 0),
+      res: equipped.reduce((acc, item) => acc + item.system.adjustedRes || 0, 0),
     };
   }
 

@@ -22,7 +22,7 @@ export default class WeaponData extends EquipmentData {
       }),
       melee: new BooleanField({ initial: true }),
       range: new SchemaField({
-        extreme: new BooleanField({ initial: true }),
+        extreme: new BooleanField({ initial: false }),
         short: new NumberField({
           ...defaultNumberFieldOptions(0),
         }),
@@ -72,5 +72,9 @@ export default class WeaponData extends EquipmentData {
     this.range.short = undefined;
     this.range.long = undefined;
     this.range.extremeRange = false;
+  }
+
+  get adjustedGoalModifier() {
+    return this.goalModifier + this.rollModifier;
   }
 }

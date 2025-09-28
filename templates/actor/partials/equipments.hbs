@@ -2,7 +2,21 @@
     {{#each items as |item id|}}
         <li class="item flexrow">
             <div class="item-name flex3 {{#if item.equippable}}{{#unless item.equipped}}deactivated{{/unless}}{{/if}}">
-                <h4>
+                <h6 data-tooltip="{{{item.system.description}}}" data-tooltip-direction="UP">
+                    {{item.name}}
+                </h6>
+            </div>
+
+            <div>
+                {{#if (eq item.system.tl undefined)}}
+                    -
+                {{else}}
+                    {{ localize "fs4.equipment.fields.tl" }}{{item.system.tl}}
+                {{/if}}
+            </div>
+
+            <div class="item-controls flex0">
+                <div class="flexrow flexnowrap">
                     {{#if item.equippable}}
                         {{#if item.equipped}}
                             <a class="item-control item-unequip activated"
@@ -23,22 +37,6 @@
                         {{/if}}
                     {{/if}}
 
-                    <span data-tooltip="{{{item.system.description}}}" data-tooltip-direction="UP">
-                        {{item.name}}
-                    </span>
-                </h4>
-            </div>
-
-            <div>
-                {{#if (eq item.system.tl undefined)}}
-                    -
-                {{else}}
-                    {{ localize "fs4.equipment.fields.tl" }}{{item.system.tl}}
-                {{/if}}
-            </div>
-
-            <div class="item-controls flex0">
-                <div class="flexrow flexnowrap">
                     <a class="item-control item-edit"
                         data-action="editItem"
                         data-item-id="{{item.id}}"

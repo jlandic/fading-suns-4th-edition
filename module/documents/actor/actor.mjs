@@ -44,7 +44,7 @@ export default class ActorFS4 extends Actor {
         return (
           this.system.skills[skill] +
           this.system.characteristics[characteristic] +
-          weapon.system.goalModifier
+          weapon.system.adjustedGoalModifier
         );
       }
     }

@@ -149,8 +149,19 @@
       "fields": {
         "tl": "NT",
         "cost": "Phx",
+        "adjustedCost": "Phx (ajusté)",
         "agora": "Agora",
-        "techCompulsion": "Compulsion tech."
+        "techCompulsion": "Compulsion tech.",
+        "quality": "Qualité"
+      },
+      "quality": {
+        "disrepair": "Mauvais état",
+        "unreliable": "Peu fiable",
+        "poor_workmanship": "Mauvaise qualité",
+        "standard": "Standard",
+        "superior": "Supérieure",
+        "masterwork": "Exceptionnelle",
+        "premium": "Magistrale"
       },
       "noTechCompulsion": "Aucune"
     },

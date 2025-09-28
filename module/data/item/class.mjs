@@ -21,17 +21,9 @@ export default class ClassData extends SimpleItemData {
   }
 
   get callings() {
-    let items = game.items
+    return game.items
       .filter((item) => item.type === "calling")
-      .filter((calling) => calling.system._class === this.id);
-
-    if (items.length === 0) {
-      items = game.items
-        .filter((item) => item.type === "calling")
-        .filter((calling) => calling.system._class === undefined);
-    }
-
-    return items;
+      .filter((calling) => calling.system.open || calling.system.class === this.id);
   }
 
   get perks() {

@@ -31,4 +31,8 @@ export default class ArmorData extends EquipmentData {
       features: new ArrayField(new StringField()),
     });
   }
+
+  get adjustedRes() {
+    return this.res + this.rollModifier;
+  }
 }

@@ -12,27 +12,10 @@
     {{#each weapons as |weapon id|}}
     <li class="item flexrow center-items" data-item-id="{{weapon.id}}">
         <div class="item-name flexrow center-items" title="{{weapon.features}}">
-            {{#if weapon.equipped}}
-                <a class="item-control item-unequip activated"
-                    title="{{ localize "fs4.sheets.unequip" }}"
-                    data-action="unequipItem"
-                    data-item-id="{{weapon.id}}"
-                >
-                    <i class="fas fa-hand" color="green"></i>
-                </a>
-            {{else}}
-                <a class="item-control item-equip deactivated"
-                    title="{{ localize "fs4.sheets.equip" }}"
-                    data-action="equipItem"
-                    data-item-id="{{weapon.id}}"
-                >
-                    <i class="fas fa-hand" color="gray"></i>
-                </a>
-            {{/if}}
-            <h4>{{weapon.name}}</h4>
+            <h6>{{weapon.name}}</h6>
         </div>
 
-        <div class="centered">{{ weapon.goalModifier }}</div>
+        <div class="centered">{{ weapon.adjustedGoalModifier }}</div>
         <div class="centered">{{ weapon.damage }}</div>
         <div class="centered">{{ weapon.rangeText }}</div>
         <div class="centered">{{#if weapon.melee}}-{{else}}{{ weapon.rof }}{{/if}}</div>
@@ -40,6 +23,24 @@
 
         <div class="item-controls">
             <div class="flexrow flexnowrap">
+                {{#if weapon.equipped}}
+                    <a class="item-control item-unequip activated"
+                        title="{{ localize "fs4.sheets.unequip" }}"
+                        data-action="unequipItem"
+                        data-item-id="{{weapon.id}}"
+                    >
+                        <i class="fas fa-hand" color="green"></i>
+                    </a>
+                {{else}}
+                    <a class="item-control item-equip deactivated"
+                        title="{{ localize "fs4.sheets.equip" }}"
+                        data-action="equipItem"
+                        data-item-id="{{weapon.id}}"
+                    >
+                        <i class="fas fa-hand" color="gray"></i>
+                    </a>
+                {{/if}}
+
                 <a class="item-control item-edit centered"
                     title="{{ localize "fs4.sheets.edit" }}"
                     data-action="editItem"
