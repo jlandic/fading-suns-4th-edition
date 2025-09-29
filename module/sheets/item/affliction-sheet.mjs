@@ -8,16 +8,7 @@ export default class AfflictionSheetFS4 extends ItemSheetFS4 {
       effects: await TextEditor.enrichHTML(this.item.system.effects, {
         async: true,
       }),
-      preconditions: await TextEditor.enrichHTML(
-        this.item.system.preconditions.map((condition) => {
-          if (condition.special) {
-            return condition.text;
-          } else {
-            return `@UUID[Item.${condition.id}]`;
-          }
-        }).join(game.i18n.localize("fs4.base.orSeparator")),
-        { async: true }
-      ),
+      preconditions: await TextEditor.enrichHTML(this.item.system.preconditions, { async: true }),
     });
 
     return context;
