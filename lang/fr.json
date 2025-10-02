@@ -27,6 +27,9 @@
     }
   },
   "fs4": {
+    "apps": {
+      "modifier": "Modificateur"
+    },
     "sheets": {
       "CharacterSheetFS4": "Fiche de personnage",
       "FactionSheetFS4": "Fiche de faction",
@@ -49,7 +52,9 @@
         "stats": "Stats",
         "identity": "Identité",
         "equipment": "Équipement",
-        "notes": "Notes"
+        "notes": "Notes",
+        "information": "Information",
+        "modifiers": "Modificateurs"
       },
       "edit": "Éditer",
       "delete": "Supprimer",
@@ -59,7 +64,8 @@
       "rollWeapon": "Jet d'arme",
       "equip": "Équiper",
       "unequip": "Déséquiper",
-      "actions": "Actions"
+      "actions": "Actions",
+      "saveChanges": "Sauvegarder"
     },
     "fields": {
       "description": "Description",
@@ -101,6 +107,37 @@
       "presence": "Présence",
       "intuition": "Intuition",
       "faith": "Foi"
+    },
+    "modifier": {
+      "valueTypes": {
+        "constant": "Constante",
+        "formula": "Formule",
+        "favorable": "Favorable",
+        "unfavorable": "Défavorable"
+      },
+      "attributeTypes": {
+        "skill": "Compétence",
+        "characteristic": "Caractéristique",
+        "res": "Résistance",
+        "initiative": "Initiative",
+        "goal": "Valeur ciblée"
+      },
+      "types": {
+        "austerity": "Austérité",
+        "untyped": "Non typé"
+      },
+      "fields": {
+        "name": "Nom",
+        "attribute": "Attribut",
+        "valueType": "Type de valeur",
+        "value": "Valeur",
+        "type": "Type de modificateur",
+        "active": "Activé",
+        "source": "Source",
+        "notes": "Notes",
+        "affectedAttribute": "Attribut ciblé"
+      },
+      "noAffectedAttribute": "-"
     },
     "time": {
       "instantaneous": "Instantané",

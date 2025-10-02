@@ -1,3 +1,4 @@
+import ModifierData from "../../data/item/modifier.mjs";
 import { findItem } from "../../utils/dataAccess.mjs";
 
 const { TextEditor } = foundry.applications.ux;
@@ -38,18 +39,41 @@ export default class ItemSheetFS4 extends foundry.applications.api.HandlebarsApp
       editItem: ItemSheetFS4.#showItem,
       deleteItem: ItemSheetFS4.#deleteItem,
       clearLinkedItem: ItemSheetFS4.#clearLinkedItem,
+      addModifier: ItemSheetFS4.#addModifier,
+      editModifier: ItemSheetFS4.#editModifier,
+      deleteModifier: ItemSheetFS4.#deleteModifier,
     },
   };
 
   static PARTS = {
     header: { template: "systems/fs4/templates/item/header.hbs" },
+    tabs: { template: "templates/generic/tab-navigation.hbs" },
     ...TYPES_WITH_SHEET.reduce((obj, type) => {
       obj[type] = { template: `systems/fs4/templates/item/${type}.hbs`, scrollable: [".scrollable"] };
       return obj;
     }, {}),
     simpleItem: { template: "systems/fs4/templates/item/simple-item.hbs", scrollable: [".scrollable"] },
     simpleItemWithType: { template: "systems/fs4/templates/item/simple-item-with-type.hbs", scrollable: [".scrollable"] },
+    modifiers: { template: "systems/fs4/templates/shared/modifiers.hbs", scrollable: [".scrollable"] },
   };
+
+  static TABS = {
+    primary: {
+      initial: "main",
+      tabs: [
+        {
+          id: "main",
+          cssClass: "tab-main",
+          label: "fs4.sheets.tabs.information",
+        },
+        {
+          id: "modifiers",
+          cssClass: "tab-modifiers",
+          label: "fs4.sheets.tabs.modifiers",
+        }
+      ]
+    }
+  }
 
   static get referenceCollections() {
     return {};
@@ -68,7 +92,9 @@ export default class ItemSheetFS4 extends foundry.applications.api.HandlebarsApp
 
     options.parts = [
       "header",
+      "tabs",
       this.mainPart,
+      "modifiers",
     ];
   }
 
@@ -88,6 +114,10 @@ export default class ItemSheetFS4 extends foundry.applications.api.HandlebarsApp
 
     this.#prepareEmbeddedCollections(context);
     this.#prepareReferences(context);
+
+    this.item.system.modifiers = this.item.system.modifiers.map((mod) => {
+      return new ModifierData(mod, { parent: this.item });
+    });
 
     return context;
   }
@@ -200,5 +230,49 @@ export default class ItemSheetFS4 extends foundry.applications.api.HandlebarsApp
 
     const field = target.dataset.field;
     this.item.clearReference(field);
+  }
+
+  static async #addModifier(event) {
+    event.preventDefault();
+
+    const modifiers = this.item.system.modifiers.slice();
+    modifiers.push(new ModifierData({
+      name: this.item.name,
+    }));
+
+    await this.item.update({
+      system: {
+        modifiers,
+      },
+    });
+  }
+
+  static async #editModifier(event, target) {
+    event.preventDefault();
+
+    const id = target.dataset.modifierId;
+    const modifier = this.item.system.modifiers.find((mod) => mod._id === id);
+    if (modifier) {
+      await modifier.edit();
+    }
+  }
+
+  static async #deleteModifier(event, target) {
+    event.preventDefault();
+
+    const id = target.dataset.modifierId;
+    const modifiers = this.item.system.modifiers.slice();
+    const index = modifiers.findIndex((mod) => mod._id === id);
+    if (index === -1) {
+      console.warn(`Modifier with id ${id} not found`);
+      return;
+    }
+
+    modifiers.splice(index, 1);
+    this.item.update({
+      system: {
+        modifiers,
+      },
+    });
   }
 }

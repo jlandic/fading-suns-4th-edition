@@ -1,69 +1,71 @@
-<div class="scrollable">
-    <div class="form-group">
-        <div class="flexrow centered highlight-labels">
-            <select name="system.sourceType">
-                {{selectOptions
-                    sourceTypes
-                    selected=system.sourceType
-                    valueAttr="value"
-                    labelAttr="name"
+<section class="tab {{tabs.main.cssClass}}" data-group="{{tabs.main.group}}" data-tab="main">
+    <div class="scrollable">
+        <div class="form-group">
+            <div class="flexrow centered highlight-labels">
+                <select name="system.sourceType">
+                    {{selectOptions
+                        sourceTypes
+                        selected=system.sourceType
+                        valueAttr="value"
+                        labelAttr="name"
+                    }}
+                </select>
+                <select name="system.type">
+                    {{selectOptions
+                        types
+                        selected=system.type
+                        valueAttr="value"
+                        labelAttr="name"
+                    }}
+                </select>
+            </div>
+        </div>
+
+        <h2>{{ localize "fs4.perk.fields.preconditions" }}</h2>
+        <div class="form-group">
+            <div class="form-fields">
+                {{> "fs4.editor"
+                    value=preconditions
+                    name="system.preconditions"
                 }}
-            </select>
-            <select name="system.type">
-                {{selectOptions
-                    types
-                    selected=system.type
-                    valueAttr="value"
-                    labelAttr="name"
+            </div>
+        </div>
+
+        {{#if system.tl}}
+            <h2>{{ localize "fs4.perk.fields.cyberdevice" }}</h2>
+        {{/if}}
+        <div class="form-group">
+            <div class="form-fields">
+                {{#if system.techCompulsion}}
+                    <span>
+                        <em>{{ localize "TYPES.Item.techCompulsion" }}</em>
+                        <input type="text" name="system.techCompulsion" value="{{system.techCompulsion}}"
+                            placeholder="{{ localize " TYPES.Item.techCompulsion" }}" />
+                    </span>
+                {{/if}}
+
+                {{#if system.tl}}
+                    <span>
+                        <em>{{ localize "fs4.perk.fields.TL"}}</em>
+                        <input type="number" name="system.tl" value="{{system.tl}}" placeholder="{{ localize "
+                            fs4.perk.fields.TL"}}" />
+                    </span>
+                {{/if}}
+            </div>
+        </div>
+
+        {{> "fs4.description" description=description }}
+
+        <hr />
+
+        <h2>{{ localize "fs4.perk.fields.benefice" }}</h2>
+        <div class="form-group">
+            <div class="form-fields">
+                {{> "fs4.editor"
+                    value=benefice
+                    name="system.benefice"
                 }}
-            </select>
+            </div>
         </div>
     </div>
-
-    <h2>{{ localize "fs4.perk.fields.preconditions" }}</h2>
-    <div class="form-group">
-        <div class="form-fields">
-            {{> "fs4.editor"
-                value=preconditions
-                name="system.preconditions"
-            }}
-        </div>
-    </div>
-
-    {{#if system.tl}}
-        <h2>{{ localize "fs4.perk.fields.cyberdevice" }}</h2>
-    {{/if}}
-    <div class="form-group">
-        <div class="form-fields">
-            {{#if system.techCompulsion}}
-                <span>
-                    <em>{{ localize "TYPES.Item.techCompulsion" }}</em>
-                    <input type="text" name="system.techCompulsion" value="{{system.techCompulsion}}"
-                        placeholder="{{ localize " TYPES.Item.techCompulsion" }}" />
-                </span>
-            {{/if}}
-
-            {{#if system.tl}}
-                <span>
-                    <em>{{ localize "fs4.perk.fields.TL"}}</em>
-                    <input type="number" name="system.tl" value="{{system.tl}}" placeholder="{{ localize "
-                        fs4.perk.fields.TL"}}" />
-                </span>
-            {{/if}}
-        </div>
-    </div>
-
-    {{> "fs4.description" description=description }}
-
-    <hr />
-
-    <h2>{{ localize "fs4.perk.fields.benefice" }}</h2>
-    <div class="form-group">
-        <div class="form-fields">
-            {{> "fs4.editor"
-                value=benefice
-                name="system.benefice"
-            }}
-        </div>
-    </div>
-</div>
+</section>

@@ -1,28 +1,30 @@
-<div class="scrollable">
-    {{> "fs4.description" description=description}}
+<section class="tab {{tabs.main.cssClass}}" data-group="{{tabs.main.group}}" data-tab="main">
+    <div class="scrollable">
+        {{> "fs4.description" description=description}}
 
-    <hr>
+        <hr>
 
-    <h2>{{ localize "fs4.affliction.fields.preconditions" }}</h2>
-    <div class="form-group">
-        <div class="form-fields">
-            {{> "fs4.editor"
-                name="system.preconditions"
-                value=preconditions
-            }}
+        <h2>{{ localize "fs4.affliction.fields.preconditions" }}</h2>
+        <div class="form-group">
+            <div class="form-fields">
+                {{> "fs4.editor"
+                    name="system.preconditions"
+                    value=preconditions
+                }}
+            </div>
+        </div>
+
+        <hr />
+
+        <h2>{{ localize "fs4.affliction.fields.effects" }}</h2>
+        <div class="form-group">
+            <div class="form-fields">
+                {{> "fs4.editor"
+                    name="system.effects"
+                    value=effects
+                    large=true
+                }}
+            </div>
         </div>
     </div>
-
-    <hr />
-
-    <h2>{{ localize "fs4.affliction.fields.effects" }}</h2>
-    <div class="form-group">
-        <div class="form-fields">
-            {{> "fs4.editor"
-                name="system.effects"
-                value=effects
-                large=true
-            }}
-        </div>
-    </div>
-</div>
+</section>

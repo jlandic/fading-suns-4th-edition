@@ -1,3 +1,25 @@
 .sheet {
   @import "sheet.less";
 }
+
+section.table {
+  width: 100%;
+  display: table;
+
+  header {
+    font-weight: bold;
+    border-bottom: 2px solid var(--color-text-accent);
+  }
+
+  .table-col {
+    display: table-cell;
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--color-text-subtle);
+  }
+}
+
+section.table>* {
+  display: table-row;
+}

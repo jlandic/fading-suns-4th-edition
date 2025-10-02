@@ -89,7 +89,7 @@ export default class SystemDataModel extends foundry.abstract.TypeDataModel {
 export class ActorDataModel extends SystemDataModel { }
 export class ItemDataModel extends SystemDataModel { }
 
-const { StringField, HTMLField } = foundry.data.fields;
+const { StringField, HTMLField, ArrayField, ObjectField } = foundry.data.fields;
 
 export class SimpleItemData extends ItemDataModel {
   static defineSchema() {
@@ -98,6 +98,7 @@ export class SimpleItemData extends ItemDataModel {
         initial: () => crypto.randomUUID(),
       }),
       description: new HTMLField(),
+      modifiers: new ArrayField(new ObjectField()),
     });
   }
 
