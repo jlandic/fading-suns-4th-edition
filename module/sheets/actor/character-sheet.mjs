@@ -1,3 +1,4 @@
+import ModifierData from "../../data/item/modifier.mjs";
 import { ARMOR_TYPES } from "../../registry/armorTypes.mjs";
 import { CHARACTERISTIC_GROUPS } from "../../registry/characteristics.mjs";
 import { SKILLS } from "../../registry/skills.mjs";
@@ -59,7 +60,8 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
       editLinkedItem: CharacterSheetFS4.#editLinkedItem,
       clearLinkedItem: CharacterSheetFS4.#clearLinkedItem,
       removeState: CharacterSheetFS4.#removeState,
-    }
+      toggleModifierActive: CharacterSheetFS4.#toggleModifierActive,
+    },
   }
 
   static PARTS = {
@@ -68,6 +70,7 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
     stats: { template: "systems/fs4/templates/actor/stats.hbs", scrollable: [".tab-content"] },
     identity: { template: "systems/fs4/templates/actor/identity.hbs", scrollable: [".tab-content"] },
     equipment: { template: "systems/fs4/templates/actor/equipment.hbs", scrollable: [".tab-content"] },
+    embeddedModifiers: { template: "systems/fs4/templates/shared/embeddedModifiers.hbs", scrollable: [".scrollable"] },
     notes: { template: "systems/fs4/templates/actor/notes.hbs", scrollable: [".tab-content"] },
   }
 
@@ -89,6 +92,11 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
           id: "equipment",
           cssClass: "tab-equipment",
           label: "fs4.sheets.tabs.equipment",
+        },
+        {
+          id: "embeddedModifiers",
+          cssClass: "tab-embeddedModifiers",
+          label: "fs4.sheets.tabs.embeddedModifiers",
         },
         {
           id: "notes",
@@ -117,6 +125,7 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
     Object.assign(context, linkedItems);
     this.#prepareArmor(context);
     this.#prepareShield(context);
+    this.#prepareEmbeddedModifiers(context);
 
     const resistanceMods = {
       body: context.armor?.res,
@@ -350,6 +359,23 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
     await this.actor.clearReference(field);
   }
 
+  static async #toggleModifierActive(event, target) {
+    event.preventDefault();
+
+    const { modifierId, parentId } = target.dataset;
+    const item = this.actor.items.get(parentId);
+    if (!item) return;
+
+    const modifiers = item.system.modifiers.map((mod) => {
+      if (mod._id === modifierId) {
+        mod.active = !mod.active;
+      }
+      return mod;
+    });
+
+    await item.update({ "system.modifiers": modifiers });
+  }
+
   /* CONTEXT PREPARATION
    */
 
@@ -456,6 +482,18 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
       }),
     }
   };
+
+  #prepareEmbeddedModifiers(context) {
+    context.embeddedModifiers = this.actor.items.map((item) => {
+      return item.system.modifiers.map((mod) => {
+        return {
+          ...mod,
+          readOnly: true,
+          parent: item,
+        };
+      });
+    }).flat();
+  }
 
   #prepareItems(context) {
     Object.keys(CharacterSheetFS4.ITEM_PREPARATION).forEach((type) => {

@@ -54,7 +54,8 @@
         "equipment": "Équipement",
         "notes": "Notes",
         "information": "Information",
-        "modifiers": "Modificateurs"
+        "modifiers": "Modificateurs",
+        "embeddedModifiers": "Modificateurs"
       },
       "edit": "Éditer",
       "delete": "Supprimer",
@@ -135,7 +136,8 @@
         "active": "Activé",
         "source": "Source",
         "notes": "Notes",
-        "affectedAttribute": "Attribut ciblé"
+        "affectedAttribute": "Attribut ciblé",
+        "parent": "Source"
       },
       "noAffectedAttribute": "-"
     },

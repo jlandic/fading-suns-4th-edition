@@ -15,6 +15,13 @@ section.table {
     display: table-cell;
   }
 
+  .table-col.truncate {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .table-row {
     border-bottom: 1px solid var(--color-text-subtle);
   }

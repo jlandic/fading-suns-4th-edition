@@ -1,43 +1,37 @@
-<section class="tab {{tabs.modifiers.cssClass}}" data-group="{{tabs.modifiers.group}}" data-tab="{{tabs.modifiers.id}}">
+<section class="tab {{tabs.embeddedModifiers.cssClass}}" data-group="{{tabs.embeddedModifiers.group}}" data-tab="embeddedModifiers">
     <h2>
-        {{ localize "fs4.sheets.tabs.modifiers" }}
-        <a class="item-control item-edit" data-action="addModifier" title="{{ localize "fs4.sheets.add" }}">
-            <i class="fas fa-plus"></i>
-        </a>
+        {{ localize "fs4.sheets.tabs.embeddedModifiers" }}
     </h2>
 
-    {{#if system.modifiers.length}}
+    {{#if embeddedModifiers.length}}
         <section class="table">
             <header>
                 <div class="table-col">{{ localize "fs4.modifier.fields.valueType" }}</div>
                 <div class="table-col">{{ localize "fs4.modifier.fields.value" }}</div>
                 <div class="table-col">{{ localize "fs4.modifier.fields.attribute" }}</div>
                 <div class="table-col">{{ localize "fs4.modifier.fields.affectedAttribute" }}</div>
-                <div class="table-col">{{ localize "fs4.sheets.actions" }}</div>
+                <div class="table-col">{{ localize "fs4.modifier.fields.parent" }}</div>
+                <div class="table-col"></div>
             </header>
             <tbody>
-                {{#each system.modifiers}}
+                {{#each embeddedModifiers}}
                     <div class="table-row">
                         <div class="table-col">{{ localize (concat "fs4.modifier.valueTypes." this.valueType) }}</div>
                         <div class="table-col">{{#if (eq this.value "")}}-{{else}}{{ this.value }}{{/if}}</div>
                         <div class="table-col">{{ localize (concat "fs4.modifier.attributeTypes." this.attribute) }}</div>
                         <div class="table-col">{{ localize (concat this.affectedAttributeI18nPrefix this.affectedAttribute) }}</div>
+                        <div class="table-col truncate" title="{{this.parent.name}}">{{ this.parent.name }}</div>
                         <div class="table-col flex0">
-                            <a class="item-control item-edit"
-                                data-action="editModifier"
-                                data-modifier-id="{{this._id}}"
-                                title="{{ localize "fs4.sheets.edit" }}"
-                            >
-                                <i class="fas fa-edit"></i>
-                            </a>
-
-                            <a class="item-control item-delete"
-                                data-action="deleteModifier"
-                                data-modifier-id="{{this._id}}"
-                                title="{{ localize "fs4.sheets.delete" }}"
-                            >
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            <label class="checkbox">
+                                <input
+                                    type="checkbox"
+                                    name="active"
+                                    {{checked this.active}}
+                                    data-action="toggleModifierActive"
+                                    data-modifier-id="{{this._id}}"
+                                    data-parent-id="{{this.parent.id}}"
+                                />
+                            </label>
                         </div>
                     </div>
                 {{/each}}
