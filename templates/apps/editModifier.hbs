@@ -54,6 +54,26 @@
         </select>
     </div>
 
+    <div class="form-group modifier-context">
+        <label for="context">{{ localize "fs4.modifier.fields.context" }}</label>
+        <select name="context" id="context-select">
+            {{selectOptions
+                contextOptions
+                selected=modifier.context
+            }}
+        </select>
+    </div>
+
+    <div class="form-group modifier-maneuver">
+        <label for="maneuverId">{{ localize "fs4.modifier.fields.maneuver" }}</label>
+        <select name="maneuverId" id="maneuver-select">
+            {{selectOptions
+                maneuverOptions
+                selected=modifier.maneuverId
+            }}
+        </select>
+    </div>
+
     <div class="form-group modifier-notes">
         <label for="notes">{{ localize "fs4.modifier.fields.notes" }}</label>
         <input type="text" name="notes" value="{{ modifier.notes }}" />

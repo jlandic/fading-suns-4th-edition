@@ -1,4 +1,3 @@
-import ModifierData from "../../data/item/modifier.mjs";
 import { ARMOR_TYPES } from "../../registry/armorTypes.mjs";
 import { CHARACTERISTIC_GROUPS } from "../../registry/characteristics.mjs";
 import { SKILLS } from "../../registry/skills.mjs";
@@ -253,11 +252,11 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
     popout.render(true);
   }
 
-  static #roll(event, target) {
+  static async #roll(event, target) {
     event.preventDefault();
 
     const { skill } = target.dataset;
-    rollSkill(skill, this.document);
+    await this.actor.rollSkill(skill);
   }
 
   static #rollManeuver(event, target) {
@@ -490,6 +489,7 @@ export default class CharacterSheetFS4 extends foundry.applications.api.Handleba
           ...mod,
           readOnly: true,
           parent: item,
+          affectedAttributeI18nPrefix: mod.affectedAttributeI18nPrefix,
         };
       });
     }).flat();

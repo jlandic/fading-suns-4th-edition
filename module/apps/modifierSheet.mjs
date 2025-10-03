@@ -1,4 +1,4 @@
-import { ModifierAttributeTypes, ModifierTypes, ModifierValueTypes } from "../data/item/modifier.mjs";
+import { ModifierAttributeTypes, ModifierContext, ModifierTypes, ModifierValueTypes } from "../data/item/modifier.mjs";
 import { CHARACTERISTICS } from "../registry/characteristics.mjs";
 import { SKILLS } from "../registry/skills.mjs";
 
@@ -62,6 +62,14 @@ export default class ModifierSheet extends HandlebarsApplicationMixin(
         value: res,
         label: game.i18n.localize(`fs4.character.fields.res.${res}`),
       })),
+      contextOptions: Object.values(ModifierContext).map((context) => ({
+        value: context,
+        label: game.i18n.localize(`fs4.modifier.contexts.${context}`),
+      })),
+      maneuverOptions: game.items.filter(i => i.type === "maneuver").map((maneuver) => ({
+        value: maneuver.system.id,
+        label: maneuver.name,
+      })).sort((a, b) => a.label.localeCompare(b.label)),
     });
 
     return context;
@@ -70,11 +78,19 @@ export default class ModifierSheet extends HandlebarsApplicationMixin(
   _onRender() {
     const valueTypeSelect = this.element.querySelector("#value-type-select");
     const attributeSelect = this.element.querySelector("#attribute-select");
+    const contextSelect = this.element.querySelector("#context-select");
+
+    contextSelect.addEventListener("change", (event) => {
+      event.preventDefault();
+      const newContext = event.target.value;
+      this.#initializeManeuverSelect(newContext);
+    });
 
     attributeSelect.addEventListener("change", (event) => {
       event.preventDefault();
       const newAttribute = event.target.value;
       this.#initializeAffectedAttributeSelect(newAttribute);
+      this.#initializeContextSelect(newAttribute);
     });
 
     valueTypeSelect.addEventListener("change", (event) => {
@@ -85,12 +101,37 @@ export default class ModifierSheet extends HandlebarsApplicationMixin(
 
     this.#initializeValueInput(this.modifier.valueType);
     this.#initializeAffectedAttributeSelect(this.modifier.attribute);
+    this.#initializeContextSelect(this.modifier.attribute);
+    this.#initializeManeuverSelect(this.modifier.context);
   }
 
   static async #onSubmit(event, _form, formData) {
     event.preventDefault();
 
     await this.modifier.updateParent(formData);
+  }
+
+  #initializeManeuverSelect(context) {
+    const maneuverSelect = this.element.querySelector("#maneuver-select");
+
+    if (context === ModifierContext.SPECIFIC_MANEUVER) {
+      maneuverSelect.disabled = false;
+    } else {
+      maneuverSelect.disabled = true;
+      maneuverSelect.value = "";
+    }
+  }
+
+  #initializeContextSelect(attribute) {
+    const contextSelect = this.element.querySelector("#context-select");
+
+    if (attribute === ModifierAttributeTypes.GOAL) {
+      contextSelect.value = ModifierContext.NONE;
+      contextSelect.disabled = false;
+    } else {
+      contextSelect.value = ModifierContext.NONE;
+      contextSelect.disabled = true;
+    }
   }
 
   #initializeValueInput(valueType) {

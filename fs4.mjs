@@ -1,6 +1,5 @@
 import * as dataModels from "./module/data/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
-import { rollSkill } from "./module/scripts/rollSkill.mjs";
 import PerkSheetFS4 from "./module/sheets/item/perk-sheet.mjs";
 import CapabilitySheetFS4 from "./module/sheets/item/capability-sheet.mjs";
 import CallingSheetFS4 from "./module/sheets/item/calling-sheet.mjs";
@@ -22,6 +21,7 @@ import { importManeuvers } from "./module/scripts/importManeuvers.mjs";
 import { hotbarDrop } from "./module/init/hooks.mjs";
 import PowerSheetFS4 from "./module/sheets/item/power-sheet.mjs";
 import createStatusEffects from "./module/init/createStatusEffects.mjs";
+import { initializeChatListeners } from "./module/init/globalListeners.mjs";
 
 const {
   DocumentSheetConfig,
@@ -149,8 +149,8 @@ Hooks.once("init", () => {
 
 Hooks.once("ready", async () => {
   createStatusEffects();
+  initializeChatListeners();
 
-  window.fs4.scripts.rollSkill = rollSkill;
   window.fs4.scripts.importManeuvers = importManeuvers;
 
   if (!game.folders.find((f) => f.name === "Hotbar" && f.type === "Macro")) {
@@ -163,12 +163,6 @@ Hooks.once("ready", async () => {
       (await Folder.create({ name: "FS4", type: "Macro" }));
 
     const macros = [
-      {
-        key: "rollSkill",
-        type: "script",
-        folder: rootFolder.id,
-        command: "window.fs4.scripts.rollSkill()",
-      },
       {
         key: "importManeuvers",
         type: "script",

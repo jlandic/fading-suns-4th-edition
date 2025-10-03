@@ -26,6 +26,18 @@ export const ModifierTypes = Object.freeze({
   UNTYPED: "untyped",
 });
 
+export const ModifierContext = Object.freeze({
+  NONE: "none",
+  RANGED_ATTACK: "ranged",
+  MELEE_ATTACK: "melee",
+  INFLUENCE_PERSUASION: "influence_persuasion",
+  INFLUENCE_COERCION: "influence_coercion",
+  INFLUENCE: "influence",
+  DEFENSE: "defense",
+  SPECIFIC_MANEUVER: "specific_maneuver",
+  DAMAGE: "damage",
+});
+
 export default class ModifierData extends ItemDataModel {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
@@ -58,6 +70,11 @@ export default class ModifierData extends ItemDataModel {
       }),
       active: new BooleanField({ initial: true }),
       notes: new StringField({ initial: "" }),
+      context: new StringField({
+        choices: Object.values(ModifierContext),
+        initial: ModifierContext.NONE,
+      }),
+      maneuverId: new StringField({ initial: "" }),
     });
   }
 
@@ -67,6 +84,23 @@ export default class ModifierData extends ItemDataModel {
 
   async edit() {
     await new ModifierSheet(this).render(true);
+  }
+
+  get humanReadable() {
+    if (this.valueType === ModifierValueTypes.FAVORABLE) {
+      return game.i18n.localize("fs4.modifier.favorable");
+    }
+
+    if (this.valueType === ModifierValueTypes.UNFAVORABLE) {
+      return game.i18n.localize("fs4.modifier.unfavorable");
+    }
+
+    if (this.attribute === ModifierAttributeTypes.GOAL) {
+      return `${this.value >= 0 ? "+" : ""}${this.value}`;
+    }
+
+    const attributeName = game.i18n.localize(`${this.affectedAttributeI18nPrefix}${this.affectedAttribute}`);
+    return `${attributeName} ${this.value >= 0 ? "+" : ""}${this.value}`;
   }
 
   get affectedAttributeI18nPrefix() {
@@ -79,6 +113,49 @@ export default class ModifierData extends ItemDataModel {
         return "fs4.character.fields.res.";
       default:
         return "fs4.modifier.noAffectedAttribute";
+    }
+  }
+
+  appliesToRoll(rollIntention) {
+    if ([ModifierAttributeTypes.RES, ModifierAttributeTypes.INITIATIVE].includes(this.attribute)) {
+      return false;
+    }
+
+    if (this.attribute === ModifierAttributeTypes.CHARACTERISTIC && this.affectedAttribute !== rollIntention.characteristic) {
+      return false;
+    }
+
+    if (this.attribute === ModifierAttributeTypes.SKILL && this.affectedAttribute !== rollIntention.skill) {
+      return false;
+    }
+
+    if (this.context === ModifierContext.NONE) {
+      return true;
+    }
+
+    if (!rollIntention.maneuver) {
+      return false;
+    }
+
+    switch (this.context) {
+      case ModifierContext.RANGED_ATTACK:
+        return rollIntention.maneuver.system.addWeaponToRoll === "ranged";
+      case ModifierContext.MELEE_ATTACK:
+        return rollIntention.maneuver.system.addWeaponToRoll === "melee";
+      case ModifierContext.INFLUENCE_PERSUASION:
+        return rollIntention.maneuver.system.type === "influence_persuasion";
+      case ModifierContext.INFLUENCE_COERCION:
+        return rollIntention.maneuver.system.type === "influence_coercion";
+      case ModifierContext.INFLUENCE:
+        return ["influence_persuasion", "influence_coercion", "influence"].includes(rollIntention.maneuver.system.type);
+      case ModifierContext.SPECIFIC_MANEUVER:
+        return rollIntention.maneuver.system.id === this.maneuverId;
+      case ModifierContext.DEFENSE:
+        return rollIntention.maneuver.system.type === "defense";
+      case ModifierContext.DAMAGE:
+        return false;
+      default:
+        return false;
     }
   }
 

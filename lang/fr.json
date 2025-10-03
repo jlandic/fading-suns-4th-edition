@@ -28,7 +28,23 @@
   },
   "fs4": {
     "apps": {
-      "modifier": "Modificateur"
+      "modifier": "Modificateur",
+      "roll": {
+        "title": "Test",
+        "throwDice": "Lancer les dés",
+        "availableModifiers": "Modificateurs",
+        "noModifiersAvailable": "Aucun modificateur",
+        "modifier": "Modificateur",
+        "modifiers": "Modificateurs",
+        "favorable": "Favorable",
+        "unfavorable": "Défavorable",
+        "goal": "Valeur ciblée",
+        "result": "Résultat",
+        "vp": "PV",
+        "circumstances": "Circonstances",
+        "gainVp": "Gagner PV",
+        "baseRoll": "Jet de base"
+      }
     },
     "sheets": {
       "CharacterSheetFS4": "Fiche de personnage",
@@ -127,6 +143,17 @@
         "austerity": "Austérité",
         "untyped": "Non typé"
       },
+      "contexts": {
+        "none": "Aucun",
+        "ranged": "Attaque à distance",
+        "melee": "Attaque de mêlée",
+        "defense": "Défense",
+        "influence_persuasion": "Influence (persuasion)",
+        "influence_coercion": "Influence (coercition)",
+        "influence": "Influence",
+        "specific_maneuver": "Manœuvre spécifique",
+        "damage": "Dégâts"
+      },
       "fields": {
         "name": "Nom",
         "attribute": "Attribut",
@@ -137,7 +164,9 @@
         "source": "Source",
         "notes": "Notes",
         "affectedAttribute": "Attribut ciblé",
-        "parent": "Source"
+        "parent": "Source",
+        "context": "Contexte",
+        "maneuver": "Manœuvre"
       },
       "noAffectedAttribute": "-"
     },
@@ -338,7 +367,7 @@
         "affliction": "Affliction",
         "characteristic": "Caractéristique",
         "characteristics": "Caractéristiques",
-        "pv": "PV",
+        "vp": "PV",
         "class": "Classe",
         "equipment": "Équipement",
         "calling": "Vocation",
@@ -493,6 +522,9 @@
       "selectSkill": {
         "label": "Sélectionne une compétence"
       },
+      "selectCharacteristic": {
+        "label": "Sélectionne une charactéristique"
+      },
       "rollSkill": {
         "title": "Jet de compétence",
         "selectACharacteristic": "Sélectionne une caractéristique",
@@ -516,6 +548,9 @@
       "target": "Cible"
     },
     "notifications": {
+      "warn": {
+        "cantStealVp": "Ces PVs ne t'appartiennent pas!"
+      },
       "error": {
         "noTokenSelected": "Aucun jeton sélectionné"
       }

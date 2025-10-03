@@ -1,0 +1,70 @@
+<div class="scrollable">
+    <h1>{{ title }}</h1>
+
+    <h2>{{ localize "fs4.apps.roll.baseRoll" }}</h2>
+    <div class="form-group">
+        <strong>
+            {{ localize "fs4.apps.roll.goal" }}: {{ baseRoll.baseGoal }}
+        </strong>
+        <p>
+            {{ localize (concat "fs4.skills." rollIntention.skill) }}&nbsp;({{ baseRoll.skillBaseValue}})&nbsp;+&nbsp;
+            {{ localize (concat "fs4.characteristics." rollIntention.characteristic) }}&nbsp;({{ baseRoll.characteristicBaseValue}})
+        </p>
+    </div>
+
+    <h2>{{ localize "fs4.apps.roll.modifiers" }}</h2>
+
+    <div class="form-group">
+        <label for="modifier">{{ localize "fs4.apps.roll.modifier" }}</label>
+        <input type="number" name="modifier" value="0" />
+    </div>
+
+    <div class="form-group">
+        <label class="checkbox">
+            <input type="checkbox" name="favorable" />
+            {{ localize "fs4.apps.roll.favorable" }}
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label class="checkbox">
+            <input type="checkbox" name="unfavorable" />
+            {{ localize "fs4.apps.roll.unfavorable" }}
+        </label>
+    </div>
+
+    {{#if system.modifiers.length}}
+        <div class="form-group">
+            <section class="table">
+                <header>
+                    <div class="table-col">{{ localize "fs4.modifier.fields.name" }}</div>
+                    <div class="table-col">{{ localize "fs4.modifier.fields.parent" }}</div>
+                    <div class="table-col">{{ localize "fs4.modifier.fields.active" }}</div>
+                </header>
+                <tbody>
+                    {{#each availableModifiers}}
+                        <div class="table-row">
+                            <div class="table-col" title="{{this.notes}}">{{ this.humanReadable }}</div>
+                            <div class="table-col">{{ this.parent.name }}</div>
+                            <div class="table-col">
+                                <label class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="active.{{this._id}}"
+                                        {{checked this.active}}
+                                    />
+                                </label>
+                            </div>
+                        </div>
+                    {{/each}}
+                </tbody>
+            </section>
+        </div>
+    {{/if}}
+
+    <div class="form-group">
+        <button type="submit">
+            {{ localize "fs4.apps.roll.throwDice" }}
+        </button>
+    </div>
+</div>

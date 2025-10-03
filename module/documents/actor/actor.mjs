@@ -1,3 +1,6 @@
+import RollApp from "../../apps/roll.mjs";
+import { selectCharacteristicDialog } from "../../dialogs/selectCharacteristic.mjs";
+import { RollIntention } from "../../rules/roll.mjs";
 import { roll, rollSkill } from "../../scripts/rollSkill.mjs";
 
 export default class ActorFS4 extends Actor {
@@ -24,6 +27,12 @@ export default class ActorFS4 extends Actor {
     if (changes) walk(changes);
 
     return super.validate({ changes, clean, fallback, dropInvalidEmbedded, strict, fields, joint });
+  }
+
+  gainVp(amount) {
+    this.update({
+      "system.bank.vp": this.system.bank.vp + amount,
+    });
   }
 
   emptyCache() {
@@ -64,13 +73,33 @@ export default class ActorFS4 extends Actor {
     await this.update({ [field]: "" });
   }
 
-  rollSkill(skill) {
-    rollSkill(skill, this);
+  async rollSkill(skill) {
+    const {
+      characteristic,
+    } = await selectCharacteristicDialog();
+
+    const rollIntention = new RollIntention({
+      skill,
+      characteristic,
+    });
+
+    await new RollApp(
+      this,
+      rollIntention,
+    ).render(true);
   }
 
-  rollManeuver(maneuverId) {
+  async rollManeuver(maneuverId) {
     const maneuver = this.items.get(maneuverId);
-    roll(this, maneuver.system.characteristic, maneuver.system.skill, maneuverId);
+
+    const rollIntention = new RollIntention({
+      maneuver,
+    });
+
+    await new RollApp(
+      this,
+      rollIntention,
+    ).render(true);
   }
 
   rollPower(powerId) {
